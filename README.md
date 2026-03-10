@@ -20,9 +20,7 @@ bunx oh-my-openidea@latest install
 Non-interactive mode with API keys:
 
 ```bash
-bunx oh-my-openidea@latest install --no-tui --openai=yes --anthropic=yes --tmux=no --skills=yes \
-  --serpapi-key=YOUR_SERPAPI_KEY \
-  --semantic-scholar-key=YOUR_S2_KEY
+bunx oh-my-openidea@latest install --no-tui --openai=yes --anthropic=no --antigravity=yes --kimi=yes --tmux=no --skills=yes --serpapi-key=YOUR_SERPAPI_KEY --semantic-scholar-key=YOUR_S2_KEY
 ```
 
 Then authenticate:
