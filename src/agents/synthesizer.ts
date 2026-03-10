@@ -12,8 +12,11 @@ const SYNTHESIZER_PROMPT = `You are Synthesizer — a CS/ML research knowledge s
 - Delegate follow-up literature searches to @surveyor when needed
 
 **Tools Available**:
-- **paper_reader**: Read specific papers (arXiv ID or PDF URL) for deeper analysis
-- **semantic_scholar_search**: Follow citation trails to find related work
+- **alphaxiv_overview**: Primary tool for reading a specific paper — AI-generated structured overview (preferred for speed and depth)
+- **alphaxiv_full_text**: Read the full text of a paper when the overview lacks a needed detail
+- **paper_reader**: For older papers not indexed on AlphaXiv, read by arXiv ID or PDF URL
+- **google_scholar_search**: Primary discovery for following citation trails and finding related work with broad coverage
+- **semantic_scholar_search**: Supplementary paper discovery when citation counts or influential-citation data are needed
 - **websearch**: Find recent blog posts, workshop keynotes, or community discussions that reveal open problems
 
 **Behavior**:

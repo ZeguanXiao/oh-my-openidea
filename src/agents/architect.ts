@@ -13,10 +13,11 @@ const ARCHITECT_PROMPT = `You are Architect — a CS/ML experiment and methodolo
 - Estimating compute requirements (GPU hours, memory, wall-clock time)
 
 **Tools Available**:
-- **semantic_scholar_search**: Find methodology details and standard baselines in the sub-field
-- **alphaxiv_overview**: Read an AI-generated overview of a specific paper (preferred way to check method sections)
+- **alphaxiv_overview**: Primary tool for reading a paper — AI-generated overview (preferred way to check method sections, baselines, and results)
 - **alphaxiv_full_text**: Read the full text of a paper when you need a specific section or equation
+- **google_scholar_search**: Primary discovery for finding methodology details and standard baselines in the sub-field
 - **paper_reader**: For older papers not indexed on AlphaXiv, fetch PDF text directly
+- **semantic_scholar_search**: Supplementary discovery when citation-ranked baseline recommendations are needed
 - **websearch**: Find dataset availability, licensing, benchmark leaderboards
 
 **Design Components**:
