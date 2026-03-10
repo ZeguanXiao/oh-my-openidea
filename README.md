@@ -57,7 +57,7 @@ Additional guides:
 
 ### 01. Orchestrator: The Architect of Discovery
 
-| The one who sees all paths. | The Orchestrator was born the moment research became too vast for a single mind. It emerged from the intersection of every field ever studied, carrying the weight of all human curiosity. It does not merely coordinate — it envisions. From a single question, it assembles the full arc of discovery: who to ask, what to find, which ideas to forge and which to abandon. It is the mind behind the research mind. |
+| The one who sees all paths. | The Orchestrator is the lead coordinator for the whole research workflow. Give it a problem, and it decides which agents should work next, what information is still missing, and how the pieces should come together into a strong research direction. |
 | --- | --- |
 | Role: Strategic research coordination and idea synthesis |
 | Prompt: orchestrator.ts |
@@ -67,7 +67,7 @@ Additional guides:
 
 ### 02. Surveyor: The Cartographer of Knowledge
 
-| The one who maps the unknown. | The Surveyor has read every paper ever published and forgotten none of them. Born in the great libraries of the ancient world, it walked from Alexandria to arXiv without once stopping to sleep. It does not search — it remembers. Point it at any frontier and it returns not just what is known, but where the maps end. Its gift is the horizon: finding the exact edge where known territory becomes uncharted wilderness. |
+| The one who maps the unknown. | The Surveyor finds and collects the most relevant papers for your topic. It helps you quickly understand what has already been done, which papers matter most, and where the current limits of the literature are. |
 | --- | --- |
 | Role: Literature search and paper retrieval |
 | Prompt: surveyor.ts |
@@ -77,7 +77,7 @@ Additional guides:
 
 ### 03. Synthesizer: The Weaver of Understanding
 
-| The one who connects the dots. | The Synthesizer emerged when humanity realized that the sum of all papers was less than the understanding they contained. It is the weaver who threads ten thousand findings into a single tapestry of insight. Where others see isolated results, it sees patterns. Where others see contradictions, it sees tension awaiting resolution. It does not summarize knowledge — it transforms it into the fertile ground from which new ideas grow. |
+| The one who connects the dots. | The Synthesizer turns a pile of papers into a clear understanding of the field. It groups results, highlights patterns and disagreements, and points out open problems that can lead to new research ideas. |
 | --- | --- |
 | Role: Gap analysis and knowledge synthesis |
 | Prompt: synthesizer.ts |
@@ -87,7 +87,7 @@ Additional guides:
 
 ### 04. Critic: The Guardian of Truth
 
-| The voice of rigorous doubt. | The Critic was forged in the fires of ten thousand rejected papers. It has sat on every program committee that ever existed, read every rebuttal, and watched brilliant ideas crumble under the weight of prior work. It does not destroy — it purifies. It challenges every claim, demands every citation, and accepts only what can withstand the harshest scrutiny. What survives the Critic is worth building. What doesn't was never real to begin with. |
+| The voice of rigorous doubt. | The Critic stress-tests your idea before you invest too much in it. It looks for weak assumptions, missing baselines, overlap with prior work, and other reasons the idea might fail novelty or review standards. |
 | --- | --- |
 | Role: Novelty validation and adversarial review |
 | Prompt: critic.ts |
@@ -97,7 +97,7 @@ Additional guides:
 
 ### 05. Architect: The Builder of Methods
 
-| The one who turns vision into plan. | The Architect has designed experiments since the first controlled trial. It does not dream — it engineers. Hand it a hypothesis and it returns the full blueprint: the baselines, the datasets, the metrics, the ablations, the failure modes, the compute budget. It has seen every experimental design choice and knows which ones hold and which collapse. Its plans do not merely test ideas — they prove or disprove them decisively. |
+| The one who turns vision into plan. | The Architect converts an idea into a concrete experiment plan. It defines datasets, baselines, metrics, ablations, failure cases, and resource needs so you know exactly how to test whether the idea works. |
 | --- | --- |
 | Role: Methodology and experiment design |
 | Prompt: architect.ts |
@@ -107,7 +107,7 @@ Additional guides:
 
 ### 06. Writer: The Voice of Science
 
-| The one who makes it legible to the world. | The Writer is immortal because great writing never dies. It has composed every landmark paper in every field, always invisible, always essential. It carries the ancient knowledge of how to arrange words so that a reader understands not just what was done, but why it matters. It does not pad or inflate — it distills. Its abstracts have made reviewers lean forward. Its introductions have converted skeptics. It is the final step between a discovery and the world knowing about it. |
+| The one who makes it legible to the world. | The Writer turns your research into a clear paper draft. It helps organize the story, sharpen the main message, and present the method and results in a way that is easy for readers and reviewers to follow. |
 | --- | --- |
 | Role: Research writing and paper structure |
 | Prompt: writer.ts |

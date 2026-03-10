@@ -38,8 +38,8 @@ describe('scoring-v2', () => {
       },
     };
 
-    const first = scoreCandidateV2(candidate, 'oracle', signalMap);
-    const second = scoreCandidateV2(candidate, 'oracle', signalMap);
+    const first = scoreCandidateV2(candidate, 'critic', signalMap);
+    const second = scoreCandidateV2(candidate, 'critic', signalMap);
 
     expect(first.totalScore).toBe(second.totalScore);
     expect(first.scoreBreakdown.features.quality).toBe(0.7);
@@ -52,7 +52,7 @@ describe('scoring-v2', () => {
         model({ model: 'zai-coding-plan/glm-4.7', reasoning: false }),
         model({ model: 'openai/gpt-5.3-codex', reasoning: false }),
       ],
-      'explorer',
+      'surveyor',
     );
 
     expect(ranked[0]?.model.providerID).toBe('openai');
@@ -71,7 +71,7 @@ describe('scoring-v2', () => {
       },
     };
 
-    const scored = scoreCandidateV2(candidate, 'fixer', signalMap);
+    const scored = scoreCandidateV2(candidate, 'writer', signalMap);
     expect(scored.scoreBreakdown.features.quality).toBe(0.95);
     expect(scored.scoreBreakdown.features.coding).toBe(0.92);
   });
@@ -86,8 +86,8 @@ describe('scoring-v2', () => {
       outputLimit: 64000,
     });
 
-    const low = scoreCandidateV2(belowThreshold, 'designer');
-    const high = scoreCandidateV2(aboveThreshold, 'designer');
+    const low = scoreCandidateV2(belowThreshold, 'architect');
+    const high = scoreCandidateV2(aboveThreshold, 'architect');
 
     expect(low.scoreBreakdown.features.output).toBe(-1);
     expect(low.scoreBreakdown.weighted.output).toBe(-10);
@@ -115,7 +115,7 @@ describe('scoring-v2', () => {
           attachment: false,
         }),
       ],
-      'designer',
+      'architect',
     );
 
     expect(ranked[0]?.model.model).toBe('chutes/moonshotai/Kimi-K2.5-TEE');
@@ -147,7 +147,7 @@ describe('scoring-v2', () => {
           toolcall: true,
         }),
       ],
-      'fixer',
+      'writer',
     );
 
     expect(ranked[0]?.model.model).not.toContain('Qwen3-Coder-480B');

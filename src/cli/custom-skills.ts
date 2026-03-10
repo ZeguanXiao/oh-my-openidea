@@ -58,6 +58,12 @@ export const CUSTOM_SKILLS: CustomSkill[] = [
     allowedAgents: ['orchestrator', 'writer'],
     sourcePath: 'src/skills/paper-outline',
   },
+  {
+    name: 'cartography',
+    description: 'Repository understanding and hierarchical codemap generation',
+    allowedAgents: ['orchestrator'],
+    sourcePath: 'src/skills/cartography',
+  },
 ];
 
 /**

@@ -683,11 +683,11 @@ async function runManualSetupMode(
   const manualAgentConfigs: Record<string, ManualAgentConfig> = {};
   const agentNames = [
     'orchestrator',
-    'oracle',
-    'designer',
-    'explorer',
-    'librarian',
-    'fixer',
+    'critic',
+    'architect',
+    'surveyor',
+    'synthesizer',
+    'writer',
   ];
 
   for (const agentName of agentNames) {
@@ -857,7 +857,7 @@ async function runInteractiveMode(
             rl,
             discovery.models,
             recommendedPrimary,
-            'Choose primary model for orchestrator/oracle',
+            'Choose primary model for orchestrator/critic',
           );
         }
 
@@ -880,7 +880,7 @@ async function runInteractiveMode(
             rl,
             openCodeSupportList,
             openCodeSupportDefault,
-            'Choose support model for explorer/librarian/fixer',
+            'Choose support model for surveyor/synthesizer/writer',
           );
         }
 
@@ -968,7 +968,7 @@ async function runInteractiveMode(
             rl,
             discovery.models,
             recommendedPrimary,
-            'Choose Chutes primary model for orchestrator/oracle/designer',
+            'Choose Chutes primary model for orchestrator/critic/architect',
           );
         }
 
@@ -989,7 +989,7 @@ async function runInteractiveMode(
             rl,
             chutesSupportList,
             chutesSupportDefault,
-            'Choose Chutes support model for explorer/librarian/fixer',
+            'Choose Chutes support model for surveyor/synthesizer/writer',
           );
         }
 

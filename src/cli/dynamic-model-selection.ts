@@ -11,11 +11,11 @@ import type {
 
 const AGENTS = [
   'orchestrator',
-  'oracle',
-  'designer',
-  'explorer',
-  'librarian',
-  'fixer',
+  'critic',
+  'architect',
+  'surveyor',
+  'synthesizer',
+  'writer',
 ] as const;
 
 type AgentName = (typeof AGENTS)[number];
@@ -29,21 +29,21 @@ export type V1RankedScore = {
 
 const FREE_BIASED_PROVIDERS = new Set(['opencode']);
 const PRIMARY_ASSIGNMENT_ORDER: AgentName[] = [
-  'oracle',
+  'critic',
   'orchestrator',
-  'fixer',
-  'designer',
-  'librarian',
-  'explorer',
+  'writer',
+  'architect',
+  'synthesizer',
+  'surveyor',
 ];
 
 const ROLE_VARIANT: Record<AgentName, string | undefined> = {
   orchestrator: undefined,
-  oracle: 'high',
-  designer: 'medium',
-  explorer: 'low',
-  librarian: 'low',
-  fixer: 'low',
+  critic: 'high',
+  architect: 'medium',
+  surveyor: 'low',
+  synthesizer: 'low',
+  writer: 'low',
 };
 
 function getEnabledProviders(config: InstallConfig): string[] {
@@ -271,28 +271,28 @@ function chutesPreferenceAdjustment(
   const isMinimaxM21 = /minimax[-_ ]?m2\.1/.test(lowered);
 
   const qwenPenalty: Record<AgentName, number> = {
-    oracle: -12,
+    critic: -12,
     orchestrator: -10,
-    fixer: -22,
-    designer: -14,
-    librarian: -18,
-    explorer: -10,
+    writer: -22,
+    architect: -14,
+    synthesizer: -18,
+    surveyor: -10,
   };
   const kimiBonus: Record<AgentName, number> = {
-    oracle: 0,
+    critic: 0,
     orchestrator: 0,
-    fixer: 8,
-    designer: 6,
-    librarian: 5,
-    explorer: 4,
+    writer: 8,
+    architect: 6,
+    synthesizer: 5,
+    surveyor: 4,
   };
   const minimaxBonus: Record<AgentName, number> = {
-    oracle: 0,
+    critic: 0,
     orchestrator: 0,
-    fixer: 10,
-    designer: 3,
-    librarian: 9,
-    explorer: 12,
+    writer: 10,
+    architect: 3,
+    synthesizer: 9,
+    surveyor: 12,
   };
 
   return (
@@ -331,9 +331,9 @@ function roleScore(
 
   if (
     (agent === 'orchestrator' ||
-      agent === 'explorer' ||
-      agent === 'librarian' ||
-      agent === 'fixer') &&
+      agent === 'surveyor' ||
+      agent === 'synthesizer' ||
+      agent === 'writer') &&
     !model.toolcall
   ) {
     return -10_000;
@@ -388,7 +388,7 @@ function roleScore(
       providerBias
     );
   }
-  if (agent === 'oracle') {
+  if (agent === 'critic') {
     const flashAdjustment = flash ? -34 : 0;
     const zaiAdjustment = zai47NonFlash ? 16 : zai47Flash ? -18 : 0;
     const nonReasoningFlashPenalty = flash && !model.reasoning ? -16 : 0;
@@ -406,7 +406,7 @@ function roleScore(
       providerBias
     );
   }
-  if (agent === 'designer') {
+  if (agent === 'architect') {
     const flashAdjustment = flash ? -8 : 0;
     const zaiAdjustment = zai47NonFlash ? 10 : zai47Flash ? -8 : 0;
     return (
@@ -423,7 +423,7 @@ function roleScore(
       providerBias
     );
   }
-  if (agent === 'explorer') {
+  if (agent === 'surveyor') {
     const flashAdjustment = flash ? 26 : -10;
     const zaiAdjustment = zai47NonFlash ? 2 : zai47Flash ? 6 : 0;
     const deepPenalty = deep * -18;
@@ -441,7 +441,7 @@ function roleScore(
       providerBias
     );
   }
-  if (agent === 'librarian') {
+  if (agent === 'synthesizer') {
     const flashAdjustment = flash ? -12 : 0;
     const zaiAdjustment = zai47NonFlash ? 16 : zai47Flash ? -18 : 0;
     return (
@@ -499,7 +499,7 @@ function getExternalSignalBoost(
     signal.outputPricePer1M !== undefined
       ? signal.inputPricePer1M * 0.75 + signal.outputPricePer1M * 0.25
       : (signal.inputPricePer1M ?? signal.outputPricePer1M ?? 0);
-  if (agent === 'explorer') {
+  if (agent === 'surveyor') {
     const qualityBoost = qualityScore * 0.05;
     const codingBoost = codingScore * 0.08;
     const latencyPenalty =
@@ -801,15 +801,15 @@ function chooseProviderRepresentative(
     externalSignals,
     versionRecencyMap,
   );
-  const threshold = agent === 'explorer' ? -6 : 12;
+  const threshold = agent === 'surveyor' ? -6 : 12;
   return flashScore >= nonFlashScore + threshold ? flashBest : nonFlashBest;
 }
 
 function getQualityWindow(agent: AgentName): number {
-  if (agent === 'oracle' || agent === 'orchestrator') return 12;
-  if (agent === 'fixer') return 15;
-  if (agent === 'designer') return 16;
-  if (agent === 'librarian') return 18;
+  if (agent === 'critic' || agent === 'orchestrator') return 12;
+  if (agent === 'writer') return 15;
+  if (agent === 'architect') return 16;
+  if (agent === 'synthesizer') return 18;
   return 22;
 }
 
@@ -848,11 +848,11 @@ function getProviderBundle(
   const includeSecond =
     representative.providerID === 'chutes' ||
     gap <=
-      (agent === 'oracle' || agent === 'orchestrator'
+      (agent === 'critic' || agent === 'orchestrator'
         ? 8
-        : agent === 'designer' || agent === 'librarian'
+        : agent === 'architect' || agent === 'synthesizer'
           ? 12
-          : agent === 'fixer'
+          : agent === 'writer'
             ? 15
             : 18);
 
@@ -944,7 +944,7 @@ function selectPrimaryWithDiversity(
   }
 
   if (
-    agent !== 'explorer' &&
+    agent !== 'surveyor' &&
     isZai47Model(chosen.model) &&
     hasFlashToken(chosen.model)
   ) {
@@ -1085,7 +1085,7 @@ export function buildDynamicModelPlan(
 
   const getSelectedChutesForAgent = (agent: AgentName): string | undefined => {
     if (!config.hasChutes) return undefined;
-    return agent === 'explorer' || agent === 'librarian' || agent === 'fixer'
+    return agent === 'surveyor' || agent === 'synthesizer' || agent === 'writer'
       ? (config.selectedChutesSecondaryModel ??
           config.selectedChutesPrimaryModel)
       : config.selectedChutesPrimaryModel;
@@ -1095,7 +1095,7 @@ export function buildDynamicModelPlan(
     agent: AgentName,
   ): string | undefined => {
     if (!config.useOpenCodeFreeModels) return undefined;
-    return agent === 'explorer' || agent === 'librarian' || agent === 'fixer'
+    return agent === 'surveyor' || agent === 'synthesizer' || agent === 'writer'
       ? (config.selectedOpenCodeSecondaryModel ??
           config.selectedOpenCodePrimaryModel)
       : config.selectedOpenCodePrimaryModel;

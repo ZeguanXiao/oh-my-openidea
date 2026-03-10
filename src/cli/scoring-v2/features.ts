@@ -54,27 +54,27 @@ function kimiVersionBonus(
 
   const qwenPenalty: Record<ScoringAgentName, number> = {
     orchestrator: -6,
-    oracle: -6,
-    designer: -8,
-    explorer: -6,
-    librarian: -12,
-    fixer: -12,
+    critic: -6,
+    architect: -8,
+    surveyor: -6,
+    synthesizer: -12,
+    writer: -12,
   };
   const kimiBonus: Record<ScoringAgentName, number> = {
     orchestrator: 1,
-    oracle: 1,
-    designer: 3,
-    explorer: 2,
-    librarian: 2,
-    fixer: 3,
+    critic: 1,
+    architect: 3,
+    surveyor: 2,
+    synthesizer: 2,
+    writer: 3,
   };
   const minimaxBonus: Record<ScoringAgentName, number> = {
     orchestrator: 1,
-    oracle: 1,
-    designer: 2,
-    explorer: 4,
-    librarian: 4,
-    fixer: 4,
+    critic: 1,
+    architect: 2,
+    surveyor: 4,
+    synthesizer: 4,
+    writer: 4,
   };
 
   if (isQwen3) return qwenPenalty[agent];
@@ -98,12 +98,12 @@ export function extractFeatureVector(
   const coding = (signal?.codingScore ?? 0) / 100;
   const pricePenalty = Math.min(blendedPrice(signal), 50) / 10;
 
-  const explorerLatencyMultiplier = agent === 'explorer' ? 1.4 : 1;
+  const explorerLatencyMultiplier = agent === 'surveyor' ? 1.4 : 1;
 
   return {
     status: statusValue(model.status),
     context: normalizedContext,
-    output: agent === 'designer' ? designerOutputScore : normalizedOutput,
+    output: agent === 'architect' ? designerOutputScore : normalizedOutput,
     versionBonus,
     reasoning: capability(model.reasoning),
     toolcall: capability(model.toolcall),

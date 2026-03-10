@@ -19,11 +19,11 @@ export type FeatureWeights = Record<ScoreFeatureName, number>;
 
 export type ScoringAgentName =
   | 'orchestrator'
-  | 'oracle'
-  | 'designer'
-  | 'explorer'
-  | 'librarian'
-  | 'fixer';
+  | 'critic'
+  | 'architect'
+  | 'surveyor'
+  | 'synthesizer'
+  | 'writer';
 
 export interface ScoringContext {
   agent: ScoringAgentName;

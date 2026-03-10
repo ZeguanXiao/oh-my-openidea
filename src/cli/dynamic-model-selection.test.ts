@@ -80,22 +80,22 @@ describe('dynamic-model-selection', () => {
     const chains = plan?.chains ?? {};
 
     expect(Object.keys(agents).sort()).toEqual([
-      'designer',
-      'explorer',
-      'fixer',
-      'librarian',
-      'oracle',
+      'architect',
+      'critic',
       'orchestrator',
+      'surveyor',
+      'synthesizer',
+      'writer',
     ]);
-    expect(agents.oracle?.model.startsWith('opencode/')).toBe(false);
+    expect(agents.critic?.model.startsWith('opencode/')).toBe(false);
     expect(agents.orchestrator?.model.startsWith('opencode/')).toBe(false);
-    expect(chains.oracle.some((m: string) => m.startsWith('openai/'))).toBe(
+    expect(chains.critic.some((m: string) => m.startsWith('openai/'))).toBe(
       true,
     );
     expect(chains.orchestrator).toContain('chutes/kimi-k2.5');
-    expect(chains.explorer).toContain('opencode/gpt-5-nano');
-    expect(chains.fixer[chains.fixer.length - 1]).toBe('opencode/gpt-5-nano');
-    expect(plan?.provenance?.oracle?.winnerLayer).toBe(
+    expect(chains.surveyor).toContain('opencode/gpt-5-nano');
+    expect(chains.writer[chains.writer.length - 1]).toBe('opencode/gpt-5-nano');
+    expect(plan?.provenance?.critic?.winnerLayer).toBe(
       'dynamic-recommendation',
     );
     expect(plan?.scoring?.engineVersionApplied).toBe('v1');
@@ -116,7 +116,7 @@ describe('dynamic-model-selection', () => {
     expect(plan).not.toBeNull();
     expect(plan?.scoring?.engineVersionApplied).toBe('v1');
     expect(plan?.scoring?.shadowCompared).toBe(true);
-    expect(plan?.scoring?.diffs?.oracle).toBeDefined();
+    expect(plan?.scoring?.diffs?.critic).toBeDefined();
   });
 
   test('balances provider usage when subscription mode is enabled', () => {
@@ -176,7 +176,7 @@ describe('dynamic-model-selection', () => {
   test('matches external signals for multi-segment chutes ids in v1', () => {
     const ranked = rankModelsV1WithBreakdown(
       [m({ model: 'chutes/Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8-TEE' })],
-      'fixer',
+      'writer',
       {
         'qwen/qwen3-coder-480b-a35b-instruct': {
           source: 'artificial-analysis',
@@ -208,11 +208,11 @@ describe('dynamic-model-selection', () => {
       }),
     ];
 
-    const fixer = rankModelsV1WithBreakdown(catalog, 'fixer');
-    const explorer = rankModelsV1WithBreakdown(catalog, 'explorer');
+    const writer = rankModelsV1WithBreakdown(catalog, 'writer');
+    const surveyor = rankModelsV1WithBreakdown(catalog, 'surveyor');
 
-    expect(fixer[0]?.model).not.toContain('Qwen3-Coder-480B');
-    expect(explorer[0]?.model).toContain('minimax-m2.1');
+    expect(writer[0]?.model).not.toContain('Qwen3-Coder-480B');
+    expect(surveyor[0]?.model).toContain('minimax-m2.1');
   });
 
   test('does not apply a positive Gemini bonus in v1 scoring', () => {
@@ -225,14 +225,14 @@ describe('dynamic-model-selection', () => {
       m({ model: 'openai/gpt-5.3-codex', reasoning: true, toolcall: true }),
     ];
 
-    const oracle = rankModelsV1WithBreakdown(catalog, 'oracle');
+    const critic = rankModelsV1WithBreakdown(catalog, 'critic');
     const orchestrator = rankModelsV1WithBreakdown(catalog, 'orchestrator');
-    const designer = rankModelsV1WithBreakdown(catalog, 'designer');
-    const librarian = rankModelsV1WithBreakdown(catalog, 'librarian');
+    const architect = rankModelsV1WithBreakdown(catalog, 'architect');
+    const synthesizer = rankModelsV1WithBreakdown(catalog, 'synthesizer');
 
-    expect(oracle[0]?.model).toBe('openai/gpt-5.3-codex');
+    expect(critic[0]?.model).toBe('openai/gpt-5.3-codex');
     expect(orchestrator[0]?.model).toBe('openai/gpt-5.3-codex');
-    expect(designer[0]?.model).toBe('openai/gpt-5.3-codex');
-    expect(librarian[0]?.model).toBe('openai/gpt-5.3-codex');
+    expect(architect[0]?.model).toBe('openai/gpt-5.3-codex');
+    expect(synthesizer[0]?.model).toBe('openai/gpt-5.3-codex');
   });
 });

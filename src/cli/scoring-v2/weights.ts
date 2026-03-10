@@ -25,33 +25,33 @@ const AGENT_WEIGHT_OVERRIDES: Record<
     coding: 16,
     latencyPenalty: -2,
   },
-  oracle: {
+  critic: {
     reasoning: 26,
     quality: 20,
     coding: 18,
     latencyPenalty: -2,
     output: 7,
   },
-  designer: {
+  architect: {
     attachment: 12,
     output: 10,
     quality: 16,
     coding: 10,
   },
-  explorer: {
+  surveyor: {
     latencyPenalty: -8,
     toolcall: 24,
     reasoning: 2,
     context: 4,
     output: 4,
   },
-  librarian: {
+  synthesizer: {
     context: 14,
     output: 10,
     quality: 18,
     coding: 14,
   },
-  fixer: {
+  writer: {
     coding: 28,
     toolcall: 22,
     reasoning: 12,

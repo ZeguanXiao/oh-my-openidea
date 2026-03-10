@@ -4,11 +4,11 @@ import type { InstallConfig } from './types';
 
 const AGENT_NAMES = [
   'orchestrator',
-  'oracle',
-  'designer',
-  'explorer',
-  'librarian',
-  'fixer',
+  'critic',
+  'architect',
+  'surveyor',
+  'synthesizer',
+  'writer',
 ] as const;
 
 type AgentName = (typeof AGENT_NAMES)[number];
@@ -17,76 +17,76 @@ type AgentName = (typeof AGENT_NAMES)[number];
 export const MODEL_MAPPINGS = {
   kimi: {
     orchestrator: { model: 'kimi-for-coding/k2p5' },
-    oracle: { model: 'kimi-for-coding/k2p5', variant: 'high' },
-    librarian: { model: 'kimi-for-coding/k2p5', variant: 'low' },
-    explorer: { model: 'kimi-for-coding/k2p5', variant: 'low' },
-    designer: { model: 'kimi-for-coding/k2p5', variant: 'medium' },
-    fixer: { model: 'kimi-for-coding/k2p5', variant: 'low' },
+    critic: { model: 'kimi-for-coding/k2p5', variant: 'high' },
+    synthesizer: { model: 'kimi-for-coding/k2p5', variant: 'low' },
+    surveyor: { model: 'kimi-for-coding/k2p5', variant: 'low' },
+    architect: { model: 'kimi-for-coding/k2p5', variant: 'medium' },
+    writer: { model: 'kimi-for-coding/k2p5', variant: 'low' },
   },
   openai: {
     orchestrator: { model: 'openai/gpt-5.3-codex' },
-    oracle: { model: 'openai/gpt-5.3-codex', variant: 'high' },
-    librarian: { model: 'openai/gpt-5.1-codex-mini', variant: 'low' },
-    explorer: { model: 'openai/gpt-5.1-codex-mini', variant: 'low' },
-    designer: { model: 'openai/gpt-5.1-codex-mini', variant: 'medium' },
-    fixer: { model: 'openai/gpt-5.1-codex-mini', variant: 'low' },
+    critic: { model: 'openai/gpt-5.3-codex', variant: 'high' },
+    synthesizer: { model: 'openai/gpt-5.1-codex-mini', variant: 'low' },
+    surveyor: { model: 'openai/gpt-5.1-codex-mini', variant: 'low' },
+    architect: { model: 'openai/gpt-5.1-codex-mini', variant: 'medium' },
+    writer: { model: 'openai/gpt-5.1-codex-mini', variant: 'low' },
   },
   anthropic: {
     orchestrator: { model: 'anthropic/claude-opus-4-6' },
-    oracle: { model: 'anthropic/claude-opus-4-6', variant: 'high' },
-    librarian: { model: 'anthropic/claude-sonnet-4-5', variant: 'low' },
-    explorer: { model: 'anthropic/claude-haiku-4-5', variant: 'low' },
-    designer: { model: 'anthropic/claude-sonnet-4-5', variant: 'medium' },
-    fixer: { model: 'anthropic/claude-sonnet-4-5', variant: 'low' },
+    critic: { model: 'anthropic/claude-opus-4-6', variant: 'high' },
+    synthesizer: { model: 'anthropic/claude-sonnet-4-5', variant: 'low' },
+    surveyor: { model: 'anthropic/claude-haiku-4-5', variant: 'low' },
+    architect: { model: 'anthropic/claude-sonnet-4-5', variant: 'medium' },
+    writer: { model: 'anthropic/claude-sonnet-4-5', variant: 'low' },
   },
   copilot: {
     orchestrator: { model: 'github-copilot/grok-code-fast-1' },
-    oracle: { model: 'github-copilot/grok-code-fast-1', variant: 'high' },
-    librarian: { model: 'github-copilot/grok-code-fast-1', variant: 'low' },
-    explorer: { model: 'github-copilot/grok-code-fast-1', variant: 'low' },
-    designer: { model: 'github-copilot/grok-code-fast-1', variant: 'medium' },
-    fixer: { model: 'github-copilot/grok-code-fast-1', variant: 'low' },
+    critic: { model: 'github-copilot/grok-code-fast-1', variant: 'high' },
+    synthesizer: { model: 'github-copilot/grok-code-fast-1', variant: 'low' },
+    surveyor: { model: 'github-copilot/grok-code-fast-1', variant: 'low' },
+    architect: { model: 'github-copilot/grok-code-fast-1', variant: 'medium' },
+    writer: { model: 'github-copilot/grok-code-fast-1', variant: 'low' },
   },
   'zai-plan': {
     orchestrator: { model: 'zai-coding-plan/glm-4.7' },
-    oracle: { model: 'zai-coding-plan/glm-4.7', variant: 'high' },
-    librarian: { model: 'zai-coding-plan/glm-4.7', variant: 'low' },
-    explorer: { model: 'zai-coding-plan/glm-4.7', variant: 'low' },
-    designer: { model: 'zai-coding-plan/glm-4.7', variant: 'medium' },
-    fixer: { model: 'zai-coding-plan/glm-4.7', variant: 'low' },
+    critic: { model: 'zai-coding-plan/glm-4.7', variant: 'high' },
+    synthesizer: { model: 'zai-coding-plan/glm-4.7', variant: 'low' },
+    surveyor: { model: 'zai-coding-plan/glm-4.7', variant: 'low' },
+    architect: { model: 'zai-coding-plan/glm-4.7', variant: 'medium' },
+    writer: { model: 'zai-coding-plan/glm-4.7', variant: 'low' },
   },
   antigravity: {
     orchestrator: { model: 'google/antigravity-gemini-3-flash' },
-    oracle: { model: 'google/antigravity-gemini-3.1-pro' },
-    librarian: {
+    critic: { model: 'google/antigravity-gemini-3.1-pro' },
+    synthesizer: {
       model: 'google/antigravity-gemini-3-flash',
       variant: 'low',
     },
-    explorer: {
+    surveyor: {
       model: 'google/antigravity-gemini-3-flash',
       variant: 'low',
     },
-    designer: {
+    architect: {
       model: 'google/antigravity-gemini-3-flash',
       variant: 'medium',
     },
-    fixer: { model: 'google/antigravity-gemini-3-flash', variant: 'low' },
+    writer: { model: 'google/antigravity-gemini-3-flash', variant: 'low' },
   },
   chutes: {
     orchestrator: { model: 'chutes/kimi-k2.5' },
-    oracle: { model: 'chutes/kimi-k2.5', variant: 'high' },
-    librarian: { model: 'chutes/minimax-m2.1', variant: 'low' },
-    explorer: { model: 'chutes/minimax-m2.1', variant: 'low' },
-    designer: { model: 'chutes/kimi-k2.5', variant: 'medium' },
-    fixer: { model: 'chutes/minimax-m2.1', variant: 'low' },
+    critic: { model: 'chutes/kimi-k2.5', variant: 'high' },
+    synthesizer: { model: 'chutes/minimax-m2.1', variant: 'low' },
+    surveyor: { model: 'chutes/minimax-m2.1', variant: 'low' },
+    architect: { model: 'chutes/kimi-k2.5', variant: 'medium' },
+    writer: { model: 'chutes/minimax-m2.1', variant: 'low' },
   },
   'zen-free': {
     orchestrator: { model: 'opencode/big-pickle' },
-    oracle: { model: 'opencode/big-pickle', variant: 'high' },
-    librarian: { model: 'opencode/big-pickle', variant: 'low' },
-    explorer: { model: 'opencode/big-pickle', variant: 'low' },
-    designer: { model: 'opencode/big-pickle', variant: 'medium' },
-    fixer: { model: 'opencode/big-pickle', variant: 'low' },
+    critic: { model: 'opencode/big-pickle', variant: 'high' },
+    synthesizer: { model: 'opencode/big-pickle', variant: 'low' },
+    surveyor: { model: 'opencode/big-pickle', variant: 'low' },
+    architect: { model: 'opencode/big-pickle', variant: 'medium' },
+    writer: { model: 'opencode/big-pickle', variant: 'low' },
   },
 } as const;
 
@@ -113,8 +113,8 @@ export function generateAntigravityMixedPreset(
             s.allowedAgents.includes(agentName),
         ).map((s) => s.skillName);
 
-    // Special case for designer and agent-browser skill
-    if (agentName === 'designer' && !skills.includes('agent-browser')) {
+    // Special case for architect and agent-browser skill
+    if (agentName === 'architect' && !skills.includes('agent-browser')) {
       skills.push('agent-browser');
     }
 
@@ -135,7 +135,7 @@ export function generateAntigravityMixedPreset(
     config.selectedChutesPrimaryModel ??
     MODEL_MAPPINGS.chutes.orchestrator.model;
   const chutesSupport =
-    config.selectedChutesSecondaryModel ?? MODEL_MAPPINGS.chutes.explorer.model;
+    config.selectedChutesSecondaryModel ?? MODEL_MAPPINGS.chutes.surveyor.model;
 
   // Orchestrator: Kimi if hasKimi, else Chutes Kimi if enabled, else antigravity
   if (config.hasKimi) {
@@ -154,56 +154,56 @@ export function generateAntigravityMixedPreset(
     );
   }
 
-  // Oracle: GPT if hasOpenAI, else keep existing if exists, else antigravity
+  // Critic: GPT if hasOpenAI, else keep existing if exists, else antigravity
   if (config.hasOpenAI) {
-    result.oracle = createAgentConfig('oracle', MODEL_MAPPINGS.openai.oracle);
-  } else if (!result.oracle) {
-    result.oracle = createAgentConfig(
-      'oracle',
-      MODEL_MAPPINGS.antigravity.oracle,
+    result.critic = createAgentConfig('critic', MODEL_MAPPINGS.openai.critic);
+  } else if (!result.critic) {
+    result.critic = createAgentConfig(
+      'critic',
+      MODEL_MAPPINGS.antigravity.critic,
     );
   }
 
-  // Explorer stays flash-first for speed.
-  result.explorer = createAgentConfig('explorer', {
+  // Surveyor stays flash-first for speed.
+  result.surveyor = createAgentConfig('surveyor', {
     ...antigravityFlash,
     variant: 'low',
   });
 
-  // Librarian/Designer prefer Kimi-K2.5 via Chutes when available.
+  // Synthesizer/Architect prefer Kimi-K2.5 via Chutes when available.
   if (config.hasChutes) {
-    result.librarian = createAgentConfig('librarian', {
+    result.synthesizer = createAgentConfig('synthesizer', {
       model: chutesSupport,
       variant: 'low',
     });
-    result.designer = createAgentConfig('designer', {
+    result.architect = createAgentConfig('architect', {
       model: chutesPrimary,
       variant: 'medium',
     });
   } else {
-    result.librarian = createAgentConfig('librarian', {
+    result.synthesizer = createAgentConfig('synthesizer', {
       ...antigravityFlash,
       variant: 'low',
     });
-    result.designer = createAgentConfig('designer', {
+    result.architect = createAgentConfig('architect', {
       ...antigravityFlash,
       variant: 'medium',
     });
   }
 
-  // Fixer prefers OpenAI codex when available.
+  // Writer prefers OpenAI codex when available.
   if (config.hasOpenAI) {
-    result.fixer = createAgentConfig('fixer', {
-      ...MODEL_MAPPINGS.openai.oracle,
+    result.writer = createAgentConfig('writer', {
+      ...MODEL_MAPPINGS.openai.critic,
       variant: 'low',
     });
   } else if (config.hasChutes) {
-    result.fixer = createAgentConfig('fixer', {
+    result.writer = createAgentConfig('writer', {
       model: chutesSupport,
       variant: 'low',
     });
   } else {
-    result.fixer = createAgentConfig('fixer', {
+    result.writer = createAgentConfig('writer', {
       ...antigravityFlash,
       variant: 'low',
     });
@@ -335,8 +335,8 @@ export function generateLiteConfig(
             s.allowedAgents.includes(agentName),
         ).map((s) => s.skillName);
 
-    // Special case for designer and agent-browser skill
-    if (agentName === 'designer' && !skills.includes('agent-browser')) {
+    // Special case for architect and agent-browser skill
+    if (agentName === 'architect' && !skills.includes('agent-browser')) {
       skills.push('agent-browser');
     }
 
@@ -399,13 +399,13 @@ export function generateLiteConfig(
 
     if (!hasExternalProviders) {
       setAgent('orchestrator', primaryModel);
-      setAgent('oracle', primaryModel);
-      setAgent('designer', primaryModel);
+      setAgent('critic', primaryModel);
+      setAgent('architect', primaryModel);
     }
 
-    setAgent('librarian', secondaryModel);
-    setAgent('explorer', secondaryModel);
-    setAgent('fixer', secondaryModel);
+    setAgent('synthesizer', secondaryModel);
+    setAgent('surveyor', secondaryModel);
+    setAgent('writer', secondaryModel);
   };
 
   const applyChutesAssignments = (presetAgents: Record<string, unknown>) => {
@@ -432,11 +432,11 @@ export function generateLiteConfig(
     };
 
     setAgent('orchestrator', primaryModel);
-    setAgent('oracle', primaryModel);
-    setAgent('designer', primaryModel);
-    setAgent('librarian', secondaryModel);
-    setAgent('explorer', secondaryModel);
-    setAgent('fixer', secondaryModel);
+    setAgent('critic', primaryModel);
+    setAgent('architect', primaryModel);
+    setAgent('synthesizer', secondaryModel);
+    setAgent('surveyor', secondaryModel);
+    setAgent('writer', secondaryModel);
   };
 
   const dedupeModels = (models: Array<string | undefined>) => {
@@ -455,9 +455,9 @@ export function generateLiteConfig(
   const getOpenCodeFallbackForAgent = (agentName: AgentName) => {
     if (!installConfig.useOpenCodeFreeModels) return undefined;
     const isSupport =
-      agentName === 'explorer' ||
-      agentName === 'librarian' ||
-      agentName === 'fixer';
+      agentName === 'surveyor' ||
+      agentName === 'synthesizer' ||
+      agentName === 'writer';
     if (isSupport) {
       return (
         installConfig.selectedOpenCodeSecondaryModel ??
@@ -470,9 +470,9 @@ export function generateLiteConfig(
   const getChutesFallbackForAgent = (agentName: AgentName) => {
     if (!installConfig.hasChutes) return undefined;
     const isSupport =
-      agentName === 'explorer' ||
-      agentName === 'librarian' ||
-      agentName === 'fixer';
+      agentName === 'surveyor' ||
+      agentName === 'synthesizer' ||
+      agentName === 'writer';
     if (isSupport) {
       return (
         installConfig.selectedChutesSecondaryModel ??
@@ -537,13 +537,13 @@ export function generateLiteConfig(
       Object.entries(mapping).map(([agentName, modelInfo]) => {
         let activeModelInfo = { ...modelInfo };
 
-        // Hybrid case: Kimi + OpenAI (use OpenAI for Oracle, Kimi for orchestrator/designer)
+        // Hybrid case: Kimi + OpenAI (use OpenAI for Critic, Kimi for orchestrator/architect)
         if (
           activePreset === 'kimi' &&
           installConfig.hasOpenAI &&
-          agentName === 'oracle'
+          agentName === 'critic'
         ) {
-          activeModelInfo = { ...MODEL_MAPPINGS.openai.oracle };
+          activeModelInfo = { ...MODEL_MAPPINGS.openai.critic };
         }
 
         return [agentName, createAgentConfig(agentName, activeModelInfo)];
