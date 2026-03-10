@@ -1,9 +1,7 @@
-```skill
 ---
 name: idea-critique
 description: Run adversarial multi-round critique on a research idea through @critic and @architect. Produces a full review report with scores, weaknesses, improvement suggestions, and a final verdict.
 ---
-```
 
 # Idea Critique Skill
 

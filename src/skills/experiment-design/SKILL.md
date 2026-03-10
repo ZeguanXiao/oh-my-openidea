@@ -1,9 +1,7 @@
-```skill
 ---
 name: experiment-design
 description: Design a complete, publication-ready experimental plan for a validated research idea — including method, baselines, datasets, evaluation metrics, ablations, and compute estimate.
 ---
-```
 
 # Experiment Design Skill
 

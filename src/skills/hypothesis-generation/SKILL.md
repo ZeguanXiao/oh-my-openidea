@@ -1,9 +1,7 @@
-```skill
 ---
 name: hypothesis-generation
 description: Generate, score, and rank novel CS/ML research hypotheses based on identified literature gaps. Produces 3–5 concrete, differentiated ideas with preliminary novelty assessments.
 ---
-```
 
 # Hypothesis Generation Skill
 

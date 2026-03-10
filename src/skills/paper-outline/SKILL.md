@@ -1,9 +1,7 @@
-```skill
 ---
 name: paper-outline
 description: Generate a full publication-ready paper outline with section summaries, abstract, and introduction draft. Designed for ideas that have passed critique and have an experimental plan.
 ---
-```
 
 # Paper Outline Skill
 
