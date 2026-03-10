@@ -19,7 +19,9 @@ Ideal for finding highly-cited work, checking influence of specific papers, and 
       .string()
       .describe('Search query (paper title keywords, concepts, or methods)'),
     year_range: z
-      .tuple([z.number(), z.number()])
+      .array(z.number())
+      .min(2)
+      .max(2)
       .optional()
       .describe(
         'Year range filter as [start_year, end_year] (e.g. [2020, 2025])',
