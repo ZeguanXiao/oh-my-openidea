@@ -23,12 +23,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/xiaozg/oh-my-openidea"
+    "url": "https://github.com/ZeguanXiao/oh-my-openidea"
   },
   "bugs": {
-    "url": "https://github.com/xiaozg/oh-my-openidea/issues"
+    "url": "https://github.com/ZeguanXiao/oh-my-openidea/issues"
   },
-  "homepage": "https://github.com/xiaozg/oh-my-openidea#readme",
+  "homepage": "https://github.com/ZeguanXiao/oh-my-openidea#readme",
   "files": [
     "dist",
     "src/skills",

@@ -41,7 +41,7 @@ Paste this into any coding agent:
 
 ```
 Install and configure by following the instructions here:
-https://raw.githubusercontent.com/alvinunreal/oh-my-openidea/refs/heads/master/README.md
+https://raw.githubusercontent.com/ZeguanXiao/oh-my-openidea/refs/heads/master/README.md
 ```
 
 Detailed installation guide: [docs/installation.md](docs/installation.md)
