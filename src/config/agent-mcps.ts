@@ -10,14 +10,14 @@ import {
 export const DEFAULT_AGENT_MCPS: Record<AgentName, string[]> = {
   // Orchestrator: web search for general research queries
   orchestrator: ['websearch'],
-  // Surveyor: all search MCPs for comprehensive literature retrieval
-  surveyor: ['websearch', 'arxiv', 'semantic_scholar', 'google_scholar'],
+  // Surveyor: web search for blog posts and recent announcements
+  surveyor: ['websearch'],
   // Synthesizer: web search for supplementary context (blogs, talks)
-  synthesizer: ['websearch', 'arxiv', 'semantic_scholar'],
-  // Critic: academic search for prior work validation
-  critic: ['arxiv', 'semantic_scholar', 'google_scholar'],
+  synthesizer: ['websearch'],
+  // Critic: no MCPs — uses plugin tools directly (semantic_scholar_search, google_scholar_search, alphaxiv_overview)
+  critic: [],
   // Architect: web search for dataset/benchmark info and framework docs
-  architect: ['websearch', 'arxiv'],
+  architect: ['websearch'],
   // Writer: web search for citation format conventions and related work
   writer: ['websearch'],
 };

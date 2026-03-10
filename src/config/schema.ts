@@ -129,7 +129,7 @@ export const PresetSchema = z.record(z.string(), AgentOverrideConfigSchema);
 export type Preset = z.infer<typeof PresetSchema>;
 
 // MCP names
-export const McpNameSchema = z.enum(['websearch', 'arxiv', 'semantic_scholar', 'google_scholar']);
+export const McpNameSchema = z.enum(['websearch']);
 export type McpName = z.infer<typeof McpNameSchema>;
 
 // Background task configuration

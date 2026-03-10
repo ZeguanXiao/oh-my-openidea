@@ -956,7 +956,9 @@ describe('BackgroundTaskManager', () => {
       expect(manager.isAgentAllowed(orchestratorSessionId, 'surveyor')).toBe(
         true,
       );
-      expect(manager.isAgentAllowed(orchestratorSessionId, 'writer')).toBe(true);
+      expect(manager.isAgentAllowed(orchestratorSessionId, 'writer')).toBe(
+        true,
+      );
       expect(manager.isAgentAllowed(orchestratorSessionId, 'architect')).toBe(
         true,
       );
@@ -1027,9 +1029,7 @@ describe('BackgroundTaskManager', () => {
       if (!writerSessionId2)
         throw new Error('Expected sessionId to be defined');
 
-      expect(manager.isAgentAllowed(writerSessionId2, 'surveyor')).toBe(
-        false,
-      );
+      expect(manager.isAgentAllowed(writerSessionId2, 'surveyor')).toBe(false);
     });
 
     test('isAgentAllowed treats unknown session as root orchestrator', () => {
@@ -1040,7 +1040,9 @@ describe('BackgroundTaskManager', () => {
       expect(manager.isAgentAllowed('unknown-session', 'surveyor')).toBe(true);
       expect(manager.isAgentAllowed('unknown-session', 'writer')).toBe(true);
       expect(manager.isAgentAllowed('unknown-session', 'architect')).toBe(true);
-      expect(manager.isAgentAllowed('unknown-session', 'synthesizer')).toBe(true);
+      expect(manager.isAgentAllowed('unknown-session', 'synthesizer')).toBe(
+        true,
+      );
       expect(manager.isAgentAllowed('unknown-session', 'critic')).toBe(true);
     });
 
@@ -1156,9 +1158,15 @@ describe('BackgroundTaskManager', () => {
       });
 
       // Synthesizer can spawn surveyor but not others
-      expect(manager.isAgentAllowed(synthesizerSessionId, 'surveyor')).toBe(true);
-      expect(manager.isAgentAllowed(synthesizerSessionId, 'architect')).toBe(false);
-      expect(manager.isAgentAllowed(synthesizerSessionId, 'critic')).toBe(false);
+      expect(manager.isAgentAllowed(synthesizerSessionId, 'surveyor')).toBe(
+        true,
+      );
+      expect(manager.isAgentAllowed(synthesizerSessionId, 'architect')).toBe(
+        false,
+      );
+      expect(manager.isAgentAllowed(synthesizerSessionId, 'critic')).toBe(
+        false,
+      );
 
       // Level 3: Launch surveyor from synthesizer
       const surveyorTask2 = manager.launch({
@@ -1216,12 +1224,15 @@ describe('BackgroundTaskManager', () => {
       await Promise.resolve();
 
       const writerSessionId3 = writerTask3.sessionId;
-      if (!writerSessionId3) throw new Error('Expected sessionId to be defined');
+      if (!writerSessionId3)
+        throw new Error('Expected sessionId to be defined');
 
       // Writer should be blocked from spawning these agents
       expect(manager.isAgentAllowed(writerSessionId3, 'critic')).toBe(false);
       expect(manager.isAgentAllowed(writerSessionId3, 'architect')).toBe(false);
-      expect(manager.isAgentAllowed(writerSessionId3, 'synthesizer')).toBe(false);
+      expect(manager.isAgentAllowed(writerSessionId3, 'synthesizer')).toBe(
+        false,
+      );
       expect(manager.isAgentAllowed(writerSessionId3, 'writer')).toBe(false);
 
       // Surveyor is also blocked (writer is a leaf node)
@@ -1337,7 +1348,8 @@ describe('BackgroundTaskManager', () => {
       await Promise.resolve();
 
       const writerSessionId4 = writerTask4.sessionId;
-      if (!writerSessionId4) throw new Error('Expected sessionId to be defined');
+      if (!writerSessionId4)
+        throw new Error('Expected sessionId to be defined');
 
       expect(manager.getAllowedSubagents(writerSessionId4)).toEqual([]);
 

@@ -425,11 +425,11 @@ async function configureAgentManually(
   const fallback1 =
     availableForFallback1.length > 0
       ? ((await askModelByNumber(
-        rl,
-        availableForFallback1,
-        'Fallback 1 (optional, press Enter to skip)',
-        true,
-      )) ?? primary)
+          rl,
+          availableForFallback1,
+          'Fallback 1 (optional, press Enter to skip)',
+          true,
+        )) ?? primary)
       : primary;
   if (fallback1 !== primary) selectedModels.add(fallback1);
 
@@ -441,11 +441,11 @@ async function configureAgentManually(
   const fallback2 =
     availableForFallback2.length > 0
       ? ((await askModelByNumber(
-        rl,
-        availableForFallback2,
-        'Fallback 2 (optional, press Enter to skip)',
-        true,
-      )) ?? fallback1)
+          rl,
+          availableForFallback2,
+          'Fallback 2 (optional, press Enter to skip)',
+          true,
+        )) ?? fallback1)
       : fallback1;
   if (fallback2 !== fallback1) selectedModels.add(fallback2);
 
@@ -457,11 +457,11 @@ async function configureAgentManually(
   const fallback3 =
     availableForFallback3.length > 0
       ? ((await askModelByNumber(
-        rl,
-        availableForFallback3,
-        'Fallback 3 (optional, press Enter to skip)',
-        true,
-      )) ?? fallback2)
+          rl,
+          availableForFallback3,
+          'Fallback 3 (optional, press Enter to skip)',
+          true,
+        )) ?? fallback2)
       : fallback2;
 
   return {
@@ -523,7 +523,7 @@ async function runManualSetupMode(
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-        'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
+          'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
       );
     } else {
       availableOpenCodeFreeModels = discovery.models;
@@ -591,7 +591,7 @@ async function runManualSetupMode(
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-        'No Chutes models found. Continuing without Chutes dynamic assignment.',
+          'No Chutes models found. Continuing without Chutes dynamic assignment.',
       );
     } else {
       availableChutesModels = discovery.models;
@@ -865,7 +865,7 @@ async function runInteractiveMode(
       if (discovery.models.length === 0) {
         printWarning(
           discovery.error ??
-          'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
+            'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
         );
       } else {
         availableOpenCodeFreeModels = discovery.models;
@@ -979,7 +979,7 @@ async function runInteractiveMode(
       if (discovery.models.length === 0) {
         printWarning(
           discovery.error ??
-          'No Chutes models found. Continuing without Chutes dynamic assignment.',
+            'No Chutes models found. Continuing without Chutes dynamic assignment.',
         );
       } else {
         availableChutesModels = discovery.models;
@@ -1165,7 +1165,7 @@ async function runInstall(config: InstallConfig): Promise<number> {
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-        'No OpenCode free models found. Continuing without dynamic OpenCode assignment.',
+          'No OpenCode free models found. Continuing without dynamic OpenCode assignment.',
       );
       resolvedConfig.useOpenCodeFreeModels = false;
     } else {
@@ -1173,9 +1173,9 @@ async function runInstall(config: InstallConfig): Promise<number> {
 
       const selectedPrimary =
         resolvedConfig.preferredOpenCodeModel &&
-          discovery.models.some(
-            (model) => model.model === resolvedConfig.preferredOpenCodeModel,
-          )
+        discovery.models.some(
+          (model) => model.model === resolvedConfig.preferredOpenCodeModel,
+        )
           ? resolvedConfig.preferredOpenCodeModel
           : (resolvedConfig.selectedOpenCodePrimaryModel ??
             pickBestCodingOpenCodeModel(discovery.models)?.model);
@@ -1229,7 +1229,7 @@ async function runInstall(config: InstallConfig): Promise<number> {
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-        'No Chutes models found. Continuing with fallback Chutes mapping.',
+          'No Chutes models found. Continuing with fallback Chutes mapping.',
       );
     } else {
       resolvedConfig.availableChutesModels = discovery.models;
@@ -1325,7 +1325,7 @@ async function runInstall(config: InstallConfig): Promise<number> {
     if (catalogDiscovery.models.length === 0) {
       printWarning(
         catalogDiscovery.error ??
-        'Unable to discover model catalog. Falling back to static mappings.',
+          'Unable to discover model catalog. Falling back to static mappings.',
       );
     } else {
       const { signals, warnings } = await fetchExternalModelSignals({

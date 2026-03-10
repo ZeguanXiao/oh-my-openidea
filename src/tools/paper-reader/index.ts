@@ -43,7 +43,11 @@ Use for deep analysis of specific papers after finding them via search tools.`,
 
     // Try arXiv HTML endpoint first (structured text, available for modern papers)
     const htmlUrl = `https://arxiv.org/html/${arxivId}`;
-    let content = await tryFetchHtml(htmlUrl, maxChars, args.sections as string[] | undefined);
+    let content = await tryFetchHtml(
+      htmlUrl,
+      maxChars,
+      args.sections as string[] | undefined,
+    );
 
     // Fall back to abstract page scraping
     if (!content) {
@@ -51,7 +55,10 @@ Use for deep analysis of specific papers after finding them via search tools.`,
       content = await tryFetchAbstract(absUrl, arxivId);
     }
 
-    return content ?? `Could not retrieve paper ${arxivId}. The paper may not be available on arXiv or the ID may be incorrect.`;
+    return (
+      content ??
+      `Could not retrieve paper ${arxivId}. The paper may not be available on arXiv or the ID may be incorrect.`
+    );
   },
 });
 
@@ -117,7 +124,10 @@ async function tryFetchHtml(
   }
 }
 
-async function tryFetchAbstract(url: string, arxivId: string): Promise<string | null> {
+async function tryFetchAbstract(
+  url: string,
+  arxivId: string,
+): Promise<string | null> {
   try {
     const response = await fetch(url, {
       headers: { 'User-Agent': 'oh-my-openidea/1.0' },
@@ -127,27 +137,37 @@ async function tryFetchAbstract(url: string, arxivId: string): Promise<string | 
     const html = await response.text();
 
     // Extract title
-    const titleMatch = /<h1[^>]*class="[^"]*title[^"]*"[^>]*>([\s\S]*?)<\/h1>/i.exec(html) ??
+    const titleMatch =
+      /<h1[^>]*class="[^"]*title[^"]*"[^>]*>([\s\S]*?)<\/h1>/i.exec(html) ??
       /<meta[^>]*name="citation_title"[^>]*content="([^"]+)"/i.exec(html);
     const title = titleMatch
-      ? titleMatch[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+      ? titleMatch[1]
+          .replace(/<[^>]+>/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
       : 'Unknown Title';
 
     // Extract abstract
     const abstractMatch =
-      /<blockquote[^>]*class="[^"]*abstract[^"]*"[^>]*>([\s\S]*?)<\/blockquote>/i.exec(html) ??
+      /<blockquote[^>]*class="[^"]*abstract[^"]*"[^>]*>([\s\S]*?)<\/blockquote>/i.exec(
+        html,
+      ) ??
       /<meta[^>]*name="citation_abstract"[^>]*content="([^"]+)"/i.exec(html);
     const abstract = abstractMatch
-      ? abstractMatch[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+      ? abstractMatch[1]
+          .replace(/<[^>]+>/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
       : 'Abstract not available.';
 
     // Extract authors
     const authorsMatch =
       /<meta[^>]*name="citation_author"[^>]*content="([^"]+)"/gi;
     const authors: string[] = [];
-    let m: RegExpExecArray | null;
-    while ((m = authorsMatch.exec(html)) !== null) {
+    let m = authorsMatch.exec(html);
+    while (m !== null) {
       authors.push(m[1]);
+      m = authorsMatch.exec(html);
     }
 
     return [
@@ -201,7 +221,12 @@ function extractSections(
     // Find the next section heading
     for (let i = startIdx + 1; i < lines.length; i++) {
       const line = lines[i].trim();
-      if (line.length > 3 && line.length < 100 && /^[A-Z0-9]/.test(line) && !line.endsWith('.')) {
+      if (
+        line.length > 3 &&
+        line.length < 100 &&
+        /^[A-Z0-9]/.test(line) &&
+        !line.endsWith('.')
+      ) {
         endIdx = i;
         break;
       }
@@ -213,7 +238,9 @@ function extractSections(
       .trim()
       .slice(0, maxChars);
 
-    results.push(`## ${targetSection.charAt(0).toUpperCase() + targetSection.slice(1)}\n${sectionText}`);
+    results.push(
+      `## ${targetSection.charAt(0).toUpperCase() + targetSection.slice(1)}\n${sectionText}`,
+    );
   }
 
   return results.join('\n\n');

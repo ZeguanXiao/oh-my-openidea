@@ -13,7 +13,8 @@ import {
 } from './hooks';
 import { createBuiltinMcps } from './mcp';
 import {
-  arxiv_search,
+  alphaxiv_full_text,
+  alphaxiv_overview,
   citation_graph,
   createBackgroundTools,
   google_scholar_search,
@@ -98,7 +99,8 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
 
     tool: {
       ...backgroundTools,
-      arxiv_search,
+      alphaxiv_overview,
+      alphaxiv_full_text,
       semantic_scholar_search,
       citation_graph,
       google_scholar_search,
@@ -130,9 +132,7 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
           (opencodeConfig.provider as Record<string, unknown>) ?? {};
         const configuredProviders = Object.keys(providerConfig);
 
-        for (const [agentName, modelArray] of Object.entries(
-          modelArrayMap,
-        )) {
+        for (const [agentName, modelArray] of Object.entries(modelArrayMap)) {
           let resolved = false;
           for (const modelEntry of modelArray) {
             const slashIdx = modelEntry.id.indexOf('/');
@@ -305,7 +305,11 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
 
       await ideaQualityGateHook['tool.execute.after'](
         input as { tool: string },
-        output as { title: string; output: string; metadata: Record<string, unknown> },
+        output as {
+          title: string;
+          output: string;
+          metadata: Record<string, unknown>;
+        },
       );
     },
   };

@@ -115,7 +115,10 @@ export function createAgents(config?: PluginConfig): AgentDefinition[] {
   // existing users who don't have writer in their config yet
   const getModelForAgent = (name: SubagentName): string => {
     if (name === 'writer' && !getAgentOverride(config, 'writer')?.model) {
-      const synthesizerOverride = getAgentOverride(config, 'synthesizer')?.model;
+      const synthesizerOverride = getAgentOverride(
+        config,
+        'synthesizer',
+      )?.model;
       let synthesizerModel: string | undefined;
       if (Array.isArray(synthesizerOverride)) {
         const first = synthesizerOverride[0];

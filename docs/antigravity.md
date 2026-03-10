@@ -133,7 +133,7 @@ If you prefer to configure manually, edit `~/.config/opencode/oh-my-openidea.jso
         "model": "google/antigravity-gemini-3-flash",
         "variant": "low",
         "skills": [],
-        "mcps": ["websearch", "arxiv", "semantic_scholar", "google_scholar"]
+        "mcps": ["websearch"]
       },
       "architect": {
         "model": "google/antigravity-gemini-3-flash",

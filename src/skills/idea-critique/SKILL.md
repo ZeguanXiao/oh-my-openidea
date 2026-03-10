@@ -31,9 +31,10 @@ Launch **@critic** with:
 - The list of related papers found during the literature survey
 
 **@critic's job**:
-1. Search arXiv and Semantic Scholar for papers that directly address this idea
-2. Identify degree of overlap: exact duplicate / partial overlap / related but different
-3. Report specific conflicting papers with their arXiv IDs
+1. Search Semantic Scholar and Google Scholar for papers that directly address this idea
+2. For candidate matches, read the paper via `alphaxiv_overview` to verify the exact overlap
+3. Identify degree of overlap: exact duplicate / partial overlap / related but different
+4. Report specific conflicting papers with their arXiv IDs
 
 **Overlap classification**:
 - **Exact** (≥90% overlap): Idea should be rejected or significantly reformulated

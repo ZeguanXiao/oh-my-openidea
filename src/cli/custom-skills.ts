@@ -64,6 +64,18 @@ export const CUSTOM_SKILLS: CustomSkill[] = [
     allowedAgents: ['orchestrator'],
     sourcePath: 'src/skills/cartography',
   },
+  {
+    name: 'alphaxiv-paper-lookup',
+    description: 'Look up arXiv papers via AlphaXiv structured overview',
+    allowedAgents: [
+      'orchestrator',
+      'surveyor',
+      'synthesizer',
+      'critic',
+      'architect',
+    ],
+    sourcePath: 'src/skills/alphaxiv-paper-lookup',
+  },
 ];
 
 /**

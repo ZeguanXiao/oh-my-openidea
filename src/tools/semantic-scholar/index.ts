@@ -21,7 +21,9 @@ Ideal for finding highly-cited work, checking influence of specific papers, and 
     year_range: z
       .tuple([z.number(), z.number()])
       .optional()
-      .describe('Year range filter as [start_year, end_year] (e.g. [2020, 2025])'),
+      .describe(
+        'Year range filter as [start_year, end_year] (e.g. [2020, 2025])',
+      ),
     fields_of_study: z
       .array(z.string())
       .optional()
@@ -35,7 +37,9 @@ Ideal for finding highly-cited work, checking influence of specific papers, and 
     min_citations: z
       .number()
       .optional()
-      .describe('Minimum citation count filter (useful for finding influential papers)'),
+      .describe(
+        'Minimum citation count filter (useful for finding influential papers)',
+      ),
   },
 
   async execute(args) {
@@ -107,7 +111,8 @@ Ideal for finding highly-cited work, checking influence of specific papers, and 
     let papers = data.data as Record<string, unknown>[];
     if (typeof args.min_citations === 'number') {
       papers = papers.filter(
-        (p) => (p.citationCount as number | null) != null &&
+        (p) =>
+          (p.citationCount as number | null) != null &&
           (p.citationCount as number) >= (args.min_citations as number),
       );
     }
@@ -123,8 +128,9 @@ Ideal for finding highly-cited work, checking influence of specific papers, and 
     ];
 
     for (const paper of papers) {
-      const arxivId =
-        (paper.externalIds as Record<string, string | undefined> | null)?.ArXiv;
+      const arxivId = (
+        paper.externalIds as Record<string, string | undefined> | null
+      )?.ArXiv;
       const id = arxivId ? `arXiv:${arxivId}` : `SS:${paper.paperId}`;
       const authors = (paper.authors as { name: string }[] | null) ?? [];
       const authorStr =
@@ -143,7 +149,9 @@ Ideal for finding highly-cited work, checking influence of specific papers, and 
         `  Year: ${paper.year ?? '?'} | Venue: ${paper.venue || 'N/A'} | Citations: ${paper.citationCount ?? 0} (${paper.influentialCitationCount ?? 0} influential)`,
         `  Fields: ${(paper.fieldsOfStudy as string[] | null)?.join(', ') ?? 'N/A'}`,
         `  PDF: ${pdfUrl}`,
-        tldr ? `  TLDR: ${tldr}` : `  Abstract: ${((paper.abstract as string | null) ?? '').slice(0, 250)}...`,
+        tldr
+          ? `  TLDR: ${tldr}`
+          : `  Abstract: ${((paper.abstract as string | null) ?? '').slice(0, 250)}...`,
         '',
       );
     }
@@ -167,7 +175,9 @@ Provide a Semantic Scholar paper ID or arXiv ID to explore related work networks
       ),
     direction: z
       .enum(['citations', 'references', 'both'])
-      .describe('Direction to traverse: citations (who cites it), references (what it cites), or both'),
+      .describe(
+        'Direction to traverse: citations (who cites it), references (what it cites), or both',
+      ),
     limit: z
       .number()
       .optional()
@@ -175,12 +185,17 @@ Provide a Semantic Scholar paper ID or arXiv ID to explore related work networks
     min_citations: z
       .number()
       .optional()
-      .describe('Minimum citation count for citations (filters out low-impact work)'),
+      .describe(
+        'Minimum citation count for citations (filters out low-impact work)',
+      ),
   },
 
   async execute(args) {
     const rawId = String(args.paper_id);
-    const limit = Math.min(typeof args.limit === 'number' ? args.limit : 20, 100);
+    const limit = Math.min(
+      typeof args.limit === 'number' ? args.limit : 20,
+      100,
+    );
 
     // Normalize ID: strip URL prefix and arXiv version suffix
     const id = rawId
@@ -203,7 +218,10 @@ Provide a Semantic Scholar paper ID or arXiv ID to explore related work networks
     const fetchDirection = async (dir: 'citations' | 'references') => {
       const url = `${SS_BASE}/paper/${encodeURIComponent(resolvedId)}/${dir}?limit=${limit}&fields=${fields}`;
       try {
-        const resp = await fetch(url, { headers, signal: AbortSignal.timeout(20_000) });
+        const resp = await fetch(url, {
+          headers,
+          signal: AbortSignal.timeout(20_000),
+        });
         if (!resp.ok) return null;
         const data = (await resp.json()) as { data?: unknown[] };
         return data.data ?? [];
@@ -233,8 +251,13 @@ Provide a Semantic Scholar paper ID or arXiv ID to explore related work networks
       let filtered = papers as Record<string, unknown>[];
       if (typeof args.min_citations === 'number' && dir === 'citations') {
         filtered = filtered.filter((p) => {
-          const citing = (p as Record<string, unknown>).citingPaper as Record<string, unknown> | undefined;
-          return ((citing?.citationCount as number | null) ?? 0) >= (args.min_citations as number);
+          const citing = (p as Record<string, unknown>).citingPaper as
+            | Record<string, unknown>
+            | undefined;
+          return (
+            ((citing?.citationCount as number | null) ?? 0) >=
+            (args.min_citations as number)
+          );
         });
       }
 
@@ -251,12 +274,20 @@ Provide a Semantic Scholar paper ID or arXiv ID to explore related work networks
         ) as Record<string, unknown> | undefined;
         if (!paper) continue;
 
-        const arxivId = (paper.externalIds as Record<string, string | undefined> | null)?.ArXiv;
+        const arxivId = (
+          paper.externalIds as Record<string, string | undefined> | null
+        )?.ArXiv;
         const idStr = arxivId ? `arXiv:${arxivId}` : `SS:${paper.paperId}`;
         const authors = (paper.authors as { name: string }[] | null) ?? [];
-        const authorStr = authors.slice(0, 2).map((a) => a.name).join(', ') + (authors.length > 2 ? ' et al.' : '');
+        const authorStr =
+          authors
+            .slice(0, 2)
+            .map((a) => a.name)
+            .join(', ') + (authors.length > 2 ? ' et al.' : '');
 
-        lines.push(`[${idStr}] ${paper.title} (${paper.year ?? '?'}) | Citations: ${paper.citationCount ?? 0} | ${authorStr}`);
+        lines.push(
+          `[${idStr}] ${paper.title} (${paper.year ?? '?'}) | Citations: ${paper.citationCount ?? 0} | ${authorStr}`,
+        );
       }
       lines.push('');
     }

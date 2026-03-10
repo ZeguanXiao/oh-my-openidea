@@ -73,7 +73,7 @@ Uses OpenAI models exclusively:
     "openai": {
       "orchestrator": { "model": "openai/gpt-5.2-codex", "skills": ["*"], "mcps": ["websearch"] },
       "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "synthesizer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch", "arxiv", "semantic_scholar"] },
+      "synthesizer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch"] },
       "surveyor": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] },
       "architect": { "model": "openai/gpt-5.1-codex-mini", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
       "writer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] }
@@ -125,7 +125,7 @@ Mixed setup combining multiple providers:
     "alvin": {
       "orchestrator": { "model": "google/claude-opus-4-5-thinking", "skills": ["*"], "mcps": ["*"] },
       "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "synthesizer": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch", "arxiv", "semantic_scholar"] },
+      "synthesizer": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch"] },
       "surveyor": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] },
       "architect": { "model": "google/gemini-3-flash", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
       "writer": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] }
@@ -259,8 +259,8 @@ Built-in Model Context Protocol servers (enabled by default):
 | MCP | Purpose | URL |
 |-----|---------|-----|
 | `websearch` | Real-time web search via Exa AI | `https://mcp.exa.ai/mcp` |
-| `arxiv` | Official library documentation | `https://mcp.arxiv.com/mcp` |
-| `semantic_scholar` | Semantic Scholar academic search | `https://mcp.semanticscholar.org/mcp` |
+
+> **Note:** Academic paper search (Semantic Scholar, Google Scholar, AlphaXiv) is handled by plugin tools that call upstream APIs directly, not via MCP relay servers. This provides better reliability, error messages, and control.
 
 ### MCP Permissions
 
@@ -269,11 +269,11 @@ Control which agents can access which MCP servers using per-agent allowlists:
 | Agent | Default MCPs |
 |-------|--------------|
 | `orchestrator` | `websearch` |
-| `architect` | none |
+| `architect` | `websearch` |
 | `critic` | none |
-| `synthesizer` | `websearch`, `arxiv`, `semantic_scholar` |
-| `surveyor` | none |
-| `writer` | none |
+| `synthesizer` | `websearch` |
+| `surveyor` | `websearch` |
+| `writer` | `websearch` |
 
 ### Configuration & Syntax
 
@@ -286,8 +286,8 @@ Control which agents can access which MCP servers using the `mcps` array in your
 | Syntax | Description | Example |
 |--------|-------------|---------|
 | `"*"` | All MCPs | `["*"]` |
-| `"!item"` | Exclude specific MCP | `["*", "!arxiv"]` |
-| Explicit list | Only listed MCPs | `["websearch", "arxiv"]` |
+| `"!item"` | Exclude specific MCP | `["*", "!websearch"]` |
+| Explicit list | Only listed MCPs | `["websearch"]` |
 | `"!*"` | Deny all MCPs | `["!*"]` |
 
 **Rules:**
@@ -306,10 +306,10 @@ Control which agents can access which MCP servers using the `mcps` array in your
         "mcps": ["websearch"]
       },
       "synthesizer": {
-        "mcps": ["websearch", "arxiv", "semantic_scholar"]
+        "mcps": ["websearch"]
       },
       "critic": {
-        "mcps": ["*", "!websearch"]
+        "mcps": []
       }
     }
   }

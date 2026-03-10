@@ -80,15 +80,22 @@ Use to preserve generated and validated ideas across sessions.`,
       .string()
       .optional()
       .describe('One-sentence problem statement (for save/update)'),
-    approach: z.string().optional().describe('Core proposed approach (for save/update)'),
+    approach: z
+      .string()
+      .optional()
+      .describe('Core proposed approach (for save/update)'),
     field: z
       .string()
       .optional()
-      .describe('Research field/sub-field (for save/update, e.g. "NLP", "CV", "RL")'),
+      .describe(
+        'Research field/sub-field (for save/update, e.g. "NLP", "CV", "RL")',
+      ),
     tags: z
       .array(z.string())
       .optional()
-      .describe('Topic tags (for save/update, e.g. ["reasoning", "transformers", "efficiency"])'),
+      .describe(
+        'Topic tags (for save/update, e.g. ["reasoning", "transformers", "efficiency"])',
+      ),
     status: z
       .enum(['draft', 'validated', 'in_progress', 'published', 'abandoned'])
       .optional()
@@ -109,7 +116,9 @@ Use to preserve generated and validated ideas across sessions.`,
     methodology: z
       .string()
       .optional()
-      .describe('Experimental plan summary (for update, provided by @architect)'),
+      .describe(
+        'Experimental plan summary (for update, provided by @architect)',
+      ),
     outline: z
       .string()
       .optional()
@@ -171,13 +180,12 @@ Use to preserve generated and validated ideas across sessions.`,
         if (filtered.length === 0) {
           return `No ideas found${args.filter_status ? ` with status "${args.filter_status}"` : ''}${args.filter_field ? ` in field "${args.filter_field}"` : ''}.`;
         }
-        const lines = [
-          `Research Ideas (${filtered.length} total):`,
-          '',
-        ];
+        const lines = [`Research Ideas (${filtered.length} total):`, ''];
         for (const idea of filtered) {
           const scoreStr =
-            idea.scores?.overall != null ? ` | Score: ${idea.scores.overall}/10` : '';
+            idea.scores?.overall != null
+              ? ` | Score: ${idea.scores.overall}/10`
+              : '';
           const critiqueStr = idea.critique_done ? ' ✓' : ' ⚠️ (not critiqued)';
           lines.push(
             `[${idea.id}] ${idea.title}`,
@@ -209,13 +217,26 @@ Use to preserve generated and validated ideas across sessions.`,
           ...(args.approach != null && { approach: String(args.approach) }),
           ...(args.field != null && { field: String(args.field) }),
           ...(args.tags != null && { tags: args.tags as string[] }),
-          ...(args.status != null && { status: args.status as IdeaRecord['status'] }),
-          ...(args.scores != null && { scores: { ...existing.scores, ...(args.scores as Record<string, number>) } }),
-          ...(args.related_papers != null && { related_papers: args.related_papers as string[] }),
-          ...(args.methodology != null && { methodology: String(args.methodology) }),
+          ...(args.status != null && {
+            status: args.status as IdeaRecord['status'],
+          }),
+          ...(args.scores != null && {
+            scores: {
+              ...existing.scores,
+              ...(args.scores as Record<string, number>),
+            },
+          }),
+          ...(args.related_papers != null && {
+            related_papers: args.related_papers as string[],
+          }),
+          ...(args.methodology != null && {
+            methodology: String(args.methodology),
+          }),
           ...(args.outline != null && { outline: String(args.outline) }),
           ...(args.notes != null && { notes: String(args.notes) }),
-          ...(args.critique_done != null && { critique_done: Boolean(args.critique_done) }),
+          ...(args.critique_done != null && {
+            critique_done: Boolean(args.critique_done),
+          }),
           updated_at: new Date().toISOString(),
         };
         ideas[idx] = updated;
@@ -250,7 +271,9 @@ Use to preserve generated and validated ideas across sessions.`,
           `Idea Store Statistics`,
           `Total ideas: ${total}`,
           `Critiqued: ${critiqued}/${total}`,
-          scored > 0 ? `Average overall score: ${(avgScore / scored).toFixed(1)}/10` : '',
+          scored > 0
+            ? `Average overall score: ${(avgScore / scored).toFixed(1)}/10`
+            : '',
           '',
           'By Status:',
           ...Object.entries(byStatus).map(([s, n]) => `  ${s}: ${n}`),

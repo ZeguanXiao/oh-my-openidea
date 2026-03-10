@@ -340,13 +340,9 @@ describe('providers', () => {
 
     const agents = (config.presets as any)['zen-free'];
     expect(agents.orchestrator.mcps).toContain('websearch');
-    // synthesizer and architect have dedicated MCP lists in DEFAULT_AGENT_MCPS
-    expect(agents.synthesizer.mcps).toEqual([
-      'websearch',
-      'arxiv',
-      'semantic_scholar',
-    ]);
-    expect(agents.architect.mcps).toEqual(['websearch', 'arxiv']);
+    // All agents now use only websearch (academic search done via plugin tools)
+    expect(agents.synthesizer.mcps).toEqual(['websearch']);
+    expect(agents.architect.mcps).toEqual(['websearch']);
   });
 
   // Antigravity tests
@@ -376,7 +372,9 @@ describe('providers', () => {
       // Surveyor/Synthesizer/Architect use Antigravity Flash; Writer prefers OpenAI
       expect(agents.surveyor.model).toBe('google/antigravity-gemini-3-flash');
       expect(agents.surveyor.variant).toBe('low');
-      expect(agents.synthesizer.model).toBe('google/antigravity-gemini-3-flash');
+      expect(agents.synthesizer.model).toBe(
+        'google/antigravity-gemini-3-flash',
+      );
       expect(agents.synthesizer.variant).toBe('low');
       expect(agents.architect.model).toBe('google/antigravity-gemini-3-flash');
       expect(agents.architect.variant).toBe('medium');
@@ -407,7 +405,9 @@ describe('providers', () => {
 
       // Others should use Antigravity Flash
       expect(agents.surveyor.model).toBe('google/antigravity-gemini-3-flash');
-      expect(agents.synthesizer.model).toBe('google/antigravity-gemini-3-flash');
+      expect(agents.synthesizer.model).toBe(
+        'google/antigravity-gemini-3-flash',
+      );
       expect(agents.architect.model).toBe('google/antigravity-gemini-3-flash');
       expect(agents.writer.model).toBe('google/antigravity-gemini-3-flash');
     });
@@ -438,7 +438,9 @@ describe('providers', () => {
 
       // Surveyor/Synthesizer/Architect use Antigravity Flash; Writer prefers OpenAI
       expect(agents.surveyor.model).toBe('google/antigravity-gemini-3-flash');
-      expect(agents.synthesizer.model).toBe('google/antigravity-gemini-3-flash');
+      expect(agents.synthesizer.model).toBe(
+        'google/antigravity-gemini-3-flash',
+      );
       expect(agents.architect.model).toBe('google/antigravity-gemini-3-flash');
       expect(agents.writer.model).toBe('openai/gpt-5.3-codex');
     });
@@ -464,7 +466,9 @@ describe('providers', () => {
       );
       expect(agents.critic.model).toBe('google/antigravity-gemini-3.1-pro');
       expect(agents.surveyor.model).toBe('google/antigravity-gemini-3-flash');
-      expect(agents.synthesizer.model).toBe('google/antigravity-gemini-3-flash');
+      expect(agents.synthesizer.model).toBe(
+        'google/antigravity-gemini-3-flash',
+      );
       expect(agents.architect.model).toBe('google/antigravity-gemini-3-flash');
       expect(agents.writer.model).toBe('google/antigravity-gemini-3-flash');
     });

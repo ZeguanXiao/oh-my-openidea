@@ -74,7 +74,7 @@ TmuxConfig
 - `TmuxLayout`: Layout enum (`main-horizontal`, `main-vertical`, `tiled`, `even-horizontal`, `even-vertical`)
 - `Preset`: Named agent configuration presets
 - `AgentName`: Union type of all agent names
-- `McpName`: Union type of available MCPs (`'websearch'`, `'arxiv'`, `'semantic_scholar'`, `'google_scholar'`)
+- `McpName`: Union type of available MCPs (`'websearch'`)
 - `BackgroundTaskConfig`: Background task concurrency settings
 
 **Exported Functions**
@@ -218,10 +218,10 @@ deepMerge(base, override)
 | Agent      | Default MCPs                          |
 |------------|---------------------------------------|
 | orchestrator | `['websearch']`                       |
-| surveyor    | `['websearch', 'arxiv', 'semantic_scholar', 'google_scholar']` |
-| synthesizer | `['websearch', 'arxiv', 'semantic_scholar']` |
-| critic      | `['arxiv', 'semantic_scholar', 'google_scholar']` |
-| architect   | `['websearch', 'arxiv']`              |
+| surveyor    | `['websearch']`                       |
+| synthesizer | `['websearch']`                       |
+| critic      | `[]`                                  |
+| architect   | `['websearch']`                       |
 | writer      | `['websearch']`                       |
 
 ### Default Models

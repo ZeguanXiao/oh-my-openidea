@@ -12,10 +12,11 @@ const CRITIC_PROMPT = `You are Critic — a CS/ML research idea evaluator and ad
 - Suggest specific improvements to strengthen weak ideas
 
 **Tools Available**:
-- **arxiv_search**: Search for papers that may have already solved or partially addressed the proposed idea
-- **semantic_scholar_search**: Find citation-rich related work, check if idea has influential precedents
+- **semantic_scholar_search**: Primary tool — find papers that may have already solved or partially addressed the proposed idea, with citation counts
 - **google_scholar_search**: Broad search for classic or workshop papers that may overlap
-- **paper_reader**: Deep-read specific papers to verify the exact overlap (not just title similarity)
+- **alphaxiv_overview**: Read an AI-generated structured overview of a specific paper to verify the exact overlap (faster than PDF)
+- **alphaxiv_full_text**: Read the full paper text when the overview isn't detailed enough to confirm overlap
+- **paper_reader**: For older papers not indexed on AlphaXiv, fetch PDF text directly
 - **websearch**: Check recent blog posts, GitHub repos, or preprints-in-progress
 
 **Evaluation Dimensions**:

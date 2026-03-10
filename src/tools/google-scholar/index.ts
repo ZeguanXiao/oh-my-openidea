@@ -14,19 +14,15 @@ Requires SERPAPI_KEY environment variable.
 Best for: classic/highly-cited papers, surveys, broad coverage across disciplines.`,
 
   args: {
-    query: z.string().describe('Search query (keywords, concepts, paper titles)'),
+    query: z
+      .string()
+      .describe('Search query (keywords, concepts, paper titles)'),
     num_results: z
       .number()
       .optional()
       .describe('Number of results to return (default: 10, max: 20)'),
-    year_from: z
-      .number()
-      .optional()
-      .describe('Start year filter (e.g. 2020)'),
-    year_to: z
-      .number()
-      .optional()
-      .describe('End year filter (e.g. 2025)'),
+    year_from: z.number().optional().describe('Start year filter (e.g. 2020)'),
+    year_to: z.number().optional().describe('End year filter (e.g. 2025)'),
     sort_by: z
       .enum(['relevance', 'date'])
       .optional()
@@ -110,7 +106,9 @@ To enable, obtain an API key from https://serpapi.com and set SERPAPI_KEY in you
         result.inline_links?.cited_by?.total != null
           ? `Citations: ${result.inline_links.cited_by.total}`
           : '';
-      const pdfLink = result.resources?.find((r) => r.file_format === 'PDF')?.link;
+      const pdfLink = result.resources?.find(
+        (r) => r.file_format === 'PDF',
+      )?.link;
 
       lines.push(
         `${result.title ?? 'Untitled'}`,

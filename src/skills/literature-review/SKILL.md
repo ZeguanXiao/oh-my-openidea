@@ -28,15 +28,15 @@ Ask the user (or infer from context):
 ### Step 2: Initial Search (Surveyor)
 
 Launch **@surveyor** with 3 parallel searches:
-1. Primary query: exact topic keywords on arXiv + Semantic Scholar
-2. Broad query: related concepts and parent topic
-3. Survey/review query: `"{topic} survey"` or `"{topic} review"` for overview papers
+1. Primary query: exact topic keywords on Semantic Scholar
+2. Broad query: related concepts and parent topic on Google Scholar
+3. Survey/review query: `"{topic} survey"` or `"{topic} review"` on Google Scholar for overview papers
 
 Example delegation:
 ```
-@surveyor: Search arXiv for "mechanistic interpretability transformers" in cs.LG and cs.AI, 
-last 3 years, 20 results. Also search Semantic Scholar for highly-cited papers (>50 citations) 
-on the same topic.
+@surveyor: Search Semantic Scholar for "mechanistic interpretability transformers" with fields=["Computer Science"],
+limit=20, min_citations=5. Also search Google Scholar for highly-cited survey papers on the same topic.
+For the 3 most relevant results, fetch their AlphaXiv overviews to extract key contributions.
 ```
 
 ### Step 3: Citation Expansion (Surveyor)

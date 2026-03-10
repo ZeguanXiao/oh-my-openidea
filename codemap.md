@@ -111,7 +111,8 @@ Return plugin object with:
    - Background task orchestration
 
 5. **MCP Integration** (`src/mcp/`)
-   - Built-in remote MCPs (websearch, arxiv, semantic_scholar, google_scholar)
+   - Single built-in remote MCP: `websearch` (Exa AI first-party endpoint)
+   - Academic search done via plugin tools directly
    - Type-safe configuration
    - Disabled MCP filtering
 

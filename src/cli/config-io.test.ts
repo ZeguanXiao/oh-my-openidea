@@ -201,10 +201,7 @@ describe('config-io', () => {
     const litePath = join(tmpDir, 'opencode', 'oh-my-openidea.json');
     paths.ensureConfigDir();
 
-    writeFileSync(
-      configPath,
-      JSON.stringify({ plugin: ['oh-my-openidea'] }),
-    );
+    writeFileSync(configPath, JSON.stringify({ plugin: ['oh-my-openidea'] }));
     writeFileSync(
       litePath,
       JSON.stringify({

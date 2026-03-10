@@ -56,10 +56,10 @@ All agents follow a consistent factory pattern:
 
 | Agent | Primary Focus | Tools | Constraints | Temperature |
 |-------|--------------|-------|-------------|-------------|
-| Surveyor | Literature search | arxiv, semantic_scholar, google_scholar, websearch | Read-only, parallel | 0.1 |
-| Synthesizer | Idea synthesis | websearch, arxiv, semantic_scholar | Generative, cites evidence | 0.5 |
-| Critic | Novelty checking | arxiv, semantic_scholar, google_scholar | Adversarial, read-only | 0.2 |
-| Architect | Experiment design | websearch, arxiv | Structured output | 0.3 |
+| Surveyor | Literature search | semantic_scholar, google_scholar, alphaxiv_overview, alphaxiv_full_text, citation_graph, websearch | Read-only, parallel | 0.1 |
+| Synthesizer | Idea synthesis | websearch | Generative, cites evidence | 0.5 |
+| Critic | Novelty checking | semantic_scholar, google_scholar, alphaxiv_overview | Adversarial, read-only | 0.2 |
+| Architect | Experiment design | websearch, semantic_scholar, alphaxiv_overview | Structured output | 0.3 |
 | Writer | Paper writing | websearch | No delegation | 0.4 |
 
 ## Flow
@@ -222,7 +222,7 @@ Each agent gets skill-specific permissions:
 
 Agents are configured with specific MCP tool lists:
 - `getAgentMcpList(agentName, config)` returns tool list
-- MCP tools enable agent capabilities (e.g., arxiv for Surveyor)
+- MCP tools enable agent capabilities (e.g., websearch for Orchestrator/Surveyor)
 - Configured per agent based on role and needs
 
 ## Key Design Decisions
