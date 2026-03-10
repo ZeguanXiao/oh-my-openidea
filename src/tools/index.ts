@@ -1,5 +1,7 @@
 // arXiv search tool
 export { arxiv_search } from './arxiv';
+// AlphaXiv paper overview and full-text tools (free, no API key required)
+export { alphaxiv_overview, alphaxiv_full_text } from './alphaxiv';
 // Background task management tools
 export { createBackgroundTools } from './background';
 // Citation graph and Semantic Scholar tools
