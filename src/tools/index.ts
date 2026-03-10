@@ -1,12 +1,12 @@
-// AST-grep tools
-export { ast_grep_replace, ast_grep_search } from './ast-grep';
+// arXiv search tool
+export { arxiv_search } from './arxiv';
+// Background task management tools
 export { createBackgroundTools } from './background';
-// Grep tool (ripgrep-based)
-export { grep } from './grep';
-export {
-  lsp_diagnostics,
-  lsp_find_references,
-  lsp_goto_definition,
-  lsp_rename,
-  lspManager,
-} from './lsp';
+// Citation graph and Semantic Scholar tools
+export { citation_graph, semantic_scholar_search } from './semantic-scholar';
+// Google Scholar search (requires SERPAPI_KEY)
+export { google_scholar_search } from './google-scholar';
+// Idea persistence store
+export { idea_store } from './idea-store';
+// Paper reading and extraction tool
+export { paper_reader } from './paper-reader';

@@ -1,6 +1,7 @@
 import type { McpName } from '../config';
-import { context7 } from './context7';
-import { grep_app } from './grep-app';
+import { arxiv } from './arxiv';
+import { google_scholar } from './google-scholar';
+import { semantic_scholar } from './semantic-scholar';
 import type { McpConfig } from './types';
 import { websearch } from './websearch';
 
@@ -8,8 +9,9 @@ export type { LocalMcpConfig, McpConfig, RemoteMcpConfig } from './types';
 
 const allBuiltinMcps: Record<McpName, McpConfig> = {
   websearch,
-  context7,
-  grep_app,
+  arxiv,
+  semantic_scholar,
+  google_scholar,
 };
 
 /**

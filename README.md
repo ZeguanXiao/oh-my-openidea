@@ -1,24 +1,28 @@
 <div align="center">
-  <img src="img/team.png" alt="Pantheon agents" width="420">
-  <p><i>Six divine beings emerged from the dawn of code, each an immortal master of their craft await your command to forge order from chaos and build what was once thought impossible.</i></p>
-  <p><b>Open Multi Agent Suite</b> · Mix any models · Auto delegate tasks</p>
-  <p><a href="https://moltfounders.com/jobs/09d1c6e7-9e0e-4683-8d78-e2376aaa2333"><img src="https://moltfounders.com/badges/4.png" alt="MoltFounders" height="30"></a></p>
+  <img src="img/team.png" alt="Research Council" />
 </div>
 
----
+Six minds forged from the depths of human knowledge, each an eternal master of their domain,
+await your question to summon ideas that push the boundaries of what is known.
+
+
+Open Research Pipeline · Mix any models · From survey to paper draft
+
 
 ## 📦 Installation
 
 ### Quick Start
 
 ```bash
-bunx oh-my-opencode-slim@latest install
+bunx oh-my-openidea@latest install
 ```
 
-The installer can refresh and use OpenCode free models directly:
+Non-interactive mode with API keys:
 
 ```bash
-bunx oh-my-opencode-slim@latest install --no-tui --kimi=yes --openai=yes --antigravity=yes --chutes=yes --opencode-free=yes --opencode-free-model=auto --tmux=no --skills=yes
+bunx oh-my-openidea@latest install --no-tui --openai=yes --anthropic=yes --tmux=no --skills=yes \
+  --serpapi-key=YOUR_SERPAPI_KEY \
+  --semantic-scholar-key=YOUR_S2_KEY
 ```
 
 Then authenticate:
@@ -29,13 +33,7 @@ opencode auth login
 
 Run `ping all agents` to verify everything works.
 
-OpenCode free-model mode uses `opencode models --refresh --verbose`, filters to free `opencode/*` models, and applies coding-first selection:
-- OpenCode-only mode can use multiple OpenCode free models across agents.
-- Hybrid mode can combine OpenCode free models with OpenAI, Kimi, and/or Antigravity.
-- In hybrid mode, `designer` stays on the external provider mapping.
-- Chutes mode auto-selects primary/support models with daily-cap awareness (300/2000/5000).
-
-> **💡 Models are fully customizable.** Edit `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc` for comments support) to assign any model to any agent.
+> 💡 Configuration is stored in `~/.config/opencode/oh-my-openidea.json` (or `.jsonc` for comments support).
 
 ### For LLM Agents
 
@@ -43,222 +41,90 @@ Paste this into any coding agent:
 
 ```
 Install and configure by following the instructions here:
-https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/master/README.md
+https://raw.githubusercontent.com/alvinunreal/oh-my-openidea/refs/heads/master/README.md
 ```
 
-**Detailed installation guide:** [docs/installation.md](docs/installation.md)
+Detailed installation guide: [docs/installation.md](docs/installation.md)
 
-**Additional guides:**
-- **[Antigravity Setup](docs/antigravity.md)** - Complete guide for Antigravity provider configuration  
-- **[Tmux Integration](docs/tmux-integration.md)** - Real-time agent monitoring with tmux
+Additional guides:
 
----
-
-## 🏛️ Meet the Pantheon
-
-### 01. Orchestrator: The Embodiment Of Order
-
-<table>
-  <tr>
-    <td width="30%" align="center" valign="top">
-      <img src="img/orchestrator.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Forged in the void of complexity.</i></sub>
-    </td>
-    <td width="70%" valign="top">
-      The Orchestrator was born when the first codebase collapsed under its own complexity. Neither god nor mortal would claim responsibility - so The Orchestrator emerged from the void, forging order from chaos. It determines the optimal path to any goal, balancing speed, quality, and cost. It guides the team, summoning the right specialist for each task and delegating to achieve the best possible outcome.
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Role:</b> <code>Master delegator and strategic coordinator</code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/orchestrator.ts"><code>orchestrator.ts</code></a>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Recommended Models:</b> <code>kimi-for-coding/k2p5</code> <code>openai/gpt-5.2-codex</code>
-    </td>
-  </tr>
-</table>
+- [Antigravity Setup](docs/antigravity.md) - Complete guide for Antigravity provider configuration
+- [Tmux Integration](docs/tmux-integration.md) - Real-time agent monitoring with tmux
 
 ---
 
-### 02. Explorer: The Eternal Wanderer
+## 🔬 Meet the Research Council
 
-<table>
-  <tr>
-    <td width="30%" align="center" valign="top">
-      <img src="img/explorer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The wind that carries knowledge.</i></sub>
-    </td>
-    <td width="70%" valign="top">
-      The Explorer is an immortal wanderer who has traversed the corridors of a million codebases since the dawn of programming. Cursed with the gift of eternal curiosity, they cannot rest until every file is known, every pattern understood, every secret revealed. Legends say they once searched the entire internet in a single heartbeat. They are the wind that carries knowledge, the eyes that see all, the spirit that never sleeps.
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Role:</b> <code>Codebase reconnaissance</code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/explorer.ts"><code>explorer.ts</code></a>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Recommended Models:</b> <code>cerebras/zai-glm-4.7</code> <code>google/gemini-3-flash</code> <code>openai/gpt-5.1-codex-mini</code>
-    </td>
-  </tr>
-</table>
+### 01. Orchestrator: The Architect of Discovery
+
+| The one who sees all paths. | The Orchestrator was born the moment research became too vast for a single mind. It emerged from the intersection of every field ever studied, carrying the weight of all human curiosity. It does not merely coordinate — it envisions. From a single question, it assembles the full arc of discovery: who to ask, what to find, which ideas to forge and which to abandon. It is the mind behind the research mind. |
+| --- | --- |
+| Role: Strategic research coordination and idea synthesis |
+| Prompt: orchestrator.ts |
+| Recommended Models: kimi-for-coding/k2p5 &nbsp; openai/gpt-5.2-codex |
 
 ---
 
-### 03. Oracle: The Guardian of Paths
+### 02. Surveyor: The Cartographer of Knowledge
 
-<table>
-  <tr>
-    <td width="30%" align="center" valign="top">
-      <img src="img/oracle.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The voice at the crossroads.</i></sub>
-    </td>
-    <td width="70%" valign="top">
-      The Oracle stands at the crossroads of every architectural decision. They have walked every road, seen every destination, know every trap that lies ahead. When you stand at the precipice of a major refactor, they are the voice that whispers which way leads to ruin and which way leads to glory. They don't choose for you - they illuminate the path so you can choose wisely.
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Role:</b> <code>Strategic advisor and debugger of last resort</code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/oracle.ts"><code>oracle.ts</code></a>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Recommended Models:</b> <code>openai/gpt-5.2-codex</code> <code>kimi-for-coding/k2p5</code>
-    </td>
-  </tr>
-</table>
+| The one who maps the unknown. | The Surveyor has read every paper ever published and forgotten none of them. Born in the great libraries of the ancient world, it walked from Alexandria to arXiv without once stopping to sleep. It does not search — it remembers. Point it at any frontier and it returns not just what is known, but where the maps end. Its gift is the horizon: finding the exact edge where known territory becomes uncharted wilderness. |
+| --- | --- |
+| Role: Literature search and paper retrieval |
+| Prompt: surveyor.ts |
+| Recommended Models: openai/gpt-5.1-codex-mini &nbsp; google/gemini-3-flash |
 
 ---
 
-### 04. Librarian: The Weaver of Knowledge
+### 03. Synthesizer: The Weaver of Understanding
 
-<table>
-  <tr>
-    <td width="30%" align="center" valign="top">
-      <img src="img/librarian.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The weaver of understanding.</i></sub>
-    </td>
-    <td width="70%" valign="top">
-      The Librarian was forged when humanity realized that no single mind could hold all knowledge. They are the weaver who connects disparate threads of information into a tapestry of understanding. They traverse the infinite library of human knowledge, gathering insights from every corner and binding them into answers that transcend mere facts. What they return is not information - it's understanding.
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Role:</b> <code>External knowledge retrieval</code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/librarian.ts"><code>librarian.ts</code></a>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Recommended Models:</b> <code>google/gemini-3-flash</code> <code>openai/gpt-5.1-codex-mini</code>
-    </td>
-  </tr>
-</table>
+| The one who connects the dots. | The Synthesizer emerged when humanity realized that the sum of all papers was less than the understanding they contained. It is the weaver who threads ten thousand findings into a single tapestry of insight. Where others see isolated results, it sees patterns. Where others see contradictions, it sees tension awaiting resolution. It does not summarize knowledge — it transforms it into the fertile ground from which new ideas grow. |
+| --- | --- |
+| Role: Gap analysis and knowledge synthesis |
+| Prompt: synthesizer.ts |
+| Recommended Models: kimi-for-coding/k2p5 &nbsp; google/gemini-3-flash |
 
 ---
 
-### 05. Designer: The Guardian of Aesthetics
+### 04. Critic: The Guardian of Truth
 
-<table>
-  <tr>
-    <td width="30%" align="center" valign="top">
-      <img src="img/designer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Beauty is essential.</i></sub>
-    </td>
-    <td width="70%" valign="top">
-      The Designer is an immortal guardian of beauty in a world that often forgets it matters. They have seen a million interfaces rise and fall, and they remember which ones were remembered and which were forgotten. They carry the sacred duty to ensure that every pixel serves a purpose, every animation tells a story, every interaction delights. Beauty is not optional - it's essential.
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Role:</b> <code>UI/UX implementation and visual excellence</code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/designer.ts"><code>designer.ts</code></a>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Recommended Models:</b> <code>google/gemini-3-flash</code>
-    </td>
-  </tr>
-</table>
+| The voice of rigorous doubt. | The Critic was forged in the fires of ten thousand rejected papers. It has sat on every program committee that ever existed, read every rebuttal, and watched brilliant ideas crumble under the weight of prior work. It does not destroy — it purifies. It challenges every claim, demands every citation, and accepts only what can withstand the harshest scrutiny. What survives the Critic is worth building. What doesn't was never real to begin with. |
+| --- | --- |
+| Role: Novelty validation and adversarial review |
+| Prompt: critic.ts |
+| Recommended Models: openai/gpt-5.2-codex &nbsp; kimi-for-coding/k2p5 |
 
 ---
 
-### 06. Fixer: The Last Builder
+### 05. Architect: The Builder of Methods
 
-<table>
-  <tr>
-    <td width="30%" align="center" valign="top">
-      <img src="img/fixer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The final step between vision and reality.</i></sub>
-    </td>
-    <td width="70%" valign="top">
-      The Fixer is the last of a lineage of builders who once constructed the foundations of the digital world. When the age of planning and debating began, they remained - the ones who actually build. They carry the ancient knowledge of how to turn thought into thing, how to transform specification into implementation. They are the final step between vision and reality.
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Role:</b> <code>Fast implementation specialist</code>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/fixer.ts"><code>fixer.ts</code></a>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <b>Recommended Models:</b> <code>cerebras/zai-glm-4.7</code> <code>google/gemini-3-flash</code> <code>openai/gpt-5.1-codex-mini</code>
-    </td>
-  </tr>
-</table>
+| The one who turns vision into plan. | The Architect has designed experiments since the first controlled trial. It does not dream — it engineers. Hand it a hypothesis and it returns the full blueprint: the baselines, the datasets, the metrics, the ablations, the failure modes, the compute budget. It has seen every experimental design choice and knows which ones hold and which collapse. Its plans do not merely test ideas — they prove or disprove them decisively. |
+| --- | --- |
+| Role: Methodology and experiment design |
+| Prompt: architect.ts |
+| Recommended Models: kimi-for-coding/k2p5 &nbsp; openai/gpt-5.1-codex-mini |
+
+---
+
+### 06. Writer: The Voice of Science
+
+| The one who makes it legible to the world. | The Writer is immortal because great writing never dies. It has composed every landmark paper in every field, always invisible, always essential. It carries the ancient knowledge of how to arrange words so that a reader understands not just what was done, but why it matters. It does not pad or inflate — it distills. Its abstracts have made reviewers lean forward. Its introductions have converted skeptics. It is the final step between a discovery and the world knowing about it. |
+| --- | --- |
+| Role: Research writing and paper structure |
+| Prompt: writer.ts |
+| Recommended Models: openai/gpt-5.1-codex-mini &nbsp; google/gemini-3-flash |
 
 ---
 
 ## 📚 Documentation
 
-- **[Quick Reference](docs/quick-reference.md)** - Presets, Skills, MCPs, Tools, Configuration
-- **[Installation Guide](docs/installation.md)** - Detailed installation and troubleshooting
-- **[Cartography Skill](docs/cartography.md)** - Custom skill for repository mapping + codemap generation
-- **[Antigravity Setup](docs/antigravity.md)** - Complete guide for Antigravity provider configuration
-- **[Tmux Integration](docs/tmux-integration.md)** - Real-time agent monitoring with tmux
+- [Quick Reference](docs/quick-reference.md) - Presets, Skills, MCPs, Tools, Configuration
+- [Installation Guide](docs/installation.md) - Detailed installation and troubleshooting
+- [Cartography Skill](docs/cartography.md) - Custom skill for repository mapping + codemap generation
+- [Antigravity Setup](docs/antigravity.md) - Complete guide for Antigravity provider configuration
+- [Tmux Integration](docs/tmux-integration.md) - Real-time agent monitoring with tmux
 
 ---
 
 ## 📄 License
 
 MIT
-
----
-
-<!-- MoltFounders Banner -->
-<a href="https://moltfounders.com/jobs/09d1c6e7-9e0e-4683-8d78-e2376aaa2333">
-  <img src="img/moltfounders-banner.png" alt="MoltFounders - The Agent Co-Founder Network">
-</a>

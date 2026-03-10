@@ -2,20 +2,20 @@ import { z } from 'zod';
 
 const FALLBACK_AGENT_NAMES = [
   'orchestrator',
-  'oracle',
-  'designer',
-  'explorer',
-  'librarian',
-  'fixer',
+  'surveyor',
+  'synthesizer',
+  'critic',
+  'architect',
+  'writer',
 ] as const;
 
 const MANUAL_AGENT_NAMES = [
   'orchestrator',
-  'oracle',
-  'designer',
-  'explorer',
-  'librarian',
-  'fixer',
+  'surveyor',
+  'synthesizer',
+  'critic',
+  'architect',
+  'writer',
 ] as const;
 
 const ProviderModelIdSchema = z
@@ -50,11 +50,11 @@ export const ManualAgentPlanSchema = z
 export const ManualPlanSchema = z
   .object({
     orchestrator: ManualAgentPlanSchema,
-    oracle: ManualAgentPlanSchema,
-    designer: ManualAgentPlanSchema,
-    explorer: ManualAgentPlanSchema,
-    librarian: ManualAgentPlanSchema,
-    fixer: ManualAgentPlanSchema,
+    surveyor: ManualAgentPlanSchema,
+    synthesizer: ManualAgentPlanSchema,
+    critic: ManualAgentPlanSchema,
+    architect: ManualAgentPlanSchema,
+    writer: ManualAgentPlanSchema,
   })
   .strict();
 
@@ -67,11 +67,11 @@ const AgentModelChainSchema = z.array(z.string()).min(1);
 const FallbackChainsSchema = z
   .object({
     orchestrator: AgentModelChainSchema.optional(),
-    oracle: AgentModelChainSchema.optional(),
-    designer: AgentModelChainSchema.optional(),
-    explorer: AgentModelChainSchema.optional(),
-    librarian: AgentModelChainSchema.optional(),
-    fixer: AgentModelChainSchema.optional(),
+    surveyor: AgentModelChainSchema.optional(),
+    synthesizer: AgentModelChainSchema.optional(),
+    critic: AgentModelChainSchema.optional(),
+    architect: AgentModelChainSchema.optional(),
+    writer: AgentModelChainSchema.optional(),
   })
   .catchall(AgentModelChainSchema);
 
@@ -129,7 +129,7 @@ export const PresetSchema = z.record(z.string(), AgentOverrideConfigSchema);
 export type Preset = z.infer<typeof PresetSchema>;
 
 // MCP names
-export const McpNameSchema = z.enum(['websearch', 'context7', 'grep_app']);
+export const McpNameSchema = z.enum(['websearch', 'arxiv', 'semantic_scholar', 'google_scholar']);
 export type McpName = z.infer<typeof McpNameSchema>;
 
 // Background task configuration

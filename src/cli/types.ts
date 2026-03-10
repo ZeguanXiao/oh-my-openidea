@@ -16,6 +16,8 @@ export interface InstallArgs {
   opencodeFreeModel?: string;
   aaKey?: string;
   openrouterKey?: string;
+  serpApiKey?: string;
+  semanticScholarKey?: string;
   dryRun?: boolean;
   modelsOnly?: boolean;
 }

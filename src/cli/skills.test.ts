@@ -8,18 +8,18 @@ describe('skills permissions', () => {
   });
 
   it('should deny all skills for other agents by default', () => {
-    const permissions = getSkillPermissionsForAgent('designer');
+    const permissions = getSkillPermissionsForAgent('surveyor');
     expect(permissions['*']).toBe('deny');
   });
 
   it('should allow recommended skills for specific agents', () => {
-    // Designer should have agent-browser allowed
-    const designerPerms = getSkillPermissionsForAgent('designer');
-    expect(designerPerms['agent-browser']).toBe('allow');
+    // Surveyor should have literature-review allowed
+    const surveyorPerms = getSkillPermissionsForAgent('surveyor');
+    expect(surveyorPerms['literature-review']).toBe('allow');
 
-    // Developer (orchestrator) should have simplify allowed (and everything else via *)
-    const orchPerms = getSkillPermissionsForAgent('orchestrator');
-    expect(orchPerms.simplify).toBe('allow');
+    // Critic should have idea-critique allowed
+    const criticPerms = getSkillPermissionsForAgent('critic');
+    expect(criticPerms['idea-critique']).toBe('allow');
   });
 
   it('should honor explicit skill list overrides', () => {

@@ -4,7 +4,7 @@
 
 1. Install with Antigravity support:
    ```bash
-   bunx oh-my-opencode-slim install --antigravity=yes
+   bunx oh-my-openidea install --antigravity=yes
    ```
 
 2. Authenticate:
@@ -106,7 +106,7 @@ When you install with `--antigravity=yes`, the preset depends on other providers
 
 ## Manual Configuration
 
-If you prefer to configure manually, edit `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc`) and add a pure Antigravity preset:
+If you prefer to configure manually, edit `~/.config/opencode/oh-my-openidea.json` (or `.jsonc`) and add a pure Antigravity preset:
 
 ```json
 {
@@ -118,30 +118,30 @@ If you prefer to configure manually, edit `~/.config/opencode/oh-my-opencode-sli
         "skills": ["*"],
         "mcps": ["websearch"]
       },
-      "oracle": {
+      "critic": {
         "model": "google/antigravity-gemini-3.1-pro",
         "skills": [],
         "mcps": []
       },
-      "explorer": {
+      "surveyor": {
         "model": "google/antigravity-gemini-3-flash",
         "variant": "low",
         "skills": [],
         "mcps": []
       },
-      "librarian": {
+      "synthesizer": {
         "model": "google/antigravity-gemini-3-flash",
         "variant": "low",
         "skills": [],
-        "mcps": ["websearch", "context7", "grep_app"]
+        "mcps": ["websearch", "arxiv", "semantic_scholar", "google_scholar"]
       },
-      "designer": {
+      "architect": {
         "model": "google/antigravity-gemini-3-flash",
         "variant": "medium",
-        "skills": ["agent-browser"],
+        "skills": ["literature-review"],
         "mcps": []
       },
-      "fixer": {
+      "writer": {
         "model": "google/antigravity-gemini-3-flash",
         "variant": "low",
         "skills": [],
@@ -170,7 +170,7 @@ opencode auth login
 cat ~/.config/opencode/opencode.json | grep antigravity
 
 # Reinstall plugin
-bunx oh-my-opencode-slim install --antigravity=yes --no-tui --kimi=no --openai=no --tmux=no --skills=no
+bunx oh-my-openidea install --antigravity=yes --no-tui --kimi=no --openai=no --tmux=no --skills=no
 ```
 
 ### Wrong Model Selected
@@ -190,7 +190,7 @@ lsof -i :8317
 
 # Restart the service
 # (Follow your Antigravity/LLM-Mux restart procedure)
-# Or edit ~/.config/opencode/oh-my-opencode-slim.json (or .jsonc)
+# Or edit ~/.config/opencode/oh-my-openidea.json (or .jsonc)
 # Change the "preset" field and restart OpenCode
 ```
 

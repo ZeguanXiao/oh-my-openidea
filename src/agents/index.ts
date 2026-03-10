@@ -10,12 +10,12 @@ import {
 } from '../config';
 import { getAgentMcpList } from '../config/agent-mcps';
 
-import { createDesignerAgent } from './designer';
-import { createExplorerAgent } from './explorer';
-import { createFixerAgent } from './fixer';
-import { createLibrarianAgent } from './librarian';
-import { createOracleAgent } from './oracle';
+import { createArchitectAgent } from './architect';
+import { createCriticAgent } from './critic';
 import { type AgentDefinition, createOrchestratorAgent } from './orchestrator';
+import { createSurveyorAgent } from './surveyor';
+import { createSynthesizerAgent } from './synthesizer';
+import { createWriterAgent } from './writer';
 
 export type { AgentDefinition } from './orchestrator';
 
@@ -94,11 +94,11 @@ export function isSubagent(name: string): name is SubagentName {
 // Agent Factories
 
 const SUBAGENT_FACTORIES: Record<SubagentName, AgentFactory> = {
-  explorer: createExplorerAgent,
-  librarian: createLibrarianAgent,
-  oracle: createOracleAgent,
-  designer: createDesignerAgent,
-  fixer: createFixerAgent,
+  surveyor: createSurveyorAgent,
+  synthesizer: createSynthesizerAgent,
+  critic: createCriticAgent,
+  architect: createArchitectAgent,
+  writer: createWriterAgent,
 };
 
 // Public API
@@ -111,19 +111,19 @@ const SUBAGENT_FACTORIES: Record<SubagentName, AgentFactory> = {
  * @returns Array of agent definitions (orchestrator first, then subagents)
  */
 export function createAgents(config?: PluginConfig): AgentDefinition[] {
-  // TEMP: If fixer has no config, inherit from librarian's model to avoid breaking
-  // existing users who don't have fixer in their config yet
+  // TEMP: If writer has no config, inherit from synthesizer's model to avoid breaking
+  // existing users who don't have writer in their config yet
   const getModelForAgent = (name: SubagentName): string => {
-    if (name === 'fixer' && !getAgentOverride(config, 'fixer')?.model) {
-      const librarianOverride = getAgentOverride(config, 'librarian')?.model;
-      let librarianModel: string | undefined;
-      if (Array.isArray(librarianOverride)) {
-        const first = librarianOverride[0];
-        librarianModel = typeof first === 'string' ? first : first?.id;
+    if (name === 'writer' && !getAgentOverride(config, 'writer')?.model) {
+      const synthesizerOverride = getAgentOverride(config, 'synthesizer')?.model;
+      let synthesizerModel: string | undefined;
+      if (Array.isArray(synthesizerOverride)) {
+        const first = synthesizerOverride[0];
+        synthesizerModel = typeof first === 'string' ? first : first?.id;
       } else {
-        librarianModel = librarianOverride;
+        synthesizerModel = synthesizerOverride;
       }
-      return librarianModel ?? (DEFAULT_MODELS.librarian as string);
+      return synthesizerModel ?? (DEFAULT_MODELS.synthesizer as string);
     }
     // Subagents always have a defined default model; cast is safe here
     return DEFAULT_MODELS[name] as string;

@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-The `src/agents/` directory defines and configures the multi-agent orchestration system for OpenCode. It creates specialized AI agents with distinct roles, capabilities, and behaviors that work together under an orchestrator to optimize coding tasks for quality, speed, cost, and reliability.
+The `src/agents/` directory defines and configures the multi-agent research orchestration system for OpenCode. It creates six specialized AI agents with distinct roles in the CS/ML research idea pipeline, covering literature survey, synthesis, hypothesis generation, novelty checking, experiment design, and paper writing.
 
 ## Design
 
@@ -20,25 +20,25 @@ interface AgentDefinition {
 All agents follow a consistent factory pattern:
 - `createXAgent(model, customPrompt?, customAppendPrompt?)` → `AgentDefinition`
 - Custom prompts can fully replace or append to default prompts
-- Temperature varies by agent role (0.1-0.7) to balance precision vs creativity
+- Temperature varies by agent role (0.1-0.5) to balance precision vs creativity
 
 ### Agent Classification
 
 **Primary Agent**
-- **Orchestrator**: Central coordinator that delegates tasks to specialists
+- **Orchestrator**: Central research director that runs the 8-phase pipeline and delegates to specialists
 
 **Subagents** (5 specialized agents)
-1. **Explorer** - Codebase navigation and search (temperature: 0.1)
-2. **Librarian** - Documentation and library research (temperature: 0.1)
-3. **Oracle** - Strategic technical advisor (temperature: 0.1)
-4. **Designer** - UI/UX specialist (temperature: 0.7)
-5. **Fixer** - Fast implementation specialist (temperature: 0.2)
+1. **Surveyor** - Literature search and paper retrieval (temperature: 0.1)
+2. **Synthesizer** - Knowledge synthesis and gap analysis (temperature: 0.2)
+3. **Critic** - Novelty checking and adversarial review (temperature: 0.1)
+4. **Architect** - Experiment and methodology design (temperature: 0.5)
+5. **Writer** - Research writing and paper structure (temperature: 0.3)
 
 ### Configuration System
 
 **Override Application**
 - Model and temperature can be overridden per agent via user config
-- Fallback mechanism: Fixer inherits Librarian's model if not configured
+- Fallback mechanism: Writer inherits Synthesizer's model if not configured
 - Default models defined in `../config/DEFAULT_MODELS`
 
 **Permission System**
@@ -48,6 +48,7 @@ All agents follow a consistent factory pattern:
 
 **Custom Prompts**
 - Loaded via `loadAgentPrompt(name)` from config
+
 - Supports full replacement or append mode
 - Applied after default prompt construction
 
@@ -55,11 +56,11 @@ All agents follow a consistent factory pattern:
 
 | Agent | Primary Focus | Tools | Constraints | Temperature |
 |-------|--------------|-------|-------------|-------------|
-| Explorer | Codebase search | grep, glob, ast_grep_search | Read-only, parallel | 0.1 |
-| Librarian | External docs | context7, grep_app, websearch | Evidence-based | 0.1 |
-| Oracle | Architecture | Analysis tools | Read-only, advisory | 0.1 |
-| Designer | UI/UX | Tailwind, CSS | Visual excellence | 0.7 |
-| Fixer | Implementation | Edit/write tools | No research/delegation | 0.2 |
+| Surveyor | Literature search | arxiv, semantic_scholar, google_scholar, websearch | Read-only, parallel | 0.1 |
+| Synthesizer | Idea synthesis | websearch, arxiv, semantic_scholar | Generative, cites evidence | 0.5 |
+| Critic | Novelty checking | arxiv, semantic_scholar, google_scholar | Adversarial, read-only | 0.2 |
+| Architect | Experiment design | websearch, arxiv | Structured output | 0.3 |
+| Writer | Paper writing | websearch | No delegation | 0.4 |
 
 ## Flow
 
@@ -69,7 +70,7 @@ All agents follow a consistent factory pattern:
 createAgents(config?)
   │
   ├─→ For each subagent:
-  │   ├─→ Get model (with fallback for fixer)
+  │   ├─→ Get model (with fallback for writer)
   │   ├─→ Load custom prompts
   │   ├─→ Call factory function
   │   ├─→ Apply overrides (model, temperature)
@@ -118,19 +119,19 @@ Path Analysis (quality, speed, cost, reliability)
     ↓
 Delegation Check
     │
-    ├─→ Need to discover unknowns? → @explorer
-    ├─→ Complex/evolving APIs? → @librarian
-    ├─→ High-stakes decisions? → @oracle
-    ├─→ User-facing polish? → @designer
-    ├─→ Clear spec, parallel tasks? → @fixer
+    ├─→ Need to discover unknowns? → @surveyor
+    ├─→ Complex/evolving APIs? → @synthesizer
+    ├─→ High-stakes decisions? → @critic
+    ├─→ User-facing polish? → @architect
+    ├─→ Clear spec, parallel tasks? → @writer
     └─→ Simple/quick? → Do yourself
     │
     ↓
 Parallelize (if applicable)
     │
-    ├─→ Multiple @explorer searches?
-    ├─→ @explorer + @librarian research?
-    └─→ Multiple @fixer instances?
+    ├─→ Multiple @surveyor searches?
+    ├─→ @surveyor + @synthesizer research?
+    └─→ Multiple @writer instances?
     │
     ↓
 Execute & Integrate
@@ -221,16 +222,16 @@ Each agent gets skill-specific permissions:
 
 Agents are configured with specific MCP tool lists:
 - `getAgentMcpList(agentName, config)` returns tool list
-- MCP tools enable agent capabilities (e.g., grep_app for Librarian)
+- MCP tools enable agent capabilities (e.g., arxiv for Surveyor)
 - Configured per agent based on role and needs
 
 ## Key Design Decisions
 
 1. **Factory Pattern**: Consistent agent creation with customization hooks
-2. **Temperature Gradient**: 0.1 (precision) → 0.7 (creativity) based on role
-3. **Read-Only Specialists**: Explorer, Librarian, Oracle don't modify code
-4. **Execution Specialist**: Fixer is the only agent that makes code changes
-5. **Fallback Model**: Fixer inherits Librarian's model for backward compatibility
+2. **Temperature Gradient**: 0.1 (precision) → 0.5 (generative) based on role
+3. **Read-Only Specialists**: Surveyor, Critic don't generate ideas; they gather/validate
+4. **Generative Specialists**: Synthesizer, Architect, Writer produce new content
+5. **Fallback Model**: Writer inherits Synthesizer's model for backward compatibility
 6. **Permission Defaults**: All agents get `question: 'allow'` for smooth UX
 7. **Custom Prompt Flexibility**: Full replacement or append mode for customization
 8. **Parallel-First**: Orchestrator encouraged to parallelize independent tasks
@@ -243,11 +244,11 @@ Agents are configured with specific MCP tool lists:
 src/agents/
 ├── index.ts          # Main entry point, agent factory registry, config application
 ├── orchestrator.ts   # Orchestrator agent definition and delegation workflow
-├── explorer.ts       # Codebase navigation specialist
-├── librarian.ts      # Documentation and library research specialist
-├── oracle.ts         # Strategic technical advisor
-├── fixer.ts          # Fast implementation specialist
-└── designer.ts       # UI/UX design specialist
+├── surveyor.ts       # Codebase navigation specialist
+├── synthesizer.ts      # Documentation and library research specialist
+├── critic.ts         # Strategic technical advisor
+├── writer.ts          # Fast implementation specialist
+└── architect.ts       # UI/UX design specialist
 ```
 
 ## Extension Points

@@ -340,9 +340,9 @@ describe('providers', () => {
 
     const agents = (config.presets as any)['zen-free'];
     expect(agents.orchestrator.mcps).toContain('websearch');
-    expect(agents.librarian.mcps).toContain('websearch');
-    expect(agents.librarian.mcps).toContain('context7');
-    expect(agents.librarian.mcps).toContain('grep_app');
+    // librarian key exists in zen-free preset (old provider layout)
+    // DEFAULT_AGENT_MCPS no longer has 'librarian' so it falls back to []
+    expect(agents.librarian.mcps).toEqual([]);
     expect(agents.designer.mcps).toEqual([]);
   });
 

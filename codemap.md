@@ -1,11 +1,11 @@
-# Repository Atlas: oh-my-opencode-slim
+# Repository Atlas: oh-my-openidea
 
 ## Project Responsibility
 
-**oh-my-opencode-slim** is a lightweight agent orchestration plugin for OpenCode - a slimmed-down fork of oh-my-opencode. It provides a multi-agent system that enables specialized AI agents to work together under an orchestrator to optimize coding tasks for quality, speed, cost, and reliability.
+**oh-my-openidea** is a CS/ML research idea generation framework built as an OpenCode plugin. It provides a multi-agent pipeline that orchestrates six specialized research agents across the full idea lifecycle — from literature survey to paper writing.
 
 The plugin integrates with OpenCode to provide:
-- **Multi-agent orchestration** with specialized roles (Orchestrator, Explorer, Librarian, Oracle, Designer, Fixer)
+- **Multi-agent orchestration** with specialized roles (Orchestrator, Surveyor, Synthesizer, Critic, Architect, Writer)
 - **Background task management** for long-running async operations
 - **MCP (Model Context Protocol) integration** for external tools and services
 - **LSP (Language Server Protocol) tools** for code intelligence
@@ -18,7 +18,7 @@ The plugin integrates with OpenCode to provide:
 
 | File | Purpose | Key Exports |
 |------|---------|-------------|
-| `package.json` | Project manifest, dependencies, and build scripts | `oh-my-opencode-slim` CLI, `dist/index.js` main entry |
+| `package.json` | Project manifest, dependencies, and build scripts | `oh-my-openidea` CLI, `dist/index.js` main entry |
 | `src/index.ts` | Main plugin entry point | `OhMyOpenCodeLite` plugin, agent configs, tools, MCPs |
 | `src/cli/index.ts` | CLI installer entry point | `install` command, configuration management |
 | `tsconfig.json` | TypeScript compiler configuration | Build settings, type checking, declaration generation |
@@ -111,7 +111,7 @@ Return plugin object with:
    - Background task orchestration
 
 5. **MCP Integration** (`src/mcp/`)
-   - Built-in remote MCPs (websearch, context7, grep.app)
+   - Built-in remote MCPs (websearch, arxiv, semantic_scholar, google_scholar)
    - Type-safe configuration
    - Disabled MCP filtering
 

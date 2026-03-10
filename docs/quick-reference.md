@@ -1,6 +1,6 @@
 # Quick Reference Guide
 
-Complete reference for oh-my-opencode-slim configuration and capabilities.
+Complete reference for oh-my-openidea configuration and capabilities.
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ Selection rules:
 - A coding-first primary model is selected for orchestration/strategy workloads.
 - A support model is selected for research/implementation workloads.
 - OpenCode-only mode can assign multiple OpenCode models across agents.
-- Hybrid mode can combine OpenCode free models with OpenAI/Kimi/Antigravity; `designer` remains on the external provider mapping.
+- Hybrid mode can combine OpenCode free models with OpenAI/Kimi/Antigravity; `architect` remains on the external provider mapping.
 
 Useful flags:
 
@@ -43,7 +43,7 @@ Useful flags:
 
 **Method 1: Edit Config File**
 
-Edit `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc`) and change the `preset` field:
+Edit `~/.config/opencode/oh-my-openidea.json` (or `.jsonc`) and change the `preset` field:
 
 ```json
 {
@@ -72,11 +72,11 @@ Uses OpenAI models exclusively:
   "presets": {
     "openai": {
       "orchestrator": { "model": "openai/gpt-5.2-codex", "skills": ["*"], "mcps": ["websearch"] },
-      "oracle": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "librarian": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch", "context7", "grep_app"] },
-      "explorer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] },
-      "designer": { "model": "openai/gpt-5.1-codex-mini", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
-      "fixer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] }
+      "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "synthesizer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch", "arxiv", "semantic_scholar"] },
+      "surveyor": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] },
+      "architect": { "model": "openai/gpt-5.1-codex-mini", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
+      "writer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] }
     }
   }
 }
@@ -88,14 +88,14 @@ Access Claude 4.5 and Gemini 3 models through Google's Antigravity infrastructur
 
 **Installation:**
 ```bash
-bunx oh-my-opencode-slim install --antigravity=yes --opencode-free=yes --opencode-free-model=auto
+bunx oh-my-openidea install --antigravity=yes --opencode-free=yes --opencode-free-model=auto
 ```
 
 **Agent Mapping:**
 - Orchestrator: Kimi (if available)
 - Oracle: GPT (if available)
 - Explorer/Librarian/Designer/Fixer: Gemini 3 Flash via Antigravity
-- If OpenCode free mode is enabled, Explorer/Librarian/Fixer may use selected free `opencode/*` support model while `designer` stays on external mapping
+- If OpenCode free mode is enabled, Explorer/Librarian/Fixer may use selected free `opencode/*` support model while `architect` stays on external mapping
 
 **Authentication:**
 ```bash
@@ -124,11 +124,11 @@ Mixed setup combining multiple providers:
   "presets": {
     "alvin": {
       "orchestrator": { "model": "google/claude-opus-4-5-thinking", "skills": ["*"], "mcps": ["*"] },
-      "oracle": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "librarian": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch", "context7", "grep_app"] },
-      "explorer": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] },
-      "designer": { "model": "google/gemini-3-flash", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
-      "fixer": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] }
+      "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "synthesizer": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch", "arxiv", "semantic_scholar"] },
+      "surveyor": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] },
+      "architect": { "model": "google/gemini-3-flash", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
+      "writer": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] }
     }
   }
 }
@@ -147,7 +147,7 @@ Skills are specialized capabilities provided by external agents and tools. Unlik
 | Skill | Description | Assigned To |
 |-------|-------------|-------------|
 | [`simplify`](#simplify) | YAGNI code simplification expert | `orchestrator` |
-| [`agent-browser`](#agent-browser) | High-performance browser automation | `designer` |
+| [`agent-browser`](#agent-browser) | High-performance browser automation | `architect` |
 
 ### Custom Skills (bundled in repo)
 
@@ -216,7 +216,7 @@ python3 ~/.config/opencode/skills/cartography/scripts/cartographer.py update --r
 
 ### Skills Assignment
 
-You can customize which skills each agent is allowed to use in `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc`).
+You can customize which skills each agent is allowed to use in `~/.config/opencode/oh-my-openidea.json` (or `.jsonc`).
 
 **Syntax:**
 
@@ -242,7 +242,7 @@ You can customize which skills each agent is allowed to use in `~/.config/openco
       "orchestrator": {
         "skills": ["*", "!agent-browser"]
       },
-      "designer": {
+      "architect": {
         "skills": ["agent-browser", "simplify"]
       }
     }
@@ -259,8 +259,8 @@ Built-in Model Context Protocol servers (enabled by default):
 | MCP | Purpose | URL |
 |-----|---------|-----|
 | `websearch` | Real-time web search via Exa AI | `https://mcp.exa.ai/mcp` |
-| `context7` | Official library documentation | `https://mcp.context7.com/mcp` |
-| `grep_app` | GitHub code search via grep.app | `https://mcp.grep.app` |
+| `arxiv` | Official library documentation | `https://mcp.arxiv.com/mcp` |
+| `semantic_scholar` | Semantic Scholar academic search | `https://mcp.semanticscholar.org/mcp` |
 
 ### MCP Permissions
 
@@ -269,15 +269,15 @@ Control which agents can access which MCP servers using per-agent allowlists:
 | Agent | Default MCPs |
 |-------|--------------|
 | `orchestrator` | `websearch` |
-| `designer` | none |
-| `oracle` | none |
-| `librarian` | `websearch`, `context7`, `grep_app` |
-| `explorer` | none |
-| `fixer` | none |
+| `architect` | none |
+| `critic` | none |
+| `synthesizer` | `websearch`, `arxiv`, `semantic_scholar` |
+| `surveyor` | none |
+| `writer` | none |
 
 ### Configuration & Syntax
 
-You can configure MCP access in your plugin configuration file: `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc`).
+You can configure MCP access in your plugin configuration file: `~/.config/opencode/oh-my-openidea.json` (or `.jsonc`).
 
 **Per-Agent Permissions**
 
@@ -286,8 +286,8 @@ Control which agents can access which MCP servers using the `mcps` array in your
 | Syntax | Description | Example |
 |--------|-------------|---------|
 | `"*"` | All MCPs | `["*"]` |
-| `"!item"` | Exclude specific MCP | `["*", "!context7"]` |
-| Explicit list | Only listed MCPs | `["websearch", "context7"]` |
+| `"!item"` | Exclude specific MCP | `["*", "!arxiv"]` |
+| Explicit list | Only listed MCPs | `["websearch", "arxiv"]` |
 | `"!*"` | Deny all MCPs | `["!*"]` |
 
 **Rules:**
@@ -305,10 +305,10 @@ Control which agents can access which MCP servers using the `mcps` array in your
       "orchestrator": {
         "mcps": ["websearch"]
       },
-      "librarian": {
-        "mcps": ["websearch", "context7", "grep_app"]
+      "synthesizer": {
+        "mcps": ["websearch", "arxiv", "semantic_scholar"]
       },
-      "oracle": {
+      "critic": {
         "mcps": ["*", "!websearch"]
       }
     }
@@ -332,7 +332,7 @@ You can disable specific MCP servers globally by adding them to the `disabled_mc
 
 #### Quick Setup
 
-1. **Enable tmux integration** in `oh-my-opencode-slim.json` (or `.jsonc`):
+1. **Enable tmux integration** in `oh-my-openidea.json` (or `.jsonc`):
 
    ```json
    {
@@ -410,17 +410,17 @@ OpenCode automatically formats files after they're written or edited using langu
 | File | Purpose |
 |------|---------|
 | `~/.config/opencode/opencode.json` | OpenCode core settings |
-| `~/.config/opencode/oh-my-opencode-slim.json` or `.jsonc` | Plugin settings (agents, tmux, MCPs) |
-| `.opencode/oh-my-opencode-slim.json` or `.jsonc` | Project-local plugin overrides (optional) |
+| `~/.config/opencode/oh-my-openidea.json` or `.jsonc` | Plugin settings (agents, tmux, MCPs) |
+| `.opencode/oh-my-openidea.json` or `.jsonc` | Project-local plugin overrides (optional) |
 
 > **💡 JSONC Support:** Configuration files support JSONC format (JSON with Comments). Use `.jsonc` extension to enable comments and trailing commas. If both `.jsonc` and `.json` exist, `.jsonc` takes precedence.
 
 ### Prompt Overriding
 
-You can customize agent prompts by creating markdown files in `~/.config/opencode/oh-my-opencode-slim/`:
+You can customize agent prompts by creating markdown files in `~/.config/opencode/oh-my-openidea/`:
 
 - With no preset, prompt files are loaded directly from this directory.
-- With `preset` set (for example `test`), the plugin first checks `~/.config/opencode/oh-my-opencode-slim/{preset}/`, then falls back to the root prompt directory.
+- With `preset` set (for example `test`), the plugin first checks `~/.config/opencode/oh-my-openidea/{preset}/`, then falls back to the root prompt directory.
 
 | File | Purpose |
 |------|---------|
@@ -430,14 +430,14 @@ You can customize agent prompts by creating markdown files in `~/.config/opencod
 **Example:**
 
 ```
-~/.config/opencode/oh-my-opencode-slim/
+~/.config/opencode/oh-my-openidea/
   ├── test/
   │   ├── orchestrator.md      # Preset-specific override (preferred)
-  │   └── explorer_append.md
+  │   └── surveyor_append.md
   ├── orchestrator.md          # Custom orchestrator prompt
   ├── orchestrator_append.md   # Append to default orchestrator prompt
-  ├── explorer.md
-  ├── explorer_append.md
+  ├── surveyor.md
+  ├── surveyor_append.md
   └── ...
 ```
 
@@ -460,8 +460,8 @@ The plugin supports **JSONC** format for configuration files, allowing you to:
 - Use trailing commas in arrays and objects
 
 **File Priority:**
-1. `oh-my-opencode-slim.jsonc` (preferred if exists)
-2. `oh-my-opencode-slim.json` (fallback)
+1. `oh-my-openidea.jsonc` (preferred if exists)
+2. `oh-my-openidea.json` (fallback)
 
 **Example JSONC Configuration:**
 
@@ -474,8 +474,8 @@ The plugin supports **JSONC** format for configuration files, allowing you to:
   "presets": {
     "dev": {
       // Fast models for quick iteration
-      "oracle": { "model": "google/gemini-3-flash" },
-      "explorer": { "model": "google/gemini-3-flash" },
+      "critic": { "model": "google/gemini-3-flash" },
+      "surveyor": { "model": "google/gemini-3-flash" },
     },
   },
 
@@ -486,7 +486,7 @@ The plugin supports **JSONC** format for configuration files, allowing you to:
 }
 ```
 
-### Plugin Config (`oh-my-opencode-slim.json` or `oh-my-opencode-slim.jsonc`)
+### Plugin Config (`oh-my-openidea.json` or `oh-my-openidea.jsonc`)
 
 The installer generates this file based on your providers. You can manually customize it to mix and match models. See the [Presets](#presets) section for detailed configuration options.
 

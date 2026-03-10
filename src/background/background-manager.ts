@@ -129,14 +129,14 @@ export class BackgroundTaskManager {
 
   /**
    * Look up the delegation rules for an agent type.
-   * Unknown agent types default to explorer-only access, making it easy
+   * Unknown agent types default to surveyor-only access, making it easy
    * to add new background agent types without updating SUBAGENT_DELEGATION_RULES.
    */
   private getSubagentRules(agentName: string): readonly string[] {
     return (
       SUBAGENT_DELEGATION_RULES[
         agentName as keyof typeof SUBAGENT_DELEGATION_RULES
-      ] ?? ['explorer']
+      ] ?? ['surveyor']
     );
   }
 

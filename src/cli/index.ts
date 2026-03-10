@@ -38,6 +38,10 @@ function parseArgs(args: string[]): InstallArgs {
       result.aaKey = arg.slice('--aa-key='.length);
     } else if (arg.startsWith('--openrouter-key=')) {
       result.openrouterKey = arg.slice('--openrouter-key='.length);
+    } else if (arg.startsWith('--serpapi-key=')) {
+      result.serpApiKey = arg.slice('--serpapi-key='.length);
+    } else if (arg.startsWith('--semantic-scholar-key=')) {
+      result.semanticScholarKey = arg.slice('--semantic-scholar-key='.length);
     } else if (arg === '--dry-run') {
       result.dryRun = true;
     } else if (arg === '--models-only') {
@@ -53,10 +57,10 @@ function parseArgs(args: string[]): InstallArgs {
 
 function printHelp(): void {
   console.log(`
-oh-my-opencode-slim installer
+oh-my-openidea installer
 
-Usage: bunx oh-my-opencode-slim install [OPTIONS]
-       bunx oh-my-opencode-slim models [OPTIONS]
+Usage: bunx oh-my-openidea install [OPTIONS]
+       bunx oh-my-openidea models [OPTIONS]
 
 Options:
   --kimi=yes|no          Kimi API access (yes/no)
@@ -71,6 +75,8 @@ Options:
   --opencode-free-model  Preferred OpenCode model id or "auto"
   --aa-key               Artificial Analysis API key (optional)
   --openrouter-key       OpenRouter API key (optional)
+  --serpapi-key          SerpAPI key for Google Scholar search (optional)
+  --semantic-scholar-key Semantic Scholar API key (optional)
   --tmux=yes|no          Enable tmux integration (yes/no)
   --skills=yes|no        Install recommended skills (yes/no)
   --no-tui               Non-interactive mode (requires all flags)
@@ -79,9 +85,9 @@ Options:
   -h, --help             Show this help message
 
 Examples:
-  bunx oh-my-opencode-slim install
-  bunx oh-my-opencode-slim models
-  bunx oh-my-opencode-slim install --no-tui --kimi=yes --openai=yes --anthropic=yes --copilot=no --zai-plan=no --antigravity=yes --chutes=no --opencode-free=yes --balanced-spend=yes --opencode-free-model=auto --aa-key=YOUR_AA_KEY --openrouter-key=YOUR_OR_KEY --tmux=no --skills=yes
+  bunx oh-my-openidea install
+  bunx oh-my-openidea models
+  bunx oh-my-openidea install --no-tui --kimi=yes --openai=yes --anthropic=yes --copilot=no --zai-plan=no --antigravity=yes --chutes=no --opencode-free=yes --balanced-spend=yes --opencode-free-model=auto --aa-key=YOUR_AA_KEY --openrouter-key=YOUR_OR_KEY --tmux=no --skills=yes
 `);
 }
 

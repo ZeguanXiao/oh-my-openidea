@@ -4,104 +4,104 @@ import { SUBAGENT_NAMES } from '../config';
 import { createAgents, getAgentConfigs, isSubagent } from './index';
 
 describe('agent alias backward compatibility', () => {
-  test("applies 'explore' config to 'explorer' agent", () => {
+  test("applies 'search' config to 'surveyor' agent", () => {
     const config: PluginConfig = {
       agents: {
-        explore: { model: 'test/old-explore-model' },
+        search: { model: 'test/old-search-model' },
       },
     };
     const agents = createAgents(config);
-    const explorer = agents.find((a) => a.name === 'explorer');
-    expect(explorer).toBeDefined();
-    expect(explorer?.config.model).toBe('test/old-explore-model');
+    const surveyor = agents.find((a) => a.name === 'surveyor');
+    expect(surveyor).toBeDefined();
+    expect(surveyor?.config.model).toBe('test/old-search-model');
   });
 
-  test("applies 'frontend-ui-ux-engineer' config to 'designer' agent", () => {
+  test("applies 'review' config to 'critic' agent", () => {
     const config: PluginConfig = {
       agents: {
-        'frontend-ui-ux-engineer': { model: 'test/old-frontend-model' },
+        review: { model: 'test/old-review-model' },
       },
     };
     const agents = createAgents(config);
-    const designer = agents.find((a) => a.name === 'designer');
-    expect(designer).toBeDefined();
-    expect(designer?.config.model).toBe('test/old-frontend-model');
+    const critic = agents.find((a) => a.name === 'critic');
+    expect(critic).toBeDefined();
+    expect(critic?.config.model).toBe('test/old-review-model');
   });
 
   test('new name takes priority over old alias', () => {
     const config: PluginConfig = {
       agents: {
-        explore: { model: 'old-model' },
-        explorer: { model: 'new-model' },
+        search: { model: 'old-model' },
+        surveyor: { model: 'new-model' },
       },
     };
     const agents = createAgents(config);
-    const explorer = agents.find((a) => a.name === 'explorer');
-    expect(explorer?.config.model).toBe('new-model');
+    const surveyor = agents.find((a) => a.name === 'surveyor');
+    expect(surveyor?.config.model).toBe('new-model');
   });
 
   test('new agent names work directly', () => {
     const config: PluginConfig = {
       agents: {
-        explorer: { model: 'direct-explorer' },
-        designer: { model: 'direct-designer' },
+        surveyor: { model: 'direct-surveyor' },
+        critic: { model: 'direct-critic' },
       },
     };
     const agents = createAgents(config);
-    expect(agents.find((a) => a.name === 'explorer')?.config.model).toBe(
-      'direct-explorer',
+    expect(agents.find((a) => a.name === 'surveyor')?.config.model).toBe(
+      'direct-surveyor',
     );
-    expect(agents.find((a) => a.name === 'designer')?.config.model).toBe(
-      'direct-designer',
+    expect(agents.find((a) => a.name === 'critic')?.config.model).toBe(
+      'direct-critic',
     );
   });
 
-  test('temperature override via old alias', () => {
+  test('temperature override via alias', () => {
     const config: PluginConfig = {
       agents: {
-        explore: { temperature: 0.5 },
+        search: { temperature: 0.5 },
       },
     };
     const agents = createAgents(config);
-    const explorer = agents.find((a) => a.name === 'explorer');
-    expect(explorer?.config.temperature).toBe(0.5);
+    const surveyor = agents.find((a) => a.name === 'surveyor');
+    expect(surveyor?.config.temperature).toBe(0.5);
   });
 
-  test('variant override via old alias', () => {
+  test('variant override via alias', () => {
     const config: PluginConfig = {
       agents: {
-        explore: { variant: 'low' },
+        search: { variant: 'low' },
       },
     };
     const agents = createAgents(config);
-    const explorer = agents.find((a) => a.name === 'explorer');
-    expect(explorer?.config.variant).toBe('low');
+    const surveyor = agents.find((a) => a.name === 'surveyor');
+    expect(surveyor?.config.variant).toBe('low');
   });
 });
 
-describe('fixer agent fallback', () => {
-  test('fixer inherits librarian model when no fixer config provided', () => {
+describe('writer agent fallback', () => {
+  test('writer inherits synthesizer model when no writer config provided', () => {
     const config: PluginConfig = {
       agents: {
-        librarian: { model: 'librarian-custom-model' },
+        synthesizer: { model: 'synthesizer-custom-model' },
       },
     };
     const agents = createAgents(config);
-    const fixer = agents.find((a) => a.name === 'fixer');
-    const librarian = agents.find((a) => a.name === 'librarian');
-    expect(fixer?.config.model).toBe(librarian?.config.model);
+    const writer = agents.find((a) => a.name === 'writer');
+    const synthesizer = agents.find((a) => a.name === 'synthesizer');
+    expect(writer?.config.model).toBe(synthesizer?.config.model);
   });
 
-  test('fixer uses its own model when explicitly configured', () => {
+  test('writer uses its own model when explicitly configured', () => {
     const config: PluginConfig = {
       agents: {
-        librarian: { model: 'librarian-model' },
-        fixer: { model: 'fixer-specific-model' },
+        synthesizer: { model: 'synthesizer-model' },
+        writer: { model: 'writer-specific-model' },
       },
     };
     const agents = createAgents(config);
-    const fixer = agents.find((a) => a.name === 'fixer');
-    expect(fixer?.config.model).toBe('fixer-specific-model');
+    const writer = agents.find((a) => a.name === 'writer');
+    expect(writer?.config.model).toBe('writer-specific-model');
   });
 });
 
@@ -168,7 +168,7 @@ describe('per-model variant in array config', () => {
   test('subagent stores model array with per-model variants', () => {
     const config: PluginConfig = {
       agents: {
-        explorer: {
+        surveyor: {
           model: [
             { id: 'google/gemini-3-flash', variant: 'low' },
             'openai/gpt-4o-mini',
@@ -177,12 +177,12 @@ describe('per-model variant in array config', () => {
       },
     };
     const agents = createAgents(config);
-    const explorer = agents.find((a) => a.name === 'explorer');
-    expect(explorer?._modelArray).toEqual([
+    const surveyor = agents.find((a) => a.name === 'surveyor');
+    expect(surveyor?._modelArray).toEqual([
       { id: 'google/gemini-3-flash', variant: 'low' },
       { id: 'openai/gpt-4o-mini' },
     ]);
-    expect(explorer?.config.model).toBeUndefined();
+    expect(surveyor?.config.model).toBeUndefined();
   });
 
   test('top-level variant preserved alongside per-model variants', () => {
@@ -208,45 +208,43 @@ describe('per-model variant in array config', () => {
 });
 
 describe('skill permissions', () => {
-  test('orchestrator gets cartography skill allowed by default', () => {
+  test('orchestrator gets wildcard skill allowed by default', () => {
     const agents = createAgents();
     const orchestrator = agents.find((a) => a.name === 'orchestrator');
     expect(orchestrator).toBeDefined();
     const skillPerm = (
       orchestrator?.config.permission as Record<string, unknown>
     )?.skill as Record<string, string>;
-    // orchestrator gets wildcard allow (from RECOMMENDED_SKILLS wildcard entry)
+    // orchestrator gets wildcard allow from RECOMMENDED_SKILLS
     expect(skillPerm?.['*']).toBe('allow');
-    // CUSTOM_SKILLS loop must also add a named cartography entry for orchestrator
-    expect(skillPerm?.cartography).toBe('allow');
   });
 
-  test('explorer gets cartography skill allowed by default', () => {
+  test('surveyor gets literature-review skill allowed by default', () => {
     const agents = createAgents();
-    const explorer = agents.find((a) => a.name === 'explorer');
-    expect(explorer).toBeDefined();
-    const skillPerm = (explorer?.config.permission as Record<string, unknown>)
+    const surveyor = agents.find((a) => a.name === 'surveyor');
+    expect(surveyor).toBeDefined();
+    const skillPerm = (surveyor?.config.permission as Record<string, unknown>)
       ?.skill as Record<string, string>;
-    expect(skillPerm?.cartography).toBe('allow');
+    expect(skillPerm?.['literature-review']).toBe('allow');
   });
 
-  test('oracle gets requesting-code-review skill allowed by default', () => {
+  test('critic gets idea-critique skill allowed by default', () => {
     const agents = createAgents();
-    const oracle = agents.find((a) => a.name === 'oracle');
-    expect(oracle).toBeDefined();
-    const skillPerm = (oracle?.config.permission as Record<string, unknown>)
+    const critic = agents.find((a) => a.name === 'critic');
+    expect(critic).toBeDefined();
+    const skillPerm = (critic?.config.permission as Record<string, unknown>)
       ?.skill as Record<string, string>;
-    expect(skillPerm?.['requesting-code-review']).toBe('allow');
+    expect(skillPerm?.['idea-critique']).toBe('allow');
   });
 });
 
 describe('isSubagent type guard', () => {
   test('returns true for valid subagent names', () => {
-    expect(isSubagent('explorer')).toBe(true);
-    expect(isSubagent('librarian')).toBe(true);
-    expect(isSubagent('oracle')).toBe(true);
-    expect(isSubagent('designer')).toBe(true);
-    expect(isSubagent('fixer')).toBe(true);
+    expect(isSubagent('surveyor')).toBe(true);
+    expect(isSubagent('synthesizer')).toBe(true);
+    expect(isSubagent('critic')).toBe(true);
+    expect(isSubagent('architect')).toBe(true);
+    expect(isSubagent('writer')).toBe(true);
   });
 
   test('returns false for orchestrator', () => {
@@ -256,15 +254,15 @@ describe('isSubagent type guard', () => {
   test('returns false for invalid agent names', () => {
     expect(isSubagent('invalid-agent')).toBe(false);
     expect(isSubagent('')).toBe(false);
-    expect(isSubagent('explore')).toBe(false); // old alias, not actual agent name
+    expect(isSubagent('search')).toBe(false); // old alias, not actual agent name
   });
 });
 
 describe('agent classification', () => {
   test('SUBAGENT_NAMES excludes orchestrator', () => {
     expect(SUBAGENT_NAMES).not.toContain('orchestrator');
-    expect(SUBAGENT_NAMES).toContain('explorer');
-    expect(SUBAGENT_NAMES).toContain('fixer');
+    expect(SUBAGENT_NAMES).toContain('surveyor');
+    expect(SUBAGENT_NAMES).toContain('writer');
   });
 
   test('getAgentConfigs applies correct classification visibility and mode', () => {
@@ -285,11 +283,11 @@ describe('createAgents', () => {
     const agents = createAgents();
     const names = agents.map((a) => a.name);
     expect(names).toContain('orchestrator');
-    expect(names).toContain('explorer');
-    expect(names).toContain('designer');
-    expect(names).toContain('oracle');
-    expect(names).toContain('librarian');
-    expect(names).toContain('fixer');
+    expect(names).toContain('surveyor');
+    expect(names).toContain('synthesizer');
+    expect(names).toContain('critic');
+    expect(names).toContain('architect');
+    expect(names).toContain('writer');
   });
 
   test('creates exactly 6 agents (1 primary + 5 subagents)', () => {
@@ -302,15 +300,118 @@ describe('getAgentConfigs', () => {
   test('returns config record keyed by agent name', () => {
     const configs = getAgentConfigs();
     expect(configs.orchestrator).toBeDefined();
-    expect(configs.explorer).toBeDefined();
-    // orchestrator has no hardcoded default model; resolved at runtime via
-    // chat.message hook when _modelArray is configured, or left to the user
-    expect(configs.explorer.model).toBeDefined();
+    expect(configs.surveyor).toBeDefined();
+    expect(configs.surveyor.model).toBeDefined();
   });
 
   test('includes description in SDK config', () => {
     const configs = getAgentConfigs();
     expect(configs.orchestrator.description).toBeDefined();
-    expect(configs.explorer.description).toBeDefined();
+    expect(configs.surveyor.description).toBeDefined();
+  });
+});
+
+
+describe('skill permissions', () => {
+  test('orchestrator gets cartography skill allowed by default', () => {
+    const agents = createAgents();
+    const orchestrator = agents.find((a) => a.name === 'orchestrator');
+    expect(orchestrator).toBeDefined();
+    const skillPerm = (
+      orchestrator?.config.permission as Record<string, unknown>
+    )?.skill as Record<string, string>;
+    expect(skillPerm?.['*']).toBe('allow');
+    expect(skillPerm?.cartography).toBe('allow');
+  });
+
+  test('surveyor gets literature-review skill allowed by default', () => {
+    const agents = createAgents();
+    const surveyor = agents.find((a) => a.name === 'surveyor');
+    expect(surveyor).toBeDefined();
+    const skillPerm = (surveyor?.config.permission as Record<string, unknown>)
+      ?.skill as Record<string, string>;
+    expect(skillPerm?.['literature-review']).toBe('allow');
+  });
+
+  test('critic gets idea-critique skill allowed by default', () => {
+    const agents = createAgents();
+    const critic = agents.find((a) => a.name === 'critic');
+    expect(critic).toBeDefined();
+    const skillPerm = (critic?.config.permission as Record<string, unknown>)
+      ?.skill as Record<string, string>;
+    expect(skillPerm?.['idea-critique']).toBe('allow');
+  });
+});
+
+describe('isSubagent type guard', () => {
+  test('returns true for valid subagent names', () => {
+    expect(isSubagent('surveyor')).toBe(true);
+    expect(isSubagent('synthesizer')).toBe(true);
+    expect(isSubagent('critic')).toBe(true);
+    expect(isSubagent('architect')).toBe(true);
+    expect(isSubagent('writer')).toBe(true);
+  });
+
+  test('returns false for orchestrator', () => {
+    expect(isSubagent('orchestrator')).toBe(false);
+  });
+
+  test('returns false for invalid agent names', () => {
+    expect(isSubagent('invalid-agent')).toBe(false);
+    expect(isSubagent('')).toBe(false);
+    expect(isSubagent('search')).toBe(false); // old alias, not actual agent name
+  });
+});
+
+describe('agent classification', () => {
+  test('SUBAGENT_NAMES excludes orchestrator', () => {
+    expect(SUBAGENT_NAMES).not.toContain('orchestrator');
+    expect(SUBAGENT_NAMES).toContain('surveyor');
+    expect(SUBAGENT_NAMES).toContain('writer');
+  });
+
+  test('getAgentConfigs applies correct classification visibility and mode', () => {
+    const configs = getAgentConfigs();
+
+    // Primary agent
+    expect(configs.orchestrator.mode).toBe('primary');
+
+    // Subagents
+    for (const name of SUBAGENT_NAMES) {
+      expect(configs[name].mode).toBe('subagent');
+    }
+  });
+});
+
+describe('createAgents', () => {
+  test('creates all agents without config', () => {
+    const agents = createAgents();
+    const names = agents.map((a) => a.name);
+    expect(names).toContain('orchestrator');
+    expect(names).toContain('surveyor');
+    expect(names).toContain('synthesizer');
+    expect(names).toContain('critic');
+    expect(names).toContain('architect');
+    expect(names).toContain('writer');
+  });
+
+  test('creates exactly 6 agents (1 primary + 5 subagents)', () => {
+    const agents = createAgents();
+    expect(agents.length).toBe(6);
+  });
+});
+
+describe('getAgentConfigs', () => {
+  test('returns config record keyed by agent name', () => {
+    const configs = getAgentConfigs();
+    expect(configs.orchestrator).toBeDefined();
+    expect(configs.surveyor).toBeDefined();
+    expect(configs.surveyor.model).toBeDefined();
+  });
+
+  test('includes description in SDK config', () => {
+    const configs = getAgentConfigs();
+    expect(configs.orchestrator.description).toBeDefined();
+    expect(configs.surveyor.description).toBeDefined();
   });
 });

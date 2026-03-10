@@ -15,8 +15,8 @@ The `src/config/` module is responsible for:
 ### Key Patterns
 
 **Multi-Source Configuration Merging**
-- User config: `~/.config/opencode/oh-my-opencode-slim.json` (or `$XDG_CONFIG_HOME`)
-- Project config: `<directory>/.opencode/oh-my-opencode-slim.json`
+- User config: `~/.config/opencode/oh-my-openidea.json` (or `$XDG_CONFIG_HOME`)
+- Project config: `<directory>/.opencode/oh-my-openidea.json`
 - Environment override: `OH_MY_OPENCODE_SLIM_PRESET`
 - Project config takes precedence over user config
 - Nested objects (agents, tmux) are deep-merged; arrays are replaced
@@ -31,7 +31,7 @@ The `src/config/` module is responsible for:
 - Used in `parseList()` function for flexible filtering
 
 **Backward Compatibility**
-- Agent aliases map legacy names to current names (e.g., `explore` → `explorer`)
+- Agent aliases map legacy names to current names (e.g., `survey` → `surveyor`)
 - `getAgentOverride()` checks both current name and aliases
 
 ### Core Abstractions
@@ -61,7 +61,7 @@ TmuxConfig
 
 **Agent Names**
 - `ORCHESTRATOR_NAME`: `'orchestrator'`
-- `SUBAGENT_NAMES`: `['explorer', 'librarian', 'oracle', 'designer', 'fixer']`
+- `SUBAGENT_NAMES`: `['surveyor', 'synthesizer', 'critic', 'architect', 'writer']`
 - `ALL_AGENT_NAMES`: All agents combined
 - `AGENT_ALIASES`: Legacy name mappings
 
@@ -74,7 +74,7 @@ TmuxConfig
 - `TmuxLayout`: Layout enum (`main-horizontal`, `main-vertical`, `tiled`, `even-horizontal`, `even-vertical`)
 - `Preset`: Named agent configuration presets
 - `AgentName`: Union type of all agent names
-- `McpName`: Union type of available MCPs (`'websearch'`, `'context7'`, `'grep_app'`)
+- `McpName`: Union type of available MCPs (`'websearch'`, `'arxiv'`, `'semantic_scholar'`, `'google_scholar'`)
 - `BackgroundTaskConfig`: Background task concurrency settings
 
 **Exported Functions**
@@ -92,11 +92,11 @@ TmuxConfig
 ```
 loadPluginConfig(directory)
 │
-├─→ Load user config from ~/.config/opencode/oh-my-opencode-slim.json
+├─→ Load user config from ~/.config/opencode/oh-my-openidea.json
 │   └─→ Validate with PluginConfigSchema
 │       └─→ Return null if invalid/missing
 │
-├─→ Load project config from <directory>/.opencode/oh-my-opencode-slim.json
+├─→ Load project config from <directory>/.opencode/oh-my-openidea.json
 │   └─→ Validate with PluginConfigSchema
 │       └─→ Return null if invalid/missing
 │
@@ -119,10 +119,10 @@ loadAgentPrompt(agentName, preset?)
 │
 ├─→ Build prompt search dirs
 │   ├─→ If preset is safe (`[a-zA-Z0-9_-]+`):
-│   │   1) ~/.config/opencode/oh-my-opencode-slim/{preset}
-│   │   2) ~/.config/opencode/oh-my-opencode-slim
+│   │   1) ~/.config/opencode/oh-my-openidea/{preset}
+│   │   2) ~/.config/opencode/oh-my-openidea
 │   └─→ Otherwise:
-│       1) ~/.config/opencode/oh-my-opencode-slim
+│       1) ~/.config/opencode/oh-my-openidea
 │
 ├─→ Read first existing {agentName}.md from search dirs
 │   └─→ If found → replacement prompt
@@ -218,22 +218,22 @@ deepMerge(base, override)
 | Agent      | Default MCPs                          |
 |------------|---------------------------------------|
 | orchestrator | `['websearch']`                       |
-| designer    | `[]`                                  |
-| oracle      | `[]`                                  |
-| librarian   | `['websearch', 'context7', 'grep_app']` |
-| explorer    | `[]`                                  |
-| fixer       | `[]`                                  |
+| surveyor    | `['websearch', 'arxiv', 'semantic_scholar', 'google_scholar']` |
+| synthesizer | `['websearch', 'arxiv', 'semantic_scholar']` |
+| critic      | `['arxiv', 'semantic_scholar', 'google_scholar']` |
+| architect   | `['websearch', 'arxiv']`              |
+| writer      | `['websearch']`                       |
 
 ### Default Models
 
 | Agent      | Model                          |
 |------------|--------------------------------|
 | orchestrator | `kimi-for-coding/k2p5`        |
-| oracle      | `openai/gpt-5.2-codex`        |
-| librarian   | `openai/gpt-5.1-codex-mini`   |
-| explorer    | `openai/gpt-5.1-codex-mini`   |
-| designer    | `kimi-for-coding/k2p5`        |
-| fixer       | `openai/gpt-5.1-codex-mini`   |
+| surveyor    | `openai/gpt-5.1-codex-mini`   |
+| synthesizer | `kimi-for-coding/k2p5`        |
+| critic      | `openai/gpt-5.2-codex`        |
+| architect   | `kimi-for-coding/k2p5`        |
+| writer      | `openai/gpt-5.1-codex-mini`   |
 
 ## File Organization
 

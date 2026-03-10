@@ -1,15 +1,18 @@
 // Agent names
 export const AGENT_ALIASES: Record<string, string> = {
-  explore: 'explorer',
-  'frontend-ui-ux-engineer': 'designer',
+  search: 'surveyor',
+  review: 'critic',
+  design: 'architect',
+  synthesize: 'synthesizer',
+  write: 'writer',
 };
 
 export const SUBAGENT_NAMES = [
-  'explorer',
-  'librarian',
-  'oracle',
-  'designer',
-  'fixer',
+  'surveyor',
+  'synthesizer',
+  'critic',
+  'architect',
+  'writer',
 ] as const;
 
 export const ORCHESTRATOR_NAME = 'orchestrator' as const;
@@ -21,28 +24,27 @@ export type AgentName = (typeof ALL_AGENT_NAMES)[number];
 
 // Subagent delegation rules: which agents can spawn which subagents
 // orchestrator: can spawn all subagents (full delegation)
-// fixer: leaf node — prompt forbids delegation; use grep/glob for lookups
-// designer: can spawn explorer (for research during design)
-// explorer/librarian/oracle: cannot spawn any subagents (leaf nodes)
-// Unknown agent types not listed here default to explorer-only access
+// synthesizer: can delegate to surveyor for follow-up literature searches
+// critic: can delegate to surveyor for targeted novelty-check searches
+// surveyor/architect/writer: leaf nodes — cannot spawn subagents
 export const SUBAGENT_DELEGATION_RULES: Record<AgentName, readonly string[]> = {
   orchestrator: SUBAGENT_NAMES,
-  fixer: [],
-  designer: [],
-  explorer: [],
-  librarian: [],
-  oracle: [],
+  synthesizer: ['surveyor'],
+  critic: ['surveyor'],
+  surveyor: [],
+  architect: [],
+  writer: [],
 };
 
 // Default models for each agent
 // orchestrator is undefined so its model is fully resolved at runtime via priority fallback
 export const DEFAULT_MODELS: Record<AgentName, string | undefined> = {
   orchestrator: undefined,
-  oracle: 'openai/gpt-5.2-codex',
-  librarian: 'openai/gpt-5.1-codex-mini',
-  explorer: 'openai/gpt-5.1-codex-mini',
-  designer: 'kimi-for-coding/k2p5',
-  fixer: 'openai/gpt-5.1-codex-mini',
+  critic: 'openai/gpt-4.1',
+  synthesizer: 'openai/gpt-4.1',
+  surveyor: 'openai/gpt-4.1-mini',
+  architect: 'openai/gpt-4.1',
+  writer: 'openai/gpt-4.1-mini',
 };
 
 // Polling configuration

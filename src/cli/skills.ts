@@ -38,22 +38,39 @@ export interface PermissionOnlySkill {
  */
 export const RECOMMENDED_SKILLS: RecommendedSkill[] = [
   {
-    name: 'simplify',
-    repo: 'https://github.com/brianlovin/claude-config',
-    skillName: 'simplify',
-    allowedAgents: ['orchestrator'],
-    description: 'YAGNI code simplification expert',
+    name: 'literature-review',
+    repo: 'https://github.com/oh-my-openidea/oh-my-openidea',
+    skillName: 'literature-review',
+    allowedAgents: ['orchestrator', 'surveyor', 'synthesizer'],
+    description: 'Structured literature survey workflow',
   },
   {
-    name: 'agent-browser',
-    repo: 'https://github.com/vercel-labs/agent-browser',
-    skillName: 'agent-browser',
-    allowedAgents: ['designer'],
-    description: 'High-performance browser automation',
-    postInstallCommands: [
-      'npm install -g agent-browser',
-      'agent-browser install',
-    ],
+    name: 'hypothesis-generation',
+    repo: 'https://github.com/oh-my-openidea/oh-my-openidea',
+    skillName: 'hypothesis-generation',
+    allowedAgents: ['orchestrator', 'synthesizer'],
+    description: 'Gap-driven hypothesis generation workflow',
+  },
+  {
+    name: 'idea-critique',
+    repo: 'https://github.com/oh-my-openidea/oh-my-openidea',
+    skillName: 'idea-critique',
+    allowedAgents: ['orchestrator', 'critic'],
+    description: 'Multi-round adversarial idea review workflow',
+  },
+  {
+    name: 'experiment-design',
+    repo: 'https://github.com/oh-my-openidea/oh-my-openidea',
+    skillName: 'experiment-design',
+    allowedAgents: ['orchestrator', 'architect'],
+    description: 'Experimental plan design workflow',
+  },
+  {
+    name: 'paper-outline',
+    repo: 'https://github.com/oh-my-openidea/oh-my-openidea',
+    skillName: 'paper-outline',
+    allowedAgents: ['orchestrator', 'writer'],
+    description: 'Paper outline generation workflow',
   },
 ];
 
@@ -61,14 +78,7 @@ export const RECOMMENDED_SKILLS: RecommendedSkill[] = [
  * Skills managed externally (not installed by this plugin's CLI).
  * Entries here only affect agent permission grants — nothing is installed.
  */
-export const PERMISSION_ONLY_SKILLS: PermissionOnlySkill[] = [
-  {
-    name: 'requesting-code-review',
-    allowedAgents: ['oracle'],
-    description:
-      'Code review template for reviewer subagents in multi-step workflows',
-  },
-];
+export const PERMISSION_ONLY_SKILLS: PermissionOnlySkill[] = [];
 
 /**
  * Install a skill using `npx skills add`.

@@ -8,12 +8,18 @@ import {
 /** Default MCPs per agent - "*" means all MCPs, "!item" excludes specific MCPs */
 
 export const DEFAULT_AGENT_MCPS: Record<AgentName, string[]> = {
+  // Orchestrator: web search for general research queries
   orchestrator: ['websearch'],
-  designer: [],
-  oracle: [],
-  librarian: ['websearch', 'context7', 'grep_app'],
-  explorer: [],
-  fixer: [],
+  // Surveyor: all search MCPs for comprehensive literature retrieval
+  surveyor: ['websearch', 'arxiv', 'semantic_scholar', 'google_scholar'],
+  // Synthesizer: web search for supplementary context (blogs, talks)
+  synthesizer: ['websearch', 'arxiv', 'semantic_scholar'],
+  // Critic: academic search for prior work validation
+  critic: ['arxiv', 'semantic_scholar', 'google_scholar'],
+  // Architect: web search for dataset/benchmark info and framework docs
+  architect: ['websearch', 'arxiv'],
+  // Writer: web search for citation format conventions and related work
+  writer: ['websearch'],
 };
 
 /**

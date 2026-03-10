@@ -6,20 +6,20 @@ import { parseList } from './config/agent-mcps';
 import {
   createAutoUpdateCheckerHook,
   createDelegateTaskRetryHook,
+  createIdeaQualityGateHook,
   createJsonErrorRecoveryHook,
   createPhaseReminderHook,
   createPostReadNudgeHook,
 } from './hooks';
 import { createBuiltinMcps } from './mcp';
 import {
-  ast_grep_replace,
-  ast_grep_search,
+  arxiv_search,
+  citation_graph,
   createBackgroundTools,
-  grep,
-  lsp_diagnostics,
-  lsp_find_references,
-  lsp_goto_definition,
-  lsp_rename,
+  google_scholar_search,
+  idea_store,
+  paper_reader,
+  semantic_scholar_search,
 } from './tools';
 import { startTmuxCheck } from './utils';
 import { log } from './utils/logger';
@@ -88,20 +88,22 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
   // Initialize JSON parse error recovery hook
   const jsonErrorRecoveryHook = createJsonErrorRecoveryHook(ctx);
 
+  // Initialize idea quality gate hook (ensures ideas get critiqued before proceeding)
+  const ideaQualityGateHook = createIdeaQualityGateHook();
+
   return {
-    name: 'oh-my-opencode-slim',
+    name: 'oh-my-openidea',
 
     agent: agents,
 
     tool: {
       ...backgroundTools,
-      lsp_goto_definition,
-      lsp_find_references,
-      lsp_diagnostics,
-      lsp_rename,
-      grep,
-      ast_grep_search,
-      ast_grep_replace,
+      arxiv_search,
+      semantic_scholar_search,
+      citation_graph,
+      google_scholar_search,
+      paper_reader,
+      idea_store,
     },
 
     mcp: mcps,
@@ -299,6 +301,11 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
           output: string;
           metadata: Record<string, unknown>;
         },
+      );
+
+      await ideaQualityGateHook['tool.execute.after'](
+        input as { tool: string },
+        output as { title: string; output: string; metadata: Record<string, unknown> },
       );
     },
   };

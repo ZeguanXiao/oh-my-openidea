@@ -1,10 +1,10 @@
 /**
- * Post-Read nudge - appends a delegation reminder after file reads.
- * Catches the "read files → implement myself" anti-pattern.
+ * Post-Read nudge — appends a delegation reminder after paper reading operations.
+ * Catches the "read paper → generate idea without proper synthesis" anti-pattern.
  */
 
 const NUDGE =
-  '\n\n---\nWorkflow Reminder: delegate based on rules; If mentioning a specialist, launch it in this same turn.';
+  '\n\n---\nResearch Workflow Reminder: After reading papers, consider delegating to @synthesizer for gap analysis before generating hypotheses. If mentioning a specialist, launch it in this same turn. Remember to save validated ideas using idea_store.';
 
 interface ToolExecuteAfterInput {
   tool: string;
