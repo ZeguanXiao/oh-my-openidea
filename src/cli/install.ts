@@ -227,6 +227,8 @@ function argsToConfig(args: InstallArgs): InstallConfig {
         : undefined,
     artificialAnalysisApiKey: args.aaKey,
     openRouterApiKey: args.openrouterKey,
+    serpApiKey: args.serpApiKey,
+    semanticScholarKey: args.semanticScholarKey,
     balanceProviderUsage: args.balancedSpend === 'yes',
     hasTmux: args.tmux === 'yes',
     installSkills: args.skills === 'yes',
@@ -423,11 +425,11 @@ async function configureAgentManually(
   const fallback1 =
     availableForFallback1.length > 0
       ? ((await askModelByNumber(
-          rl,
-          availableForFallback1,
-          'Fallback 1 (optional, press Enter to skip)',
-          true,
-        )) ?? primary)
+        rl,
+        availableForFallback1,
+        'Fallback 1 (optional, press Enter to skip)',
+        true,
+      )) ?? primary)
       : primary;
   if (fallback1 !== primary) selectedModels.add(fallback1);
 
@@ -439,11 +441,11 @@ async function configureAgentManually(
   const fallback2 =
     availableForFallback2.length > 0
       ? ((await askModelByNumber(
-          rl,
-          availableForFallback2,
-          'Fallback 2 (optional, press Enter to skip)',
-          true,
-        )) ?? fallback1)
+        rl,
+        availableForFallback2,
+        'Fallback 2 (optional, press Enter to skip)',
+        true,
+      )) ?? fallback1)
       : fallback1;
   if (fallback2 !== fallback1) selectedModels.add(fallback2);
 
@@ -455,11 +457,11 @@ async function configureAgentManually(
   const fallback3 =
     availableForFallback3.length > 0
       ? ((await askModelByNumber(
-          rl,
-          availableForFallback3,
-          'Fallback 3 (optional, press Enter to skip)',
-          true,
-        )) ?? fallback2)
+        rl,
+        availableForFallback3,
+        'Fallback 3 (optional, press Enter to skip)',
+        true,
+      )) ?? fallback2)
       : fallback2;
 
   return {
@@ -521,7 +523,7 @@ async function runManualSetupMode(
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-          'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
+        'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
       );
     } else {
       availableOpenCodeFreeModels = discovery.models;
@@ -589,7 +591,7 @@ async function runManualSetupMode(
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-          'No Chutes models found. Continuing without Chutes dynamic assignment.',
+        'No Chutes models found. Continuing without Chutes dynamic assignment.',
       );
     } else {
       availableChutesModels = discovery.models;
@@ -790,10 +792,12 @@ async function runInteractiveMode(
     // TODO: tmux has a bug, disabled for now
     // const tmuxInstalled = await isTmuxInstalled()
     // const totalQuestions = tmuxInstalled ? 3 : 2
-    const totalQuestions = 11;
+    const totalQuestions = 13;
 
     const existingAaKey = getEnv('ARTIFICIAL_ANALYSIS_API_KEY');
     const existingOpenRouterKey = getEnv('OPENROUTER_API_KEY');
+    const existingSerpApiKey = getEnv('SERPAPI_KEY');
+    const existingSemanticScholarKey = getEnv('SEMANTIC_SCHOLAR_API_KEY');
 
     console.log(`${BOLD}Question 1/${totalQuestions}:${RESET}`);
     const artificialAnalysisApiKey = await askOptionalApiKey(
@@ -818,6 +822,28 @@ async function runInteractiveMode(
     console.log();
 
     console.log(`${BOLD}Question 3/${totalQuestions}:${RESET}`);
+    const serpApiKey = await askOptionalApiKey(
+      rl,
+      'SerpAPI key for Google Scholar search (enables academic Google Scholar results)',
+      existingSerpApiKey,
+    );
+    if (existingSerpApiKey && !serpApiKey) {
+      printInfo('Using existing SERPAPI_KEY from environment.');
+    }
+    console.log();
+
+    console.log(`${BOLD}Question 4/${totalQuestions}:${RESET}`);
+    const semanticScholarKey = await askOptionalApiKey(
+      rl,
+      'Semantic Scholar API key for higher rate limits (optional, free tier works without it)',
+      existingSemanticScholarKey,
+    );
+    if (existingSemanticScholarKey && !semanticScholarKey) {
+      printInfo('Using existing SEMANTIC_SCHOLAR_API_KEY from environment.');
+    }
+    console.log();
+
+    console.log(`${BOLD}Question 5/${totalQuestions}:${RESET}`);
     const useOpenCodeFree = await askYesNo(
       rl,
       'Use Opencode Free models (opencode/*)?',
@@ -839,7 +865,7 @@ async function runInteractiveMode(
       if (discovery.models.length === 0) {
         printWarning(
           discovery.error ??
-            'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
+          'No OpenCode free models found. Continuing without OpenCode free-model assignment.',
         );
       } else {
         availableOpenCodeFreeModels = discovery.models;
@@ -888,7 +914,7 @@ async function runInteractiveMode(
       }
     }
 
-    console.log(`${BOLD}Question 4/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 6/${totalQuestions}:${RESET}`);
     const kimi = await askYesNo(
       rl,
       'Enable Kimi provider?',
@@ -896,7 +922,7 @@ async function runInteractiveMode(
     );
     console.log();
 
-    console.log(`${BOLD}Question 5/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 7/${totalQuestions}:${RESET}`);
     const openai = await askYesNo(
       rl,
       'Enable OpenAI provider?',
@@ -904,7 +930,7 @@ async function runInteractiveMode(
     );
     console.log();
 
-    console.log(`${BOLD}Question 6/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 8/${totalQuestions}:${RESET}`);
     const anthropic = await askYesNo(
       rl,
       'Enable Anthropic provider?',
@@ -912,7 +938,7 @@ async function runInteractiveMode(
     );
     console.log();
 
-    console.log(`${BOLD}Question 7/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 9/${totalQuestions}:${RESET}`);
     const copilot = await askYesNo(
       rl,
       'Enable GitHub Copilot provider?',
@@ -920,7 +946,7 @@ async function runInteractiveMode(
     );
     console.log();
 
-    console.log(`${BOLD}Question 8/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 10/${totalQuestions}:${RESET}`);
     const zaiPlan = await askYesNo(
       rl,
       'Enable ZAI Coding Plan provider?',
@@ -928,7 +954,7 @@ async function runInteractiveMode(
     );
     console.log();
 
-    console.log(`${BOLD}Question 9/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 11/${totalQuestions}:${RESET}`);
     const antigravity = await askYesNo(
       rl,
       'Enable Antigravity (Google) provider?',
@@ -936,7 +962,7 @@ async function runInteractiveMode(
     );
     console.log();
 
-    console.log(`${BOLD}Question 10/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 12/${totalQuestions}:${RESET}`);
     const chutes = await askYesNo(
       rl,
       'Enable Chutes provider?',
@@ -953,7 +979,7 @@ async function runInteractiveMode(
       if (discovery.models.length === 0) {
         printWarning(
           discovery.error ??
-            'No Chutes models found. Continuing without Chutes dynamic assignment.',
+          'No Chutes models found. Continuing without Chutes dynamic assignment.',
         );
       } else {
         availableChutesModels = discovery.models;
@@ -997,7 +1023,7 @@ async function runInteractiveMode(
       }
     }
 
-    console.log(`${BOLD}Question 11/${totalQuestions}:${RESET}`);
+    console.log(`${BOLD}Question 13/${totalQuestions}:${RESET}`);
     const balancedSpend = await askYesNo(
       rl,
       'Do you have subscriptions or pay per API? If yes, we will distribute assignments evenly across selected providers so your subscriptions last longer.',
@@ -1065,6 +1091,8 @@ async function runInteractiveMode(
       availableChutesModels,
       artificialAnalysisApiKey,
       openRouterApiKey,
+      serpApiKey,
+      semanticScholarKey,
       balanceProviderUsage: balancedSpend === 'yes',
       hasTmux: false,
       installSkills: skills === 'yes',
@@ -1137,7 +1165,7 @@ async function runInstall(config: InstallConfig): Promise<number> {
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-          'No OpenCode free models found. Continuing without dynamic OpenCode assignment.',
+        'No OpenCode free models found. Continuing without dynamic OpenCode assignment.',
       );
       resolvedConfig.useOpenCodeFreeModels = false;
     } else {
@@ -1145,9 +1173,9 @@ async function runInstall(config: InstallConfig): Promise<number> {
 
       const selectedPrimary =
         resolvedConfig.preferredOpenCodeModel &&
-        discovery.models.some(
-          (model) => model.model === resolvedConfig.preferredOpenCodeModel,
-        )
+          discovery.models.some(
+            (model) => model.model === resolvedConfig.preferredOpenCodeModel,
+          )
           ? resolvedConfig.preferredOpenCodeModel
           : (resolvedConfig.selectedOpenCodePrimaryModel ??
             pickBestCodingOpenCodeModel(discovery.models)?.model);
@@ -1201,7 +1229,7 @@ async function runInstall(config: InstallConfig): Promise<number> {
     if (discovery.models.length === 0) {
       printWarning(
         discovery.error ??
-          'No Chutes models found. Continuing with fallback Chutes mapping.',
+        'No Chutes models found. Continuing with fallback Chutes mapping.',
       );
     } else {
       resolvedConfig.availableChutesModels = discovery.models;
@@ -1297,7 +1325,7 @@ async function runInstall(config: InstallConfig): Promise<number> {
     if (catalogDiscovery.models.length === 0) {
       printWarning(
         catalogDiscovery.error ??
-          'Unable to discover model catalog. Falling back to static mappings.',
+        'Unable to discover model catalog. Falling back to static mappings.',
       );
     } else {
       const { signals, warnings } = await fetchExternalModelSignals({

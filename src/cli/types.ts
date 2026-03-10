@@ -129,6 +129,8 @@ export interface InstallConfig {
   scoringEngineVersion?: ScoringEngineVersion;
   artificialAnalysisApiKey?: string;
   openRouterApiKey?: string;
+  serpApiKey?: string;
+  semanticScholarKey?: string;
   balanceProviderUsage?: boolean;
   hasTmux: boolean;
   installSkills: boolean;
