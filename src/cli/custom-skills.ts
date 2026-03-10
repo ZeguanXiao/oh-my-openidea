@@ -29,10 +29,34 @@ export interface CustomSkill {
  */
 export const CUSTOM_SKILLS: CustomSkill[] = [
   {
-    name: 'cartography',
-    description: 'Repository understanding and hierarchical codemap generation',
-    allowedAgents: ['orchestrator', 'explorer'],
-    sourcePath: 'src/skills/cartography',
+    name: 'literature-review',
+    description: 'Structured literature survey workflow',
+    allowedAgents: ['orchestrator', 'surveyor', 'synthesizer'],
+    sourcePath: 'src/skills/literature-review',
+  },
+  {
+    name: 'hypothesis-generation',
+    description: 'Gap-driven hypothesis generation workflow',
+    allowedAgents: ['orchestrator', 'synthesizer'],
+    sourcePath: 'src/skills/hypothesis-generation',
+  },
+  {
+    name: 'idea-critique',
+    description: 'Multi-round adversarial idea review workflow',
+    allowedAgents: ['orchestrator', 'critic'],
+    sourcePath: 'src/skills/idea-critique',
+  },
+  {
+    name: 'experiment-design',
+    description: 'Experimental plan design workflow',
+    allowedAgents: ['orchestrator', 'architect'],
+    sourcePath: 'src/skills/experiment-design',
+  },
+  {
+    name: 'paper-outline',
+    description: 'Paper outline generation workflow',
+    allowedAgents: ['orchestrator', 'writer'],
+    sourcePath: 'src/skills/paper-outline',
   },
 ];
 
