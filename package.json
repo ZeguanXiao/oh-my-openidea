@@ -1,6 +1,6 @@
 {
   "name": "oh-my-openidea",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Multi-agent framework for CS/ML research idea generation — literature survey, hypothesis generation, novelty checking, methodology design, and paper outlining",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
