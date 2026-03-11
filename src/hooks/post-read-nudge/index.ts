@@ -1,10 +1,11 @@
 /**
  * Post-Read nudge — appends a delegation reminder after paper reading operations.
  * Catches the "read paper → generate idea without proper synthesis" anti-pattern.
+ * Updated for the iterative Idea Generation stage: nudges toward workspace caching + @synthesizer.
  */
 
 const NUDGE =
-  '\n\n---\nResearch Workflow Reminder: After reading papers, consider delegating to @synthesizer for gap analysis before generating hypotheses. If mentioning a specialist, launch it in this same turn. Remember to save validated ideas using idea_store.';
+  '\n\n---\nResearch Workflow Reminder: After reading papers, save them to the workspace cache via `workspace save_paper`, then delegate to @synthesizer to incrementally update the knowledge base before generating hypotheses. If mentioning a specialist, launch it in this same turn. Remember to save validated ideas using idea_store.';
 
 interface ToolExecuteAfterInput {
   tool: string;

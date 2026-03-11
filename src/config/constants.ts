@@ -36,6 +36,18 @@ export const SUBAGENT_DELEGATION_RULES: Record<AgentName, readonly string[]> = {
   writer: [],
 };
 
+// Agents that have read access to the workspace tool
+// Write actions (save_paper, save_knowledge, save_iteration) are restricted to
+// orchestrator, surveyor, and synthesizer via tool-level prompt instructions.
+export const WORKSPACE_TOOL_AGENTS: readonly AgentName[] = [
+  'orchestrator',
+  'surveyor',
+  'synthesizer',
+  'critic',
+  'architect',
+  'writer',
+] as const;
+
 // Default models for each agent
 // orchestrator is undefined so its model is fully resolved at runtime via priority fallback
 export const DEFAULT_MODELS: Record<AgentName, string | undefined> = {

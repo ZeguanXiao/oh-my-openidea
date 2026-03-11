@@ -147,6 +147,38 @@ export const FailoverConfigSchema = z.object({
 
 export type FailoverConfig = z.infer<typeof FailoverConfigSchema>;
 
+// Idea generation stage configuration
+export const IdeaGenerationConfigSchema = z.object({
+  maxIterations: z
+    .number()
+    .min(1)
+    .max(20)
+    .default(5)
+    .describe(
+      'Maximum number of idea generation iterations before auto-stopping',
+    ),
+  interactive: z
+    .boolean()
+    .default(true)
+    .describe(
+      'If true, pause after each iteration and ask the user for feedback / direction',
+    ),
+});
+
+export type IdeaGenerationConfig = z.infer<typeof IdeaGenerationConfigSchema>;
+
+// Workspace configuration
+export const WorkspaceConfigSchema = z.object({
+  rootDir: z
+    .string()
+    .default('.openidea')
+    .describe(
+      'Root directory for the project workspace, relative to the project directory',
+    ),
+});
+
+export type WorkspaceConfig = z.infer<typeof WorkspaceConfigSchema>;
+
 // Main plugin config
 export const PluginConfigSchema = z.object({
   preset: z.string().optional(),
@@ -159,6 +191,8 @@ export const PluginConfigSchema = z.object({
   tmux: TmuxConfigSchema.optional(),
   background: BackgroundTaskConfigSchema.optional(),
   fallback: FailoverConfigSchema.optional(),
+  ideaGeneration: IdeaGenerationConfigSchema.optional(),
+  workspace: WorkspaceConfigSchema.optional(),
 });
 
 export type PluginConfig = z.infer<typeof PluginConfigSchema>;

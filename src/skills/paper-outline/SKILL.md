@@ -17,11 +17,21 @@ Use this skill when:
 
 ## Prerequisites
 
+- Completed **Idea Generation stage** (`.openidea/` workspace with full knowledge base)
 - Validated research idea (status: `validated` or `in_progress` in idea store)
-- Experimental plan (from `experiment-design` skill)
-- Related work list (from `literature-review` skill)
+- Experimental plan (from `experiment-design` skill, stored in `methodology` field of the idea)
+- Related work cached in `.openidea/literature/` and summarised in `.openidea/knowledge/related-work.md`
 
 ## Workflow
+
+### Step 0: Load Workspace Context
+
+Before generating the outline:
+1. Call `workspace get_state` to confirm the workspace is initialised.
+2. Call `workspace read_knowledge` for all knowledge files (landscape.md, gap-analysis.md, related-work.md).
+3. Retrieve the validated idea from `idea_store` (action: `get`, including the `methodology` field).
+
+This grounds the outline in the accumulated understanding and avoids inventing related work.
 
 ### Step 1: Context Ingestion
 

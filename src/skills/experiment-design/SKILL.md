@@ -17,15 +17,27 @@ Use this skill when:
 
 ## Prerequisites
 
-- Validated research idea (from `idea-critique` skill, status: `validated`)
-- Literature landscape map (to know what baselines exist)
+- Completed **Idea Generation stage** (`.openidea/` workspace with knowledge base and validated idea)
+- Validated research idea in `idea_store` (status: `validated`, Overall ≥ 6)
+- Literature knowledge base in `.openidea/knowledge/` (especially `gap-analysis.md` and `key-methods.md`)
 - Rough sense of compute available
 
 ## Workflow
 
+### Step 0: Load Workspace Context
+
+Before any agent delegation:
+1. Call `workspace get_state` to confirm the workspace is initialised.
+2. Call `workspace read_knowledge` for `key-methods.md` to understand existing SOTA methods.
+3. Call `workspace read_knowledge` for `related-work.md` to know which baselines are already documented.
+4. Retrieve the validated idea from `idea_store` (action: `get`, provide the idea ID).
+
+This avoids redundant web searches for information already accumulated during Idea Generation.
+
 ### Step 1: Baseline Identification (Surveyor + Architect)
 
 Launch **@surveyor** to find the current state-of-the-art on the target benchmark(s).
+Pass the knowledge base context (from Step 0) so @surveyor knows what is already documented.
 Specifically:
 - Find the top-performing methods from the last 2 years
 - Retrieve their code/checkpoint links

@@ -8,10 +8,10 @@
  *
  * Uses experimental.chat.messages.transform so it doesn't show in UI.
  */
-const PHASE_REMINDER = `<reminder>Recall Research Workflow:
-Understand topic → Survey literature (@surveyor) → Synthesize gaps (@synthesizer) → Generate hypotheses → Validate novelty (@critic) → Design methodology (@architect) → Write outline (@writer) → Refine.
-If delegating, launch the specialist in the same turn you mention it.
-Save promising ideas to idea_store before ending the session.</reminder>`;
+const PHASE_REMINDER = `<reminder>Recall Iterative Idea Generation Protocol (Stage 1):
+① workspace get_state (resume) or init → ② @surveyor ×3 parallel (check workspace cache first) → ③ workspace save_paper for each new paper → ④ @synthesizer (incremental knowledge update via workspace save_knowledge) → ⑤ generate 1–3 hypotheses from workspace read_knowledge → ⑥ @critic ×1–2 parallel → ⑦ idea_store save/update → ⑧ workspace save_iteration → STOP & report to user, ask for feedback.
+Do NOT run @architect or @writer during Idea Generation — those are Stages 2 and 3, triggered separately.
+If delegating, launch the specialist in the same turn you mention it.</reminder>`;
 
 interface MessageInfo {
   role: string;

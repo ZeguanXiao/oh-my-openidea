@@ -29,6 +29,13 @@ export interface CustomSkill {
  */
 export const CUSTOM_SKILLS: CustomSkill[] = [
   {
+    name: 'idea-generation',
+    description:
+      'Iterative idea generation loop with workspace, knowledge base, and user feedback',
+    allowedAgents: ['orchestrator'],
+    sourcePath: 'src/skills/idea-generation',
+  },
+  {
     name: 'literature-review',
     description: 'Structured literature survey workflow',
     allowedAgents: ['orchestrator', 'surveyor', 'synthesizer'],
@@ -48,13 +55,15 @@ export const CUSTOM_SKILLS: CustomSkill[] = [
   },
   {
     name: 'experiment-design',
-    description: 'Experimental plan design workflow',
+    description:
+      'Experimental plan design workflow (Stage 2, requires validated idea + workspace)',
     allowedAgents: ['orchestrator', 'architect'],
     sourcePath: 'src/skills/experiment-design',
   },
   {
     name: 'paper-outline',
-    description: 'Paper outline generation workflow',
+    description:
+      'Paper outline generation workflow (Stage 3, requires experiment plan + workspace)',
     allowedAgents: ['orchestrator', 'writer'],
     sourcePath: 'src/skills/paper-outline',
   },

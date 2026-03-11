@@ -343,7 +343,11 @@ describe('providers', () => {
     expect(agents.orchestrator.mcps).toContain('zotero');
     expect(agents.orchestrator.mcps).toContain('alphaxiv');
     expect(agents.surveyor.mcps).toEqual(['alphaxiv', 'websearch', 'zotero']);
-    expect(agents.synthesizer.mcps).toEqual(['alphaxiv', 'websearch', 'zotero']);
+    expect(agents.synthesizer.mcps).toEqual([
+      'alphaxiv',
+      'websearch',
+      'zotero',
+    ]);
     expect(agents.critic.mcps).toEqual(['zotero']);
     expect(agents.architect.mcps).toEqual(['websearch']);
     expect(agents.writer.mcps).toEqual(['websearch']);

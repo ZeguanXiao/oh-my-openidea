@@ -12,6 +12,7 @@ Research Quality Gate: This idea has been saved without a @critic review.
 Before proceeding to experiment design or paper writing:
 1. Run the \`idea-critique\` skill (or delegate to @critic directly)
 2. Update the idea's status to "validated" in idea_store after a passing review (Overall ≥ 6/10)
+3. Save the iteration summary via \`workspace save_iteration\` before stopping
 Skipping critique risks investing effort in ideas that overlap with existing work.`;
 
 interface ToolExecuteAfterInput {

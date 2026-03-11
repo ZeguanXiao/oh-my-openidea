@@ -12,7 +12,11 @@ import {
   createPostReadNudgeHook,
 } from './hooks';
 import { createBuiltinMcps } from './mcp';
-import { createBackgroundTools, idea_store } from './tools';
+import {
+  createBackgroundTools,
+  createWorkspaceTool,
+  idea_store,
+} from './tools';
 import { startTmuxCheck } from './utils';
 import { log } from './utils/logger';
 
@@ -57,6 +61,7 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
     tmuxConfig,
     config,
   );
+  const workspaceTool = createWorkspaceTool(ctx.directory);
   const mcps = createBuiltinMcps(config.disabled_mcps);
 
   // Initialize TmuxSessionManager to handle OpenCode's built-in Task tool sessions
@@ -91,6 +96,7 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
     tool: {
       ...backgroundTools,
       idea_store,
+      workspace: workspaceTool,
     },
 
     mcp: mcps,
@@ -305,9 +311,11 @@ export default OhMyOpenCodeLite;
 export type {
   AgentName,
   AgentOverrideConfig,
+  IdeaGenerationConfig,
   McpName,
   PluginConfig,
   TmuxConfig,
   TmuxLayout,
+  WorkspaceConfig,
 } from './config';
 export type { RemoteMcpConfig } from './mcp';
