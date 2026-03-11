@@ -28,13 +28,13 @@ Ask the user (or infer from context):
 ### Step 2: Initial Search (Surveyor)
 
 Launch **@surveyor** with 3 parallel searches:
-1. Primary query: exact topic keywords via Google Scholar MCP (`search_google_scholar_key_words`)
-2. Broad query: related concepts and parent topic via Google Scholar MCP advanced search (`search_google_scholar_advanced`)
-3. Survey/review query: `"{topic} survey"` or `"{topic} review"` via Google Scholar MCP for overview papers
+1. Primary query: exact topic keywords via AlphaXiv MCP (`search_arxiv_papers`)
+2. Broad query: related concepts and parent topic via AlphaXiv MCP (`search_arxiv_papers` with broader terms)
+3. Survey/review query: `"{topic} survey"` or `"{topic} review"` via AlphaXiv MCP for overview papers
 
 Example delegation:
 ```
-@surveyor: Search Google Scholar for "mechanistic interpretability transformers" using search_google_scholar_key_words with num_results=20.
+@surveyor: Search arXiv for "mechanistic interpretability transformers" using search_arxiv_papers with num_results=20.
 Also search for highly-cited survey papers on the same topic.
 For the 3 most relevant results, fetch their AlphaXiv overviews via the AlphaXiv MCP to extract key contributions.
 ```

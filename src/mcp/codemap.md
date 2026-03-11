@@ -12,7 +12,6 @@
 - `types.ts` defines the discriminated union `McpConfig` with `RemoteMcpConfig` and `LocalMcpConfig`, keeping the shape of every connector explicit and easy to validate at compile time.
 - `websearch.ts` supplies a `RemoteMcpConfig` literal pointing at the first-party Exa AI MCP endpoint.
 - `alphaxiv.ts` supplies a `LocalMcpConfig` for the AlphaXiv MCP server (`alphaxiv-mcp-server` stdio), providing arXiv paper search and AI-generated overviews.
-- `google-scholar.ts` supplies a `LocalMcpConfig` for the Google Scholar MCP server (`python -m google_scholar_mcp_server` stdio), providing academic search via the `scholarly` Python library. No API key required.
 - `zotero.ts` supplies a `LocalMcpConfig` for the Zotero MCP server, connecting to the user's local Zotero library.
 - `index.ts` aggregates the built-in configs in a `Record<McpName, McpConfig>` and exposes helpers/types for external consumers, keeping the set of hard-coded MCPs centralized.
 

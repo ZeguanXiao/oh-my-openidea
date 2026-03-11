@@ -31,7 +31,7 @@ Launch **@critic** with:
 - The list of related papers found during the literature survey
 
 **@critic's job**:
-1. Search Google Scholar MCP (`search_google_scholar_key_words`, `search_google_scholar_advanced`) for papers that directly address this idea
+1. Search arXiv via AlphaXiv MCP (`search_arxiv_papers`) for papers that directly address this idea
 2. For candidate matches, read the paper via AlphaXiv MCP to verify the exact overlap
 3. Identify degree of overlap: exact duplicate / partial overlap / related but different
 4. Report specific conflicting papers with their arXiv IDs

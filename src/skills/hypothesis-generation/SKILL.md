@@ -48,11 +48,11 @@ For each gap, generate 1–2 research hypotheses using this template:
 
 ### Step 3: Quick Deduplication (Surveyor)
 
-For each hypothesis, run a targeted Google Scholar search to check if an obvious direct solution exists.
-Use `search_google_scholar_key_words` (via Google Scholar MCP) with the core claim as the query. This is a quick check — deep validation happens in the `idea-critique` skill.
+For each hypothesis, run a targeted arXiv search to check if an obvious direct solution exists.
+Use `search_arxiv_papers` (via AlphaXiv MCP) with the core claim as the query. This is a quick check — deep validation happens in the `idea-critique` skill.
 
 Example: For "hypothesis: sparse attention patterns can be learned from dense attention", search:
-`search_google_scholar_key_words(query="learning sparse attention patterns", num_results=10)`
+`search_arxiv_papers(query="learning sparse attention patterns", num_results=10)`
 
 ### Step 4: Score and Rank
 
