@@ -263,7 +263,7 @@ Built-in Model Context Protocol servers (enabled by default):
 
 > **Note:** Academic paper search (Semantic Scholar, Google Scholar, AlphaXiv) is handled by plugin tools that call upstream APIs directly, not via MCP relay servers. This provides better reliability, error messages, and control.
 >
-> **Zotero setup:** install [`zotero-mcp-server`](https://github.com/54yyyu/zotero-mcp) and make sure `zotero-mcp` is available in `PATH`. The plugin defaults to local Zotero desktop access unless you set web API variables yourself.
+> **Zotero setup:** install [`zotero-mcp-server`](https://github.com/54yyyu/zotero-mcp) and make sure `zotero-mcp` is available in `PATH`. The built-in config uses local Zotero desktop access.
 
 ### MCP Permissions
 

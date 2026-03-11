@@ -73,9 +73,8 @@ uv tool install zotero-mcp-server
 ```
 
 The plugin now exposes a built-in `zotero` MCP that launches
-`zotero-mcp serve --transport stdio`. By default it assumes local Zotero
-desktop access (`ZOTERO_LOCAL=true`) unless you have already configured
-web API variables such as `ZOTERO_API_KEY` and `ZOTERO_LIBRARY_ID`.
+`zotero-mcp serve --transport stdio` in local Zotero desktop mode
+(`ZOTERO_LOCAL=true`).
 
 For local mode, make sure Zotero is running and
 `Allow other applications on this computer to communicate with Zotero`
