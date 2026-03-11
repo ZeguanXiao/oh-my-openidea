@@ -261,7 +261,7 @@ Built-in Model Context Protocol servers (enabled by default):
 | `websearch` | Real-time web search via Exa AI | Remote: `https://mcp.exa.ai/mcp` |
 | `zotero` | Search your Zotero library, notes, annotations, collections, and BibTeX | Local stdio: `zotero-mcp serve --transport stdio` |
 
-> **Note:** Academic paper search (Semantic Scholar, Google Scholar, AlphaXiv) is handled by plugin tools that call upstream APIs directly, not via MCP relay servers. This provides better reliability, error messages, and control.
+> **Note:** Academic paper search (AlphaXiv / arXiv) is handled via MCP relay server (AlphaXiv MCP). This provides structured AI-generated overviews and full-text extraction for arXiv papers.
 >
 > **Zotero setup:** install [`zotero-mcp-server`](https://github.com/54yyyu/zotero-mcp) and make sure `zotero-mcp` is available in `PATH`. The built-in config uses local Zotero desktop access.
 

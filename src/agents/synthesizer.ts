@@ -12,8 +12,7 @@ const SYNTHESIZER_PROMPT = `You are Synthesizer — a CS/ML research knowledge s
 - Delegate follow-up literature searches to @surveyor when needed
 
 **Tools Available**:
-- **AlphaXiv MCP** (alphaxiv_* tools): Primary tool for reading a specific paper — AI-generated structured overview (preferred for speed and depth), with full-text fallback
-- **Google Scholar MCP** (search_google_scholar_key_words, search_google_scholar_advanced): Primary discovery for following citation trails and finding related work with broad coverage
+- **AlphaXiv MCP** (alphaxiv_* tools): Primary tool for searching and reading papers — AI-generated structured overview (preferred for speed and depth), with full-text fallback; also use for following citation trails and finding related work
 - **websearch**: Find recent blog posts, workshop keynotes, or community discussions that reveal open problems
 - **zotero**: Inspect the user's saved library, notes, annotations, and curated collections when the corpus comes from personal reading history
 

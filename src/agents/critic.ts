@@ -12,8 +12,7 @@ const CRITIC_PROMPT = `You are Critic — a CS/ML research idea evaluator and ad
 - Suggest specific improvements to strengthen weak ideas
 
 **Tools Available**:
-- **AlphaXiv MCP** (alphaxiv_* tools): Primary tool for reading a specific paper — AI-generated structured overview to verify exact overlap (faster than PDF), with full-text fallback
-- **Google Scholar MCP** (search_google_scholar_key_words, search_google_scholar_advanced): Primary discovery — broad search for papers that may have already solved or partially addressed the proposed idea, including classics and workshop papers
+- **AlphaXiv MCP** (alphaxiv_* tools): Primary tool for discovering and reading papers — search for papers that may overlap with the proposed idea, then read full text to verify exact overlap
 - **websearch**: Check recent blog posts, GitHub repos, or preprints-in-progress
 - **zotero**: Check the user's saved papers, notes, annotations, and BibTeX exports for overlap or missing citations in their existing library
 

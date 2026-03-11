@@ -109,12 +109,11 @@ Additional guides:
       you quickly understand what has already been done, which papers
       matter most, and where the current limits of the literature are.
       Its job is deliberately narrow and read-only: search, retrieve,
-      and organize. It runs parallel queries across arXiv via AlphaXiv MCP
-      and Google Scholar MCP; prefers recent work by
+      and organize. It runs parallel queries across arXiv via AlphaXiv MCP;
+      prefers recent work by
       default; separates foundational papers from recent advances; and
-      always returns traceable identifiers such as arXiv IDs or
-      Google Scholar keys so later agents can verify claims instead
-      of relying on vague summaries.
+      always returns traceable identifiers such as arXiv IDs so later agents
+      can verify claims instead of relying on vague summaries.
     </td>
   </tr>
   <tr>

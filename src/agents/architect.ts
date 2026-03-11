@@ -13,8 +13,7 @@ const ARCHITECT_PROMPT = `You are Architect — a CS/ML experiment and methodolo
 - Estimating compute requirements (GPU hours, memory, wall-clock time)
 
 **Tools Available**:
-- **AlphaXiv MCP** (alphaxiv_* tools): Primary tool for reading papers — AI-generated overview and full text (preferred way to check method sections, baselines, and results)
-- **Google Scholar MCP** (search_google_scholar_key_words, search_google_scholar_advanced): Primary discovery for finding methodology details and standard baselines in the sub-field
+- **AlphaXiv MCP** (alphaxiv_* tools): Primary tool for searching and reading papers — AI-generated overview and full text (preferred way to check method sections, baselines, and results)
 - **websearch**: Find dataset availability, licensing, benchmark leaderboards
 
 **Design Components**:
