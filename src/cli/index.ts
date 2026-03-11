@@ -38,10 +38,6 @@ function parseArgs(args: string[]): InstallArgs {
       result.aaKey = arg.slice('--aa-key='.length);
     } else if (arg.startsWith('--openrouter-key=')) {
       result.openrouterKey = arg.slice('--openrouter-key='.length);
-    } else if (arg.startsWith('--serpapi-key=')) {
-      result.serpApiKey = arg.slice('--serpapi-key='.length);
-    } else if (arg.startsWith('--semantic-scholar-key=')) {
-      result.semanticScholarKey = arg.slice('--semantic-scholar-key='.length);
     } else if (arg === '--dry-run') {
       result.dryRun = true;
     } else if (arg === '--models-only') {
@@ -75,8 +71,6 @@ Options:
   --opencode-free-model  Preferred OpenCode model id or "auto"
   --aa-key               Artificial Analysis API key (optional)
   --openrouter-key       OpenRouter API key (optional)
-  --serpapi-key          SerpAPI key for Google Scholar search (optional)
-  --semantic-scholar-key Semantic Scholar API key (optional)
   --tmux=yes|no          Enable tmux integration (yes/no)
   --skills=yes|no        Install recommended skills (yes/no)
   --no-tui               Non-interactive mode (requires all flags)

@@ -311,7 +311,6 @@ describe('getAgentConfigs', () => {
   });
 });
 
-
 describe('skill permissions', () => {
   test('orchestrator gets cartography skill allowed by default', () => {
     const agents = createAgents();

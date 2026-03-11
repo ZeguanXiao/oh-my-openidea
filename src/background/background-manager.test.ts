@@ -846,8 +846,7 @@ describe('BackgroundTaskManager', () => {
 
       // Launch subagent from writer - should have tools disabled
       const writerSessionId = writerTask.sessionId;
-      if (!writerSessionId)
-        throw new Error('Expected sessionId to be defined');
+      if (!writerSessionId) throw new Error('Expected sessionId to be defined');
 
       manager.launch({
         agent: 'surveyor',

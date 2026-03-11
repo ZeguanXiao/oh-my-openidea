@@ -8,16 +8,20 @@ describe('createBuiltinMcps', () => {
 
     expect(names).toContain('websearch');
     expect(names).toContain('zotero');
-    expect(names.length).toBe(2);
+    expect(names).toContain('alphaxiv');
+    expect(names).toContain('google-scholar');
+    expect(names.length).toBe(4);
   });
 
   test('returns all builtin MCPs with empty disabled list', () => {
     const mcps = createBuiltinMcps([]);
     const names = Object.keys(mcps);
 
-    expect(names.length).toBe(2);
+    expect(names.length).toBe(4);
     expect(names).toContain('websearch');
     expect(names).toContain('zotero');
+    expect(names).toContain('alphaxiv');
+    expect(names).toContain('google-scholar');
   });
 
   test('excludes websearch when disabled', () => {
@@ -26,11 +30,16 @@ describe('createBuiltinMcps', () => {
 
     expect(names).not.toContain('websearch');
     expect(names).toContain('zotero');
-    expect(names.length).toBe(1);
+    expect(names.length).toBe(3);
   });
 
   test('excludes all MCPs when all disabled', () => {
-    const mcps = createBuiltinMcps(['websearch', 'zotero']);
+    const mcps = createBuiltinMcps([
+      'websearch',
+      'zotero',
+      'alphaxiv',
+      'google-scholar',
+    ]);
     const names = Object.keys(mcps);
 
     expect(names.length).toBe(0);
@@ -41,9 +50,11 @@ describe('createBuiltinMcps', () => {
     const names = Object.keys(mcps);
 
     // All valid MCPs should still be present
-    expect(names.length).toBe(2);
+    expect(names.length).toBe(4);
     expect(names).toContain('websearch');
     expect(names).toContain('zotero');
+    expect(names).toContain('alphaxiv');
+    expect(names).toContain('google-scholar');
   });
 
   test('MCP configs have required properties', () => {

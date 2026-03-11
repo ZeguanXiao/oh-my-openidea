@@ -28,22 +28,22 @@ Ask the user (or infer from context):
 ### Step 2: Initial Search (Surveyor)
 
 Launch **@surveyor** with 3 parallel searches:
-1. Primary query: exact topic keywords on Semantic Scholar
-2. Broad query: related concepts and parent topic on Google Scholar
-3. Survey/review query: `"{topic} survey"` or `"{topic} review"` on Google Scholar for overview papers
+1. Primary query: exact topic keywords via Google Scholar MCP (`search_google_scholar_key_words`)
+2. Broad query: related concepts and parent topic via Google Scholar MCP advanced search (`search_google_scholar_advanced`)
+3. Survey/review query: `"{topic} survey"` or `"{topic} review"` via Google Scholar MCP for overview papers
 
 Example delegation:
 ```
-@surveyor: Search Semantic Scholar for "mechanistic interpretability transformers" with fields=["Computer Science"],
-limit=20, min_citations=5. Also search Google Scholar for highly-cited survey papers on the same topic.
-For the 3 most relevant results, fetch their AlphaXiv overviews to extract key contributions.
+@surveyor: Search Google Scholar for "mechanistic interpretability transformers" using search_google_scholar_key_words with num_results=20.
+Also search for highly-cited survey papers on the same topic.
+For the 3 most relevant results, fetch their AlphaXiv overviews via the AlphaXiv MCP to extract key contributions.
 ```
 
 ### Step 3: Citation Expansion (Surveyor)
 
-From the initial results, select 3–5 most relevant papers and use `citation_graph` to find:
-- Influential papers that cite them (forward expansion)
-- Key references they all share (backward expansion to foundational work)
+From the initial results, select 3–5 most relevant papers and use the AlphaXiv MCP to:
+- Fetch full text of highly-cited papers to extract their key references (backward expansion to foundational work)
+- Search for papers that build on core results (forward expansion)
 
 ### Step 4: Synthesis (Synthesizer)
 

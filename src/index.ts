@@ -12,16 +12,7 @@ import {
   createPostReadNudgeHook,
 } from './hooks';
 import { createBuiltinMcps } from './mcp';
-import {
-  alphaxiv_full_text,
-  alphaxiv_overview,
-  citation_graph,
-  createBackgroundTools,
-  google_scholar_search,
-  idea_store,
-  paper_reader,
-  semantic_scholar_search,
-} from './tools';
+import { createBackgroundTools, idea_store } from './tools';
 import { startTmuxCheck } from './utils';
 import { log } from './utils/logger';
 
@@ -99,12 +90,6 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
 
     tool: {
       ...backgroundTools,
-      alphaxiv_overview,
-      alphaxiv_full_text,
-      semantic_scholar_search,
-      citation_graph,
-      google_scholar_search,
-      paper_reader,
       idea_store,
     },
 

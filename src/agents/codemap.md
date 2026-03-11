@@ -56,10 +56,10 @@ All agents follow a consistent factory pattern:
 
 | Agent | Primary Focus | Tools | Constraints | Temperature |
 |-------|--------------|-------|-------------|-------------|
-| Surveyor | Literature search | semantic_scholar, google_scholar, alphaxiv_overview, alphaxiv_full_text, citation_graph, websearch | Read-only, parallel | 0.1 |
-| Synthesizer | Idea synthesis | websearch | Generative, cites evidence | 0.5 |
-| Critic | Novelty checking | semantic_scholar, google_scholar, alphaxiv_overview | Adversarial, read-only | 0.2 |
-| Architect | Experiment design | websearch, semantic_scholar, alphaxiv_overview | Structured output | 0.3 |
+| Surveyor | Literature search | Google Scholar MCP, AlphaXiv MCP, websearch | Read-only, parallel | 0.1 |
+| Synthesizer | Idea synthesis | Google Scholar MCP, AlphaXiv MCP, websearch | Generative, cites evidence | 0.5 |
+| Critic | Novelty checking | Google Scholar MCP, AlphaXiv MCP | Adversarial, read-only | 0.2 |
+| Architect | Experiment design | websearch, Google Scholar MCP, AlphaXiv MCP | Structured output | 0.3 |
 | Writer | Paper writing | websearch | No delegation | 0.4 |
 
 ## Flow

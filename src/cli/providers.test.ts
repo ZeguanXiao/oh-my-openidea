@@ -341,8 +341,20 @@ describe('providers', () => {
     const agents = (config.presets as any)['zen-free'];
     expect(agents.orchestrator.mcps).toContain('websearch');
     expect(agents.orchestrator.mcps).toContain('zotero');
-    expect(agents.surveyor.mcps).toEqual(['websearch', 'zotero']);
-    expect(agents.synthesizer.mcps).toEqual(['websearch', 'zotero']);
+    expect(agents.orchestrator.mcps).toContain('alphaxiv');
+    expect(agents.orchestrator.mcps).toContain('google-scholar');
+    expect(agents.surveyor.mcps).toEqual([
+      'alphaxiv',
+      'google-scholar',
+      'websearch',
+      'zotero',
+    ]);
+    expect(agents.synthesizer.mcps).toEqual([
+      'alphaxiv',
+      'google-scholar',
+      'websearch',
+      'zotero',
+    ]);
     expect(agents.critic.mcps).toEqual(['zotero']);
     expect(agents.architect.mcps).toEqual(['websearch']);
     expect(agents.writer.mcps).toEqual(['websearch']);

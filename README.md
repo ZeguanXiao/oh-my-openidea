@@ -20,7 +20,7 @@ bunx oh-my-openidea@latest install
 Non-interactive mode with API keys:
 
 ```bash
-bunx oh-my-openidea@latest install --no-tui --openai=yes --anthropic=no --antigravity=yes --copilot=no --zai-plan=no --chutes=no --kimi=yes --tmux=no --skills=yes --serpapi-key=YOUR_SERPAPI_KEY --semantic-scholar-key=YOUR_S2_KEY
+bunx oh-my-openidea@latest install --no-tui --openai=yes --anthropic=no --antigravity=yes --copilot=no --zai-plan=no --chutes=no --kimi=yes --tmux=no --skills=yes
 ```
 
 Then authenticate:
@@ -109,11 +109,11 @@ Additional guides:
       you quickly understand what has already been done, which papers
       matter most, and where the current limits of the literature are.
       Its job is deliberately narrow and read-only: search, retrieve,
-      and organize. It runs parallel queries across arXiv, Semantic
-      Scholar, Google Scholar, and the web; prefers recent work by
+      and organize. It runs parallel queries across arXiv via AlphaXiv MCP
+      and Google Scholar MCP; prefers recent work by
       default; separates foundational papers from recent advances; and
       always returns traceable identifiers such as arXiv IDs or
-      Semantic Scholar IDs so later agents can verify claims instead
+      Google Scholar keys so later agents can verify claims instead
       of relying on vague summaries.
     </td>
   </tr>

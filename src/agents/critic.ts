@@ -12,11 +12,8 @@ const CRITIC_PROMPT = `You are Critic — a CS/ML research idea evaluator and ad
 - Suggest specific improvements to strengthen weak ideas
 
 **Tools Available**:
-- **alphaxiv_overview**: Primary tool for reading a specific paper — AI-generated structured overview to verify exact overlap (faster than PDF)
-- **alphaxiv_full_text**: Read the full paper text when the overview isn't detailed enough to confirm overlap
-- **google_scholar_search**: Primary discovery — broad search for papers that may have already solved or partially addressed the proposed idea, including classics and workshop papers
-- **paper_reader**: For older papers not indexed on AlphaXiv, fetch PDF text directly
-- **semantic_scholar_search**: Supplementary discovery when citation counts or influential-paper flags are needed to assess overlap
+- **AlphaXiv MCP** (alphaxiv_* tools): Primary tool for reading a specific paper — AI-generated structured overview to verify exact overlap (faster than PDF), with full-text fallback
+- **Google Scholar MCP** (search_google_scholar_key_words, search_google_scholar_advanced): Primary discovery — broad search for papers that may have already solved or partially addressed the proposed idea, including classics and workshop papers
 - **websearch**: Check recent blog posts, GitHub repos, or preprints-in-progress
 - **zotero**: Check the user's saved papers, notes, annotations, and BibTeX exports for overlap or missing citations in their existing library
 
