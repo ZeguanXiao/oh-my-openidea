@@ -9,11 +9,11 @@ import {
 
 export const DEFAULT_AGENT_MCPS: Record<AgentName, string[]> = {
   // Orchestrator: public web + personal Zotero library for routing and context.
-  orchestrator: ['websearch', 'zotero'],
-  // Surveyor: public search plus the user's saved library, notes, and annotations.
-  surveyor: ['websearch', 'zotero'],
+  orchestrator: ['alphaxiv', 'websearch', 'zotero'],
+  // Surveyor: arXiv/AlphaXiv paper search + public web + personal Zotero library.
+  surveyor: ['alphaxiv', 'websearch', 'zotero'],
   // Synthesizer: uses Zotero as an evidence source in addition to public web context.
-  synthesizer: ['websearch', 'zotero'],
+  synthesizer: ['alphaxiv', 'websearch', 'zotero'],
   // Critic: cross-check proposed ideas against the user's curated Zotero library.
   critic: ['zotero'],
   // Architect: web search for dataset/benchmark info and framework docs
