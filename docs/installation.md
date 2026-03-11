@@ -63,6 +63,25 @@ Once authenticated, run opencode and `ping all agents` to verify all agents resp
 
 > **💡 Tip: Models are fully customizable.** The installer sets sensible defaults, but you can assign *any* model to *any* agent. Edit `~/.config/opencode/oh-my-openidea.json` (or `.jsonc` for comments support) to override models, adjust reasoning effort, or disable agents entirely. See [Configuration](quick-reference.md#configuration) for details.
 
+### Optional: Enable Zotero Library Access
+
+Install the upstream Zotero MCP server if you want agents to search your own
+library, notes, annotations, and BibTeX:
+
+```bash
+uv tool install zotero-mcp-server
+```
+
+The plugin now exposes a built-in `zotero` MCP that launches
+`zotero-mcp serve --transport stdio`. By default it assumes local Zotero
+desktop access (`ZOTERO_LOCAL=true`) unless you have already configured
+web API variables such as `ZOTERO_API_KEY` and `ZOTERO_LIBRARY_ID`.
+
+For local mode, make sure Zotero is running and
+`Allow other applications on this computer to communicate with Zotero`
+is enabled in Zotero preferences. Upstream project:
+[54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp).
+
 ### Alternative: Ask Any Coding Agent
 
 Paste this into Claude Code, AmpCode, Cursor, or any coding agent:

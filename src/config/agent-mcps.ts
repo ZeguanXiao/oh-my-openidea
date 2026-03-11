@@ -8,14 +8,14 @@ import {
 /** Default MCPs per agent - "*" means all MCPs, "!item" excludes specific MCPs */
 
 export const DEFAULT_AGENT_MCPS: Record<AgentName, string[]> = {
-  // Orchestrator: web search for general research queries
-  orchestrator: ['websearch'],
-  // Surveyor: web search for blog posts and recent announcements
-  surveyor: ['websearch'],
-  // Synthesizer: web search for supplementary context (blogs, talks)
-  synthesizer: ['websearch'],
-  // Critic: no MCPs — uses plugin tools directly (semantic_scholar_search, google_scholar_search, alphaxiv_overview)
-  critic: [],
+  // Orchestrator: public web + personal Zotero library for routing and context.
+  orchestrator: ['websearch', 'zotero'],
+  // Surveyor: public search plus the user's saved library, notes, and annotations.
+  surveyor: ['websearch', 'zotero'],
+  // Synthesizer: uses Zotero as an evidence source in addition to public web context.
+  synthesizer: ['websearch', 'zotero'],
+  // Critic: cross-check proposed ideas against the user's curated Zotero library.
+  critic: ['zotero'],
   // Architect: web search for dataset/benchmark info and framework docs
   architect: ['websearch'],
   // Writer: web search for citation format conventions and related work

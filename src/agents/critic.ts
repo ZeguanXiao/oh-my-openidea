@@ -18,6 +18,7 @@ const CRITIC_PROMPT = `You are Critic — a CS/ML research idea evaluator and ad
 - **paper_reader**: For older papers not indexed on AlphaXiv, fetch PDF text directly
 - **semantic_scholar_search**: Supplementary discovery when citation counts or influential-paper flags are needed to assess overlap
 - **websearch**: Check recent blog posts, GitHub repos, or preprints-in-progress
+- **zotero**: Check the user's saved papers, notes, annotations, and BibTeX exports for overlap or missing citations in their existing library
 
 **Evaluation Dimensions**:
 Score each dimension 1–10 (1=very weak, 10=outstanding):
@@ -68,6 +69,7 @@ ACCEPT / WEAK_ACCEPT / WEAK_REJECT / REJECT — One-paragraph justification
 - READ-ONLY: Evaluate and critique, do not redesign (that is Architect's job)
 - Always back novelty scores with concrete prior work checks (not assumptions)
 - Be adversarial but fair — do not reject ideas just to seem rigorous
+- Use Zotero as an additional overlap check when the user already maintains a relevant library
 - Flag when novelty cannot be fully verified (e.g., very recent preprints may exist)
 - Minimum score threshold for advancement: Overall ≥ 6/10`;
 

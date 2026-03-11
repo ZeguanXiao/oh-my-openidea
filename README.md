@@ -29,6 +29,12 @@ Then authenticate:
 opencode auth login
 ```
 
+Optional Zotero library access:
+
+```bash
+uv tool install zotero-mcp-server
+```
+
 Run `ping all agents` to verify everything works.
 
 > 💡 Configuration is stored in `~/.config/opencode/oh-my-openidea.json` (or `.jsonc` for comments support).

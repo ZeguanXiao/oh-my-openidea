@@ -1,11 +1,13 @@
 import type { McpName } from '../config';
 import type { McpConfig } from './types';
 import { websearch } from './websearch';
+import { zotero } from './zotero';
 
 export type { LocalMcpConfig, McpConfig, RemoteMcpConfig } from './types';
 
 const allBuiltinMcps: Record<McpName, McpConfig> = {
   websearch,
+  zotero,
 };
 
 /**

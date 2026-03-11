@@ -71,12 +71,12 @@ Uses OpenAI models exclusively:
   "preset": "openai",
   "presets": {
     "openai": {
-      "orchestrator": { "model": "openai/gpt-5.2-codex", "skills": ["*"], "mcps": ["websearch"] },
-      "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "synthesizer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch"] },
-      "surveyor": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] },
-      "architect": { "model": "openai/gpt-5.1-codex-mini", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
-      "writer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": [] }
+      "orchestrator": { "model": "openai/gpt-5.2-codex", "skills": ["*"], "mcps": ["websearch", "zotero"] },
+      "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": ["zotero"] },
+      "synthesizer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch", "zotero"] },
+      "surveyor": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch", "zotero"] },
+      "architect": { "model": "openai/gpt-5.1-codex-mini", "variant": "medium", "skills": ["agent-browser"], "mcps": ["websearch"] },
+      "writer": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch"] }
     }
   }
 }
@@ -124,11 +124,11 @@ Mixed setup combining multiple providers:
   "presets": {
     "alvin": {
       "orchestrator": { "model": "google/claude-opus-4-5-thinking", "skills": ["*"], "mcps": ["*"] },
-      "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "synthesizer": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch"] },
-      "surveyor": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] },
-      "architect": { "model": "google/gemini-3-flash", "variant": "medium", "skills": ["agent-browser"], "mcps": [] },
-      "writer": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": [] }
+      "critic": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": ["zotero"] },
+      "synthesizer": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch", "zotero"] },
+      "surveyor": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": ["websearch", "zotero"] },
+      "architect": { "model": "google/gemini-3-flash", "variant": "medium", "skills": ["agent-browser"], "mcps": ["websearch"] },
+      "writer": { "model": "cerebras/zai-glm-4.7", "variant": "low", "skills": [], "mcps": ["websearch"] }
     }
   }
 }
@@ -256,11 +256,14 @@ You can customize which skills each agent is allowed to use in `~/.config/openco
 
 Built-in Model Context Protocol servers (enabled by default):
 
-| MCP | Purpose | URL |
-|-----|---------|-----|
-| `websearch` | Real-time web search via Exa AI | `https://mcp.exa.ai/mcp` |
+| MCP | Purpose | Transport / Endpoint |
+|-----|---------|----------------------|
+| `websearch` | Real-time web search via Exa AI | Remote: `https://mcp.exa.ai/mcp` |
+| `zotero` | Search your Zotero library, notes, annotations, collections, and BibTeX | Local stdio: `zotero-mcp serve --transport stdio` |
 
 > **Note:** Academic paper search (Semantic Scholar, Google Scholar, AlphaXiv) is handled by plugin tools that call upstream APIs directly, not via MCP relay servers. This provides better reliability, error messages, and control.
+>
+> **Zotero setup:** install [`zotero-mcp-server`](https://github.com/54yyyu/zotero-mcp) and make sure `zotero-mcp` is available in `PATH`. The plugin defaults to local Zotero desktop access unless you set web API variables yourself.
 
 ### MCP Permissions
 
@@ -268,11 +271,11 @@ Control which agents can access which MCP servers using per-agent allowlists:
 
 | Agent | Default MCPs |
 |-------|--------------|
-| `orchestrator` | `websearch` |
+| `orchestrator` | `websearch`, `zotero` |
 | `architect` | `websearch` |
-| `critic` | none |
-| `synthesizer` | `websearch` |
-| `surveyor` | `websearch` |
+| `critic` | `zotero` |
+| `synthesizer` | `websearch`, `zotero` |
+| `surveyor` | `websearch`, `zotero` |
 | `writer` | `websearch` |
 
 ### Configuration & Syntax
@@ -287,7 +290,7 @@ Control which agents can access which MCP servers using the `mcps` array in your
 |--------|-------------|---------|
 | `"*"` | All MCPs | `["*"]` |
 | `"!item"` | Exclude specific MCP | `["*", "!websearch"]` |
-| Explicit list | Only listed MCPs | `["websearch"]` |
+| Explicit list | Only listed MCPs | `["websearch", "zotero"]` |
 | `"!*"` | Deny all MCPs | `["!*"]` |
 
 **Rules:**
@@ -303,13 +306,13 @@ Control which agents can access which MCP servers using the `mcps` array in your
   "presets": {
     "my-preset": {
       "orchestrator": {
-        "mcps": ["websearch"]
-      },
-      "synthesizer": {
-        "mcps": ["websearch"]
+        "mcps": ["websearch", "zotero"]
       },
       "critic": {
-        "mcps": []
+        "mcps": ["zotero"]
+      },
+      "architect": {
+        "mcps": ["websearch"]
       }
     }
   }
@@ -504,6 +507,6 @@ The installer generates this file based on your providers. You can manually cust
 | `tmux.enabled` | boolean | `false` | Enable tmux pane spawning for sub-agents |
 | `tmux.layout` | string | `"main-vertical"` | Layout preset: `main-vertical`, `main-horizontal`, `tiled`, `even-horizontal`, `even-vertical` |
 | `tmux.main_pane_size` | number | `60` | Main pane size as percentage (20-80) |
-| `disabled_mcps` | string[] | `[]` | MCP server IDs to disable globally (e.g., `"websearch"`) |
+| `disabled_mcps` | string[] | `[]` | MCP server IDs to disable globally (e.g., `"websearch"`, `"zotero"`) |
 
 > **Note:** Agent configuration should be defined within `presets`. The root-level `agents` field is deprecated.
